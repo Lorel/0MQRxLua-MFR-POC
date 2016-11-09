@@ -9,7 +9,7 @@ ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://*:5555'
   :map(
     function(value)
       -- print('process value', value)
-      local array = ParseCSVLine(value)
+      local array = csv.parse(value)
       local event = {}
       event.uniquecarrier = array[9]
       event.arrdelay = array[15]
