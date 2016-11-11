@@ -1,54 +1,51 @@
-print:
-  image: zmqrxlua-poc
-  entrypoint: lua print-results.lua
-  environment:
-    CONTROLLER: "tcp://*:5554"
-    FROM: "tcp://*:5558"
-  volumes:
-    - ".:/root/worker"
-reduce:
-  image: zmqrxlua-poc
-  entrypoint: lua reduce-events.lua
-  links:
-    - print
-  environment:
-    TO_CONTROLLER: "tcp://print:5554"
-    TO: "tcp://print:5558"
-    FROM: "tcp://*:5557"
-  volumes:
-    - ".:/root/worker"
-filter:
-  image: zmqrxlua-poc
-  entrypoint: lua filter-event.lua
-  links:
-    - print
-    - reduce
-  environment:
-    TO_CONTROLLER: "tcp://print:5554"
-    TO: "tcp://reduce:5557"
-    FROM: "tcp://*:5556"
-  volumes:
-    - ".:/root/worker"
-mapper:
-  image: zmqrxlua-poc
-  entrypoint: lua map-csv-to-event.lua
-  links:
-    - print
-    - filter
-  environment:
-    TO_CONTROLLER: "tcp://print:5554"
-    TO: "tcp://filter:5556"
-    FROM: "tcp://*:5555"
-  volumes:
-    - ".:/root/worker"
-data:
-  image: zmqrxlua-poc
-  entrypoint: lua data-stream.lua
-  links:
-    - print
-    - mapper
-  environment:
-    TO_CONTROLLER: "tcp://print:5554"
-    TO: "tcp://mapper:5555"
-  volumes:
-    - ".:/root/worker"
+version: '2'
+
+services:
+  printer:
+    image: zmqrxlua-poc
+    entrypoint: lua print-results.lua
+    environment:
+      CONTROLLER: "tcp://*:5554"
+      FROM: "tcp://*:5558"
+    volumes:
+      - ".:/root/worker"
+    depends_on:
+      - reduce
+      - filter
+      - mapper
+      - data
+  reduce:
+    image: zmqrxlua-poc
+    entrypoint: lua reduce-events.lua
+    environment:
+      TO_CONTROLLER: "tcp://printer:5554"
+      TO: "tcp://printer:5558"
+      FROM: "tcp://*:5557"
+    volumes:
+      - ".:/root/worker"
+  filter:
+    image: zmqrxlua-poc
+    entrypoint: lua filter-event.lua
+    environment:
+      TO_CONTROLLER: "tcp://printer:5554"
+      TO: "tcp://reduce:5557"
+      FROM: "tcp://*:5556"
+    volumes:
+      - ".:/root/worker"
+  mapper:
+    image: zmqrxlua-poc
+    entrypoint: lua map-csv-to-event.lua
+    environment:
+      TO_CONTROLLER: "tcp://printer:5554"
+      TO: "tcp://filter:5556"
+      FROM: "tcp://*:5555"
+    volumes:
+      - ".:/root/worker"
+  data:
+    image: zmqrxlua-poc
+    entrypoint: lua data-stream.lua
+    environment:
+      TO_CONTROLLER: "tcp://printer:5554"
+      TO: "tcp://mapper:5555"
+    volumes:
+      - ".:/root/worker"
