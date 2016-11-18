@@ -1,10 +1,8 @@
 local ZmqRx = require 'zmq-rx'
 
-local from_socket = os.getenv('FROM') or 'tcp://*:5555'
+local from_socket = os.getenv('FROM') or 'tcp://localhost:5556'
 
-ZmqRx.openController()
-
-ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://*:5555'
+ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5556'
   :subscribe(
     function(results)
     end,

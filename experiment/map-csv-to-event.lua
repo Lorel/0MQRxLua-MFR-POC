@@ -1,11 +1,11 @@
 local ZmqRx = require 'zmq-rx'
 local csv = require 'csv'
 
-local from_socket = os.getenv('FROM') or 'tcp://*:5555'
+local from_socket = os.getenv('FROM') or 'tcp://localhost:5555'
 local to_socket = os.getenv('TO') or 'tcp://localhost:5556'
 
 
-ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://*:5555'
+ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5555'
   :map(
     function(value)
       -- print('process value', value)

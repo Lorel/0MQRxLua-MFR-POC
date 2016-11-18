@@ -2,50 +2,134 @@ version: '2'
 
 services:
   printer:
-    image: zmqrxlua-poc
+    image: "${IMAGE}"
     entrypoint: lua print-results.lua
     environment:
-      CONTROLLER: "tcp://*:5554"
-      FROM: "tcp://*:5558"
+      FROM: "tcp://routerreduceprinter:5562"
+    env_file: global.env
     volumes:
-      - ".:/root/worker"
+      - "${VOLUME}"
     depends_on:
       - reduce
       - filter
       - mapper
       - data
+      - routerreduceprinter
+    networks:
+      xp:
+        aliases:
+          - controller
+
+  routerreduceprinter:
+    image: "${IMAGE}"
+    hostname: routerreduceprinter
+    entrypoint: lua router.lua
+    environment:
+      TO: "tcp://*:5562"
+      FROM: "tcp://*:5561"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   reduce:
-    image: zmqrxlua-poc
+    image: "${IMAGE}"
     entrypoint: lua reduce-events.lua
     environment:
-      TO_CONTROLLER: "tcp://printer:5554"
-      TO: "tcp://printer:5558"
-      FROM: "tcp://*:5557"
+      TO: "tcp://routerreduceprinter:5561"
+      FROM: "tcp://routerfilterreduce:5560"
+    env_file: global.env
     volumes:
-      - ".:/root/worker"
+      - "${VOLUME}"
+    depends_on:
+      - routerreduceprinter
+      - routerfilterreduce
+    networks:
+      - xp
+
+  routerfilterreduce:
+    image: "${IMAGE}"
+    hostname: routerfilterreduce
+    entrypoint: lua router.lua
+    environment:
+      TO: "tcp://*:5560"
+      FROM: "tcp://*:5559"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   filter:
-    image: zmqrxlua-poc
+    image: "${IMAGE}"
     entrypoint: lua filter-event.lua
     environment:
-      TO_CONTROLLER: "tcp://printer:5554"
-      TO: "tcp://reduce:5557"
-      FROM: "tcp://*:5556"
+      TO: "tcp://routerfilterreduce:5559"
+      FROM: "tcp://routermapperfilter:5558"
+    env_file: global.env
     volumes:
-      - ".:/root/worker"
+      - "${VOLUME}"
+    depends_on:
+      - routerfilterreduce
+      - routermapperfilter
+    networks:
+      - xp
+
+  routermapperfilter:
+    image: "${IMAGE}"
+    hostname: routermapperfilter
+    entrypoint: lua router.lua
+    environment:
+      TO: "tcp://*:5558"
+      FROM: "tcp://*:5557"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   mapper:
-    image: zmqrxlua-poc
+    image: "${IMAGE}"
     entrypoint: lua map-csv-to-event.lua
     environment:
-      TO_CONTROLLER: "tcp://printer:5554"
-      TO: "tcp://filter:5556"
-      FROM: "tcp://*:5555"
+      TO: "tcp://routermapperfilter:5557"
+      FROM: "tcp://routerdatamapper:5556"
+    env_file: global.env
     volumes:
-      - ".:/root/worker"
+      - "${VOLUME}"
+    depends_on:
+      - routermapperfilter
+      - routerdatamapper
+    networks:
+      - xp
+
+  routerdatamapper:
+    image: "${IMAGE}"
+    hostname: routerdatamapper
+    entrypoint: lua router.lua
+    environment:
+      TO: "tcp://*:5556"
+      FROM: "tcp://*:5555"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   data:
-    image: zmqrxlua-poc
+    image: "${IMAGE}"
     entrypoint: lua data-stream.lua
     environment:
-      TO_CONTROLLER: "tcp://printer:5554"
-      TO: "tcp://mapper:5555"
+      TO: "tcp://routerdatamapper:5555"
+    env_file: global.env
     volumes:
-      - ".:/root/worker"
+      - "${VOLUME}"
+    depends_on:
+      - routerdatamapper
+    networks:
+      - xp
+
+
+networks:
+  xp:
