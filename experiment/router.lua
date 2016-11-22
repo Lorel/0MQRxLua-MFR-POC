@@ -81,6 +81,7 @@ local function frontend_cb()
         while (#worker_queue ~= 0) do
           -- Dequeue a worker from the queue.
           local worker_addr = tremove(worker_queue, 1)
+          local start_time = os.time()
 
           backend:send(worker_addr, zmq.SNDMORE)
           backend:send('', zmq.SNDMORE)
@@ -89,7 +90,7 @@ local function frontend_cb()
           backend:send(doneToken)
 
           sendCounter = sendCounter + 1
-          log.debug('Sent', request, sendCounter)
+          log.trace('Sent to backend', request, sendCounter, 'time (s)', os.time() - start_time)
 
           --  Inventory worker
           log.info('Worker transmission done:', worker_addr)
@@ -101,6 +102,7 @@ local function frontend_cb()
     else
       -- Dequeue a worker from the queue.
       local worker = tremove(worker_queue, 1)
+      local start_time = os.time()
 
       backend:send(worker, zmq.SNDMORE)
       backend:send('', zmq.SNDMORE)
@@ -109,7 +111,7 @@ local function frontend_cb()
       backend:send(request)
 
       sendCounter = sendCounter + 1
-      log.trace('Sent', request, sendCounter)
+      log.trace('Sent to backend', request, sendCounter, 'time (s)', os.time() - start_time)
     end
 
     if (#worker_queue == 0) then
@@ -122,6 +124,7 @@ end
 log.debug('add backend')
 poller:add(backend, zmq.POLLIN, function()
     --  Queue worker address for LRU routing
+    local start_time = os.time()
     local worker_addr = backend:recv()
     worker_queue[#worker_queue + 1] = worker_addr
     log.trace('received worker address', worker_addr)
@@ -157,7 +160,8 @@ poller:add(backend, zmq.POLLIN, function()
       log.trace('backend reply:', reply)
       frontend:send(client_addr, zmq.SNDMORE)
       frontend:send("", zmq.SNDMORE)
-      frontend:send(reply)
+      frontend:send(reply .. ' '  .. client_addr)
+      log.trace('Sent to frontend', client_addr, reply, 'time (s)', os.time() - start_time)
     end
 end)
 

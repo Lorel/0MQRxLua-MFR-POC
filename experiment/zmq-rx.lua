@@ -25,16 +25,17 @@ end
 
 function Rx.Observable.fromZmqSocket(socket)
   return Rx.Observable.create(function(observer)
+    local receiver_id = identity()
     local loop = zloop.new()
     local receiving = true
 
     --  Socket to receive messages on
     local receiver, err  = loop:create_socket{ zmq.REQ,
       linger = 0, sndtimeo = 100, rcvtimeo = 100;
-      connect = socket; identity = identity();
+      connect = socket; identity = receiver_id;
     }
 
-    log.info('Create Rx.Observable.fromZmqSocket from socket', socket)
+    log.info('Create Rx.Observable.fromZmqSocket from socket', socket, receiver_id)
 
     loop:add_socket(receiver, function(sok)
       local address = sok:recv()
@@ -86,11 +87,13 @@ function Rx.Observable.fromZmqSocket(socket)
 end
 
 function Rx.Observable:subscribeToSocket(socket)
-  log.info('Create Rx.Observable:subscribeToSocket to socket', socket)
+  local sender_id = identity()
+  log.info('Create Rx.Observable:subscribeToSocket to socket', socket, sender_id)
   local ctx = zmq.context()
 
   --  Socket to receive messages on
-  local sender = ctx:socket(zmq.REQ, { sndtimeo = 1000, rcvtimeo = 1000; identity = identity(); })
+  local sender = ctx:socket(zmq.REQ, { identity = sender_id; })
+  -- local sender = ctx:socket(zmq.REQ, { sndtimeo = 10000, rcvtimeo = 10000; identity = sender_id; })
 
   local ok, err = sender:connect(socket)
   log.debug('Init socket connection', ok, err)
@@ -100,12 +103,31 @@ function Rx.Observable:subscribeToSocket(socket)
       local msg = json.encode(event)
 
       local ok, err = sender:send(msg)
-      log.debug('Send msg', ok, err)
+      log.trace('Send msg', msg, ok, err)
+
+      -- repeat
+      --   ok, err = sender:send(msg)
+      --   log.trace('Send msg', msg, ok, err)
+      --   if err then
+      --     log.warn(err, 'Retrying...')
+      --     -- sender:close()
+      --     ztimer.sleep(1000)
+      --     -- sender = ctx:socket(zmq.REQ, { sndtimeo = 1000, rcvtimeo = 1000; identity = sender_id; })
+      --     -- local sender_ok, sender_err = sender:connect(socket)
+      --     -- log.info(sender_ok, sender_err)
+      --     local reply, reply_err = sender:recv()
+      --     log.debug('Reply:', reply, reply_err)
+      --   end
+      -- until ok
+
       sendCounter = sendCounter + 1
       log.trace('send msg', sendCounter, msg)
 
-      local reply = sender:recv()
-      log.debug('Reply:', reply)
+      local reply, reply_err = sender:recv()
+      log.debug('Reply:', reply, reply_err)
+
+      -- local reply = sender:recv()
+      -- log.debug('Reply:', reply)
     end,
     function(error)
       log.error('Error:', error)
