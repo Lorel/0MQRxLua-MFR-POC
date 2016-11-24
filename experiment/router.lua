@@ -1,3 +1,4 @@
+local ZmqRx = require 'zmq-rx'
 local zmq = require 'lzmq'
 local zpoller = require 'lzmq.poller'
 local log = require 'log'
@@ -15,7 +16,7 @@ local context = zmq.init(1)
 local frontend = context:socket(zmq.PULL)
 local backend = context:socket(zmq.PUSH)
 local controller = context:socket{ zmq.SUB,
-    subscribe = { 'KILL' };
+    subscribe = { ZmqRx.utils.KILL };
     connect = controlConnectSocket;
   }
 
@@ -23,10 +24,6 @@ local sendCounter = 0
 local receiveCounter = 0
 
 log.info('CREATING ROUTER FROM', fromSocket, 'TO', toSocket)
-
-
-local startToken = '!START!'
-local doneToken = '!STOP!'
 
 frontend:bind(fromSocket)
 backend:bind(toSocket)
@@ -41,19 +38,21 @@ poller:add(frontend, zmq.POLLIN, function ()
   local start_time = os.time()
 
   local msg = frontend:recv()
+  local start_sender_id = string.match(msg, ZmqRx.utils.START .. '(.*)')
+  local done_sender_id = string.match(msg, ZmqRx.utils.STOP .. '(.*)')
   receiveCounter = receiveCounter + 1
-  log.trace('frontend received msg: ', msg, receiveCounter)
+  ZmqRx.utils.sample_logged(receiveCounter, 'frontend received msg: ', msg)
 
-  if msg == startToken then
+  if start_sender_id then
     clients_counter = clients_counter + 1
-    log.debug('Received startToken, clients_counter:', clients_counter)
-  elseif msg == doneToken then
+    log.debug('Received startToken, clients_counter:', clients_counter, start_sender_id)
+  elseif done_sender_id then
     clients_counter = clients_counter - 1
-    log.debug('Received doneToken, clients_counter:', clients_counter)
+    log.debug('Received doneToken, clients_counter:', clients_counter, done_sender_id)
   else
     backend:send(msg)
     sendCounter = sendCounter + 1
-    log.trace('Sent to backend', sendCounter, 'time (s)', os.time() - start_time)
+    ZmqRx.utils.sample_logged(sendCounter, 'Sent to backend', 'time (s)', os.time() - start_time)
   end
 
   if (clients_counter == 0) then
@@ -68,7 +67,7 @@ poller:add(frontend, zmq.POLLIN, function ()
     end)
 
     while true do
-      backend:send(doneToken)
+      backend:send(ZmqRx.utils.STOP)
     end
   end
 end)
