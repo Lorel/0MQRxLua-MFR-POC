@@ -27,7 +27,7 @@ RUN apt-get update && \
   cp csv.so /usr/local/lib/lua/5.3/ && \
   rm -rf /root/luacsv/ && \
   wget -O /usr/local/lib/lua/5.3/rx.lua https://raw.githubusercontent.com/bjornbytes/RxLua/master/rx.lua && \
-  wget -O /usr/local/lib/lua/5.3/log.lua https://raw.githubusercontent.com/rxi/log.lua/master/log.lua && \
+  wget -O /usr/local/lib/lua/5.3/log.lua https://raw.githubusercontent.com/Lorel/log.lua/master/log.lua && \
   apt-get -y remove --auto-remove $PACKAGES && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
