@@ -12,6 +12,7 @@ log.level = os.getenv('LOG_LEVEL') or 'info'
 local controlConnectSocket = os.getenv('TO_CONTROLLER') or 'tcp://localhost:5554'
 local controlBindSocket = os.getenv('CONTROLLER') or 'tcp://*:5554'
 
+local startToken = '!START!'
 local doneToken = '!STOP!'
 local killSig = 'KILL'
 
@@ -27,37 +28,26 @@ function Rx.Observable.fromZmqSocket(socket)
   return Rx.Observable.create(function(observer)
     local receiver_id = identity()
     local loop = zloop.new()
-    local receiving = true
 
     --  Socket to receive messages on
-    local receiver, err  = loop:create_socket{ zmq.REQ,
-      linger = 0, sndtimeo = 100, rcvtimeo = 100;
+    local receiver, err  = loop:create_socket{ zmq.PULL,
       connect = socket; identity = receiver_id;
     }
 
     log.info('Create Rx.Observable.fromZmqSocket from socket', socket, receiver_id)
 
     loop:add_socket(receiver, function(sok)
-      local address = sok:recv()
-      log.trace('Sender address', address)
-      local empty = sok:recv()
-      assert (#empty == 0)
       local msg = assert(sok:recv())
       receiveCounter = receiveCounter + 1
       log.trace('receive msg', receiveCounter, msg)
 
       --  Do the work
       if msg == doneToken then
-        log.info('Received DONE token')
+        log.info('Received DONE token! receiveCounter:', receiveCounter)
         loop:interrupt()
       else
         local event = json.decode(msg)
         observer:onNext(event)
-
-        sok:send(address, zmq.SNDMORE)
-        sok:send('', zmq.SNDMORE)
-        assert(sok:send('OK'))
-        log.trace('heartbeat sent to router')
       end
     end)
 
@@ -75,10 +65,6 @@ function Rx.Observable.fromZmqSocket(socket)
       loop:interrupt()
     end)
 
-    --  ping router
-    log.info('Send READY to router')
-    receiver:send('READY')
-
     loop:start()
 
     --  Finished
@@ -92,11 +78,14 @@ function Rx.Observable:subscribeToSocket(socket)
   local ctx = zmq.context()
 
   --  Socket to receive messages on
-  local sender = ctx:socket(zmq.REQ, { identity = sender_id; })
+  local sender = ctx:socket(zmq.PUSH, { identity = sender_id; })
   -- local sender = ctx:socket(zmq.REQ, { sndtimeo = 10000, rcvtimeo = 10000; identity = sender_id; })
 
   local ok, err = sender:connect(socket)
   log.debug('Init socket connection', ok, err)
+
+  ok, err = sender:send(startToken)
+  log.debug('Send startToken', startToken, ok, err)
 
   return self:subscribe(
     function(event)
@@ -105,35 +94,14 @@ function Rx.Observable:subscribeToSocket(socket)
       local ok, err = sender:send(msg)
       log.trace('Send msg', msg, ok, err)
 
-      -- repeat
-      --   ok, err = sender:send(msg)
-      --   log.trace('Send msg', msg, ok, err)
-      --   if err then
-      --     log.warn(err, 'Retrying...')
-      --     -- sender:close()
-      --     ztimer.sleep(1000)
-      --     -- sender = ctx:socket(zmq.REQ, { sndtimeo = 1000, rcvtimeo = 1000; identity = sender_id; })
-      --     -- local sender_ok, sender_err = sender:connect(socket)
-      --     -- log.info(sender_ok, sender_err)
-      --     local reply, reply_err = sender:recv()
-      --     log.debug('Reply:', reply, reply_err)
-      --   end
-      -- until ok
-
       sendCounter = sendCounter + 1
       log.trace('send msg', sendCounter, msg)
-
-      local reply, reply_err = sender:recv()
-      log.debug('Reply:', reply, reply_err)
-
-      -- local reply = sender:recv()
-      -- log.debug('Reply:', reply)
     end,
     function(error)
       log.error('Error:', error)
     end,
     function()
-      log.info('Transmission done!')
+      log.info('Transmission done! sendCounter:', sendCounter)
       sender:send(doneToken)
 
       local controller = ctx:socket(zmq.SUB)
