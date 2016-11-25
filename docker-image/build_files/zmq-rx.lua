@@ -24,6 +24,7 @@ function Rx.utils.identity()
 end
 
 function Rx.utils.sample_logged(i, ...)
+  if not(log.is_enabled('debug')) then return end
   rate = math.tointeger(os.getenv('LOG_RATE')) or 100
   if log.level == 'debug' and i % rate == 0 then
     log.debug(i, ...)
