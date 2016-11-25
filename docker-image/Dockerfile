@@ -3,6 +3,8 @@ MAINTAINER aurelien.havet@unine.ch
 ENV PACKAGES git gcc g++ make cmake liblua5.3-dev wget
 WORKDIR /root
 
+ADD build_files/timer.c /root/timer.c
+
 RUN apt-get update && \
   apt-get install -y $PACKAGES lua5.3 liblua5.3-0 libzmq5-dev && \
   git clone https://github.com/Lorel/lzmq.git && \
@@ -22,12 +24,12 @@ RUN apt-get update && \
   rm -rf /root/lua-cjson && \
   cd /root/ && \
   git clone https://github.com/Lorel/luacsv.git && \
-  cd luacsv/ && \
-  gcc -fPIC -I/usr/include/lua5.3/ -shared -O3 csv.c -o csv.so && \
-  cp csv.so /usr/local/lib/lua/5.3/ && \
+  gcc -fPIC -I/usr/include/lua5.3/ -shared -O3 /root/luacsv/csv.c -o /usr/local/lib/lua/5.3/csv.so && \
   rm -rf /root/luacsv/ && \
   wget -O /usr/local/lib/lua/5.3/rx.lua https://raw.githubusercontent.com/bjornbytes/RxLua/master/rx.lua && \
   wget -O /usr/local/lib/lua/5.3/log.lua https://raw.githubusercontent.com/Lorel/log.lua/master/log.lua && \
+  gcc -fPIC -I/usr/include/lua5.3/ -shared -O3 /root/timer.c -o /usr/local/lib/lua/5.3/timer.so && \
+  rm -f /root/timer.c && \
   apt-get -y remove --auto-remove $PACKAGES && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
