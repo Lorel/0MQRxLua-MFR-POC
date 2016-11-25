@@ -6,7 +6,7 @@ ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
   :subscribe(
     function(results)
       for k,v in pairs(results) do
-        print('Delays for carrier ' .. k .. ' -> ' .. (v.count == 0 and 0 or (v.total / v.count)) .. ' average mins - ' .. v.count .. " delayed flights")
+        print('Delays for carrier ' .. k .. ' -> ' .. (v.count == 0 and 0 or (v.total / v.count)) .. ' average mins - ' .. math.tointeger(v.count) .. " delayed flights")
       end
     end,
     function(error)
