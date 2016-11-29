@@ -1,6 +1,6 @@
 local ZmqRx = require 'zmq-rx'
 
-local file = '../data/2008.csv'
+local file = os.getenv('DATA_FILE') or 'data/sample.csv'
 
 local to_socket = os.getenv('TO') or 'tcp://localhost:5555'
 
