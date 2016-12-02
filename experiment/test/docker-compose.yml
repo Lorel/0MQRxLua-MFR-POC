@@ -5,16 +5,12 @@ services:
     image: "${IMAGE}"
     entrypoint: lua print-results.lua
     environment:
-      FROM: "tcp://routerreduceprinter:5562"
+      - FROM=tcp://routerreduceprinter:5562
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
-    depends_on:
-      - reduce
-      - filter
-      - mapper
-      - data
-      - routerreduceprinter
+
     networks:
       xp:
         aliases:
@@ -25,8 +21,9 @@ services:
     hostname: routerreduceprinter
     entrypoint: lua router.lua
     environment:
-      TO: "tcp://*:5562"
-      FROM: "tcp://*:5561"
+      - TO=tcp://*:5562
+      - FROM=tcp://*:5561
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -37,14 +34,12 @@ services:
     image: "${IMAGE}"
     entrypoint: lua reduce-events.lua
     environment:
-      TO: "tcp://routerreduceprinter:5561"
-      FROM: "tcp://routerfilterreduce:5560"
+      - TO=tcp://routerreduceprinter:5561
+      - FROM=tcp://routerfilterreduce:5560
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
-    depends_on:
-      - routerreduceprinter
-      - routerfilterreduce
     networks:
       - xp
 
@@ -53,8 +48,9 @@ services:
     hostname: routerfilterreduce
     entrypoint: lua router.lua
     environment:
-      TO: "tcp://*:5560"
-      FROM: "tcp://*:5559"
+      - TO=tcp://*:5560
+      - FROM=tcp://*:5559
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -65,14 +61,12 @@ services:
     image: "${IMAGE}"
     entrypoint: lua filter-event.lua
     environment:
-      TO: "tcp://routerfilterreduce:5559"
-      FROM: "tcp://routermapperfilter:5558"
+      - TO=tcp://routerfilterreduce:5559
+      - FROM=tcp://routermapperfilter:5558
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
-    depends_on:
-      - routerfilterreduce
-      - routermapperfilter
     networks:
       - xp
 
@@ -81,8 +75,9 @@ services:
     hostname: routermapperfilter
     entrypoint: lua router.lua
     environment:
-      TO: "tcp://*:5558"
-      FROM: "tcp://*:5557"
+      - TO=tcp://*:5558
+      - FROM=tcp://*:5557
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -93,14 +88,12 @@ services:
     image: "${IMAGE}"
     entrypoint: lua map-csv-to-event.lua
     environment:
-      TO: "tcp://routermapperfilter:5557"
-      FROM: "tcp://routerdatamapper:5556"
+      - TO=tcp://routermapperfilter:5557
+      - FROM=tcp://routerdatamapper:5556
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
-    depends_on:
-      - routermapperfilter
-      - routerdatamapper
     networks:
       - xp
 
@@ -109,8 +102,9 @@ services:
     hostname: routerdatamapper
     entrypoint: lua router.lua
     environment:
-      TO: "tcp://*:5556"
-      FROM: "tcp://*:5555"
+      - TO=tcp://*:5556
+      - FROM=tcp://*:5555
+      - "constraint:type==worker"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -121,15 +115,69 @@ services:
     image: "${IMAGE}"
     entrypoint: lua data-stream.lua
     environment:
-      TO: "tcp://routerdatamapper:5555"
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==data"
+      - DATA_FILE=data/2008-sample.csv
     env_file: global.env
     volumes:
       - "${VOLUME}"
-    depends_on:
-      - routerdatamapper
+    networks:
+      - xp
+
+  data1:
+    image: "${IMAGE}"
+    entrypoint: lua data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==data"
+      - DATA_FILE=data/2005.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
+  data2:
+    image: "${IMAGE}"
+    entrypoint: lua data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==data"
+      - DATA_FILE=data/2006.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
+  data3:
+    image: "${IMAGE}"
+    entrypoint: lua data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==data"
+      - DATA_FILE=data/2007.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
+  data4:
+    image: "${IMAGE}"
+    entrypoint: lua data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==data"
+      - DATA_FILE=data/2008.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
     networks:
       - xp
 
 
 networks:
   xp:
+    external:
+      name: xp
