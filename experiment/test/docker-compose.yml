@@ -7,7 +7,7 @@ services:
     environment:
       - FROM=tcp://routerreduceprinter:5562
       - OUTPUT=$RESULT_OUTPUT
-      - "constraint:type==worker"
+      - "constraint:type==data"
     env_file: global.env
     volumes:
       - "${VOLUME}"
