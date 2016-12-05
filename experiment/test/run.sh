@@ -2,7 +2,6 @@
 
 export NETWORK=xp
 export DOCKER_HOST=unix:///var/run/docker.sock
-export RESULT_OUTPUT=results.dat
 
 echo "Check if network exist..."
 docker network ls | grep -e "\s$NETWORK\s"
@@ -41,7 +40,7 @@ function run_xp {
 
   echo "Let's experiment!"
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
-  docker-compose scale mapper=2 filter=2 reduce=1
+  docker-compose scale mapper=${WORKERS:-1} filter=${WORKERS:-1} reduce=${WORKERS:-1}
 
   #docker-compose scale data1=1 data2=1 data3=1 data4=1
   docker-compose scale data=1
@@ -49,8 +48,32 @@ function run_xp {
   docker-compose up printer
 }
 
+WORKERS=1
+export RESULT_OUTPUT=results-$WORKERS.dat
+echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
+
 for i in `seq 1 ${N:-5}`
 do
   echo "Run XP #$i..."
-  run_xp
+  run_xp;
+done
+
+WORKERS=2
+export RESULT_OUTPUT=results-$WORKERS.dat
+echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
+
+for i in `seq 1 ${N:-5}`
+do
+  echo "Run XP #$i..."
+  run_xp;
+done
+
+WORKERS=4
+export RESULT_OUTPUT=results-$WORKERS.dat
+echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
+
+for i in `seq 1 ${N:-5}`
+do
+  echo "Run XP #$i..."
+  run_xp;
 done
