@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export NETWORK=xp
-export DOCKER_HOST=unix:///var/run/docker.sock
+export DOCKER_HOST=:2381
 
 echo "Check if network exist..."
 docker network ls | grep -e "\s$NETWORK\s"
