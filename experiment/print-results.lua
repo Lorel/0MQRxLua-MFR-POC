@@ -2,6 +2,10 @@ local ZmqRx = require 'zmq-rx'
 
 local from_socket = os.getenv('FROM') or 'tcp://localhost:5558'
 
+file = io.open("output/" .. (os.getenv('OUTPUT') or 'results.dat'), 'a')
+io.output(file)
+start = os.time()
+
 ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
   :subscribe(
     function(results)
@@ -13,6 +17,8 @@ ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
       print(error)
     end,
     function()
+      io.write((os.time() - start) .. "\n")
+      io.close(file)
       ZmqRx.sendZmqCompleted()
       print('completed!')
     end

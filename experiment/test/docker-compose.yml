@@ -6,6 +6,7 @@ services:
     entrypoint: lua print-results.lua
     environment:
       - FROM=tcp://routerreduceprinter:5562
+      - OUTPUT=$RESULT_OUTPUT
       - "constraint:type==worker"
     env_file: global.env
     volumes:
@@ -180,4 +181,4 @@ services:
 networks:
   xp:
     external:
-      name: xp
+      name: $NETWORK
