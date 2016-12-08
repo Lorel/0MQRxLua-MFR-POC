@@ -48,32 +48,14 @@ function run_xp {
   docker-compose up printer
 }
 
-WORKERS=1
-export RESULT_OUTPUT=results-$WORKERS.dat
-echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
-
-for i in `seq 1 ${N:-5}`
+for WORKERS in 1 2 4
 do
-  echo "Run XP #$i..."
-  run_xp;
-done
+	export RESULT_OUTPUT=results-$WORKERS-workers.dat
+	echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
 
-WORKERS=2
-export RESULT_OUTPUT=results-$WORKERS.dat
-echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
-
-for i in `seq 1 ${N:-5}`
-do
-  echo "Run XP #$i..."
-  run_xp;
-done
-
-WORKERS=4
-export RESULT_OUTPUT=results-$WORKERS.dat
-echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
-
-for i in `seq 1 ${N:-5}`
-do
-  echo "Run XP #$i..."
-  run_xp;
+	for i in `seq 1 ${N:-5}`
+	do
+	  echo "Run XP #$i/$N..."
+	  run_xp;
+	done
 done

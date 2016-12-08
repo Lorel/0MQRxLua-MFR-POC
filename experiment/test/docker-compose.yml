@@ -7,7 +7,7 @@ services:
     environment:
       - FROM=tcp://routerreduceprinter:5562
       - OUTPUT=$RESULT_OUTPUT
-      - "constraint:type==data"
+      - "constraint:type==printer"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -118,7 +118,7 @@ services:
     environment:
       - TO=tcp://routerdatamapper:5555
       - "constraint:type==data"
-      - DATA_FILE=data/2008-sample.csv
+      - DATA_FILE=data/sample.csv
     env_file: global.env
     volumes:
       - "${VOLUME}"
