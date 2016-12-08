@@ -6,28 +6,33 @@
 
 ![schema](images/1_worker_by_type.png)
 
-Files:
+Files: [datas/1-data-1-worker.dat](datas/1-data-1-worker.dat) (7009729 entries)
 
-* [scalability/1-data-1-worker.dat](scalability/1-data-1-worker.dat) (7009729 entries)
-
-Datas: execution time (s)
+Datas: processing time (s)
 
 ### Two workers by type
 
 ![schema](images/2_workers_by_type.png)
 
-File:
+File: [datas/1-data-2-workers.dat](datas/1-data-2-workers.dat) (7009729 entries)
 
-* [scalability/1-data-2-workers.dat](scalability/1-data-2-workers.dat) (7009729 entries)
-
-Datas: execution time (s)
+Datas: processing time (s)
 
 ### Four workers by type
 
 ![schema](images/4_workers_by_type.png)
 
-File:
+File: [datas/1-data-4-workers.dat](datas/1-data-4-workers.dat) (7009729 entries)
 
-* [scalability/1-data-4-workers.dat](scalability/1-data-4-workers.dat) (7009729 entries)
+Datas: processing time (s)
 
-Datas: execution time (s)
+### Average and standard deviation
+
+![schema](outputs/avg_stdev.png)
+
+File: [outputs/avg_stdev.dat](outputs/avg_stdev.dat)
+
+Datas:
+* number of workers by type
+* average processing time (s)
+* standard deviation (s)
