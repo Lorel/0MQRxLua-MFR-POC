@@ -4,7 +4,7 @@
 
 ### One worker by type
 
-![schema](images/1_worker_by_type.svg)
+![schema](images/1_worker_by_type.png)
 
 Files:
 
@@ -14,7 +14,7 @@ Datas: execution time (s)
 
 ### Two workers by type
 
-![schema](images/2_workers_by_type.svg)
+![schema](images/2_workers_by_type.png)
 
 File:
 
@@ -24,7 +24,7 @@ Datas: execution time (s)
 
 ### Four workers by type
 
-![schema](images/4_workers_by_type.svg)
+![schema](images/4_workers_by_type.png)
 
 File:
 
