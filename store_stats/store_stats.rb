@@ -47,7 +47,7 @@ end
 begin
   Docker::Event.stream do |event|
     if event.status == 'create'
-      output = "#{OUTPUT_DIR}/stats-#{event.actor.attributes["name"]}.dat"
+      output = "#{OUTPUT_DIR}/stats-#{event.actor.attributes["name"]}.json.log"
       pids << store_logs_from_container(event.id, output)
     end
   end
