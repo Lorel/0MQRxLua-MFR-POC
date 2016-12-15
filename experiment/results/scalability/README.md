@@ -21,7 +21,7 @@ The cluster of nodes is handled by Docker Swarm (version 1.2.5).
 
 ### One worker by type
 
-![schema](images/1_worker_by_type.png)
+![schema](../images/1_worker_by_type.png)
 
 Files: [datas/1-data-1-worker.dat](datas/1-data-1-worker.dat)
 
@@ -29,7 +29,7 @@ Datas: processing time (s)
 
 ### Two workers by type
 
-![schema](images/2_workers_by_type.png)
+![schema](../images/2_workers_by_type.png)
 
 File: [datas/1-data-2-workers.dat](datas/1-data-2-workers.dat)
 
@@ -37,7 +37,7 @@ Datas: processing time (s)
 
 ### Four workers by type
 
-![schema](images/4_workers_by_type.png)
+![schema](../images/4_workers_by_type.png)
 
 File: [datas/1-data-4-workers.dat](datas/1-data-4-workers.dat)
 
@@ -59,7 +59,7 @@ Datas:
 
 ### One worker by type
 
-![schema](images/4_datas_1_worker_by_type.png)
+![schema](../images/4_datas_1_worker_by_type.png)
 
 Files: [datas/4-datas-1-worker.dat](datas/4-datas-1-worker.dat)
 
@@ -67,7 +67,7 @@ Datas: processing time (s)
 
 ### Two workers by type
 
-![schema](images/4_datas_2_workers_by_type.png)
+![schema](../images/4_datas_2_workers_by_type.png)
 
 File: [datas/4-datas-2-workers.dat](datas/4-datas-2-workers.dat)
 
@@ -75,7 +75,7 @@ Datas: processing time (s)
 
 ### Four workers by type
 
-![schema](images/4_datas_4_workers_by_type.png)
+![schema](../images/4_datas_4_workers_by_type.png)
 
 File: [datas/4-datas-4-workers.dat](datas/4-datas-4-workers.dat)
 
@@ -97,7 +97,7 @@ Datas:
 
 ### Two routers and two workers by type
 
-![schema](images/4_datas_2_routers_2_workers_by_type.png)
+![schema](../images/4_datas_2_routers_2_workers_by_type.png)
 
 File: [datas/4-datas-2-workers.dat](datas/4-datas-2-routers-2-workers.dat)
 
@@ -105,7 +105,7 @@ Datas: processing time (s)
 
 ### Two routers and four workers by type
 
-![schema](images/4_datas_2_routers_4_workers_by_type.png)
+![schema](../images/4_datas_2_routers_4_workers_by_type.png)
 
 File: [datas/4-datas-4-workers.dat](datas/4-datas-2-routers-4-workers.dat)
 
