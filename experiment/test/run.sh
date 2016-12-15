@@ -56,12 +56,12 @@ function run_xp {
 
 for WORKERS in 1 2 4
 do
-	export RESULT_OUTPUT=results-$WORKERS-workers.dat
-	echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
+  export RESULT_OUTPUT=results-$WORKERS-workers.dat
+  echo "Run XPs with $WORKERS worker(s), output: $RESULT_OUTPUT"
 
-	for i in `seq 1 ${N:-5}`
-	do
-	  echo "Run XP #$i/$N..."
-	  run_xp;
-	done
+  for i in `seq 1 ${N:-5}`
+  do
+    echo "Run XP #$i/$N..."
+    run_xp;
+  done
 done
