@@ -1,0 +1,6 @@
+ruby '2.3.0'
+source "https://rubygems.org"
+
+gem 'docker-api', '1.29.0', git: 'https://github.com/Lorel/docker-api.git'
+
+# gem "rails"

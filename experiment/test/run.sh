@@ -7,16 +7,16 @@ echo "Check if network exist..."
 docker network ls | grep -e "\s$NETWORK\s"
 
 case "$?" in
-	0)
-		echo "So cool!"
-		;;
-	1)
-		echo "Network does not exist, we gonna make it appear..."
-		docker network create $NETWORK
-		;;
-	*)
-		echo "WTF...?!"
-		;;
+  0)
+    echo "So cool!"
+    ;;
+  1)
+    echo "Network does not exist, we gonna make it appear..."
+    docker network create $NETWORK
+    ;;
+  *)
+    echo "WTF...?!"
+    ;;
 esac
 
 
@@ -38,7 +38,10 @@ function run_xp {
   echo 'Clean routing logs...'
   rm -f logs/*
 
-  echo "Let's experiment!"
+  echo 'Run store_stats.rb'
+  store_stats_pid=$(../../store_stats/store_stats.rb)
+
+  echo 'Let’s experiment!'
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
   docker-compose scale mapper=${WORKERS:-1} filter=${WORKERS:-1} reduce=${WORKERS:-1}
 
@@ -46,6 +49,9 @@ function run_xp {
   docker-compose scale data=1
 
   docker-compose up printer
+
+  echo 'Stop store_stats.rb'
+  kill $store_stats_pid
 }
 
 for WORKERS in 1 2 4
