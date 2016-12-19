@@ -56,3 +56,28 @@ function percentiles(requestedPercentiles , values)
 	--table.insert(percs,tempValues[#tempValues])		
 	return percs
 end
+
+
+--filename=arg[1]
+--
+--local lines = {}
+---- read the lines in table 'lines'
+--if filename~=nil then
+--	for line in io.lines(filename) do
+--		table.insert(lines,tonumber(line))
+--	end
+--else
+--	for line in io.lines() do
+--		table.insert(lines,tonumber(line))
+--	end
+--end
+
+local l_c=1
+for l in io.lines() do
+	--print(l)
+	--read all numbers in this line
+	local t = {}
+	for num in string.gmatch(l, "(%d+)") do t[#t+1]=tonumber(num) end
+	print(l_c, table.concat(percentiles({1,25,50,75,99},t), " ")) --table.concat(t," ")
+	l_c=l_c+1
+end
