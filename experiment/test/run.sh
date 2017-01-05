@@ -39,7 +39,8 @@ function run_xp {
   rm -f logs/*
 
   echo 'Run store_stats.rb'
-  store_stats_pid=$(../../store_stats/store_stats.rb)
+  ../../store_stats/store_stats.rb &> store-stats.log &
+  store_stats_pid=$!
 
   echo 'Let’s experiment!'
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
@@ -51,7 +52,7 @@ function run_xp {
   docker-compose up printer
 
   echo 'Stop store_stats.rb'
-  kill $store_stats_pid
+  kill $store_stats_pid 2>> store-stats.log || echo "Failed at $(date)"
 }
 
 for WORKERS in 1 2 4
