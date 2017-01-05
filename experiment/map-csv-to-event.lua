@@ -5,7 +5,7 @@ local from_socket = os.getenv('FROM') or 'tcp://localhost:5555'
 local to_socket = os.getenv('TO') or 'tcp://localhost:5556'
 
 
-ZmqRx.AsyncSubject.fromZmqSocket(from_socket) -- 'tcp://localhost:5555'
+ZmqRx.Subject.fromZmqSocket(from_socket) -- 'tcp://localhost:5555'
   :map(
     function(value)
       -- print('process value', value)

@@ -9,5 +9,5 @@ log.info('Read file', file)
 
 local to_socket = os.getenv('TO') or 'tcp://localhost:5555'
 
-ZmqRx.AsyncSubject.fromFileByLine(file)
+ZmqRx.Subject.fromFileByLine(file)
   :subscribeToSocket(to_socket) -- 'tcp://localhost:5555'
