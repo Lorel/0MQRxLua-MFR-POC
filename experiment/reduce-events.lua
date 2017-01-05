@@ -3,7 +3,7 @@ local ZmqRx = require 'zmq-rx'
 local from_socket = os.getenv('FROM') or 'tcp://localhost:5557'
 local to_socket = os.getenv('TO') or 'tcp://localhost:5558'
 
-ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5557'
+ZmqRx.AsyncSubject.fromZmqSocket(from_socket) -- 'tcp://localhost:5557'
   :reduce(
     function(accumulator, event)
       -- print('reduce event', event)

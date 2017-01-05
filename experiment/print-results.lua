@@ -7,7 +7,7 @@ io.output(file)
 local start = os.time()
 local results = {}
 
-ZmqRx.Observable.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
+ZmqRx.AsyncSubject.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
   :subscribe(
     function(datas)
       for k,v in pairs(datas) do
