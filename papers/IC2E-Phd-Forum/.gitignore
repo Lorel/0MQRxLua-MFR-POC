@@ -1,0 +1,5 @@
+*aux
+*latexmk
+*fls
+paper.log
+paper.synctex.gz
