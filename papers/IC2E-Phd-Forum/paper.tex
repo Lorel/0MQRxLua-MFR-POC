@@ -1,0 +1,132 @@
+\documentclass[10pt, conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{cite}
+
+\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+\usepackage{algpseudocode}
+
+
+\usepackage{url}
+%\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
+\renewcommand*{\UrlFont}{\ttfamily\rm}
+
+\newcommand{\comment}[1]{}
+
+% \usepackage{array}
+% \usepackage{multirow}
+% \usepackage{paralist}
+% \usepackage{ragged2e}
+
+% \usepackage[subtle]{savetrees}
+
+% \usepackage[small,compact,noindentafter]{titlesec}
+% \titlespacing\section{0pt}{6pt plus 2pt minus 2pt}{2pt plus 2pt minus 2pt}
+% \titlespacing\subsection{0pt}{4pt plus 2pt minus 2pt}{2pt plus 1pt minus 1pt}
+% \titlespacing{\paragraph}{0pt}{2pt plus 0pt minus 1pt}{1.0ex}
+
+% \usepackage{setspace}
+% \usepackage[margin=8pt,font={small,bf,stretch=0.85}]{caption}
+
+% \usepackage{enumitem}
+% \setitemize{noitemsep,topsep=3pt,parsep=3pt,partopsep=3pt}
+
+% \usepackage[inline]{enumitem}
+% \setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+% \def\arraystretch{0.9}
+
+\newcommand{\SYS}{\textsc{GenPack}\xspace}
+
+\setlength{\textfloatsep}{10pt}
+
+\newboolean{showcomments}
+\setboolean{showcomments}{false}
+\ifthenelse{\boolean{showcomments}}
+{ \newcommand{\mynote}[3]{
+   \fbox{\bfseries\sffamily\scriptsize#1}
+   {\small$\blacktriangleright$\textsf{\emph{\color{#3}{#2}}}$\blacktriangleleft$}}}
+{ \newcommand{\mynote}[3]{}}
+\newcommand{\pf}[1]{\mynote{Pascal}{#1}{red}}
+\newcommand{\vs}[1]{\mynote{Valerio}{#1}{blue}}
+\newcommand{\rr}[1]{\mynote{Romain}{#1}{green}}
+
+\begin{document}
+
+\title{\textsc{SomeThing}: Very Smart}
+\date{}
+
+%\author{\IEEEauthorblockN{Aurelien Havet, Valerio Schiavoni, Pascal Felber}
+%\IEEEauthorblockA{University of Neuchâtel\\
+%Email: firstname.lastname@unine.ch}
+%\and
+%\IEEEauthorblockN{Maxime Colmant}
+%\IEEEauthorblockA{ADEME / Univ. Lille / Inria\\
+%Email: maxime.colmant@inria.fr}
+%\and
+%\IEEEauthorblockN{Romain Rouvoy}
+%\IEEEauthorblockA{Univ. Lille / Inria / IUF\\
+%Email: romain.rouvoy@inria.fr}
+%\and
+%\IEEEauthorblockN{Christof Fetzer}
+%\IEEEauthorblockA{Technical University of Dresden\\
+%Email: }}
+
+\author{\IEEEauthorblockN{Aurelien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}, Pascal Felber\IEEEauthorrefmark{1}, Romain Rouvoy\IEEEauthorrefmark{2}} 
+\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}ADEME / Univ. Lille / Inria, France. Email: maxime.colmant@inria.fr}
+}
+%\IEEEauthorblockA{University of Neuchâtel\\
+%Email: firstname.lastname@unine.ch}
+%\and
+%\IEEEauthorblockN{Maxime Colmant}
+%\IEEEauthorblockA{ADEME / Univ. Lille / Inria\\
+%Email: maxime.colmant@inria.fr}
+%\and
+%\IEEEauthorblockN{Romain Rouvoy}
+%\IEEEauthorblockA{Univ. Lille / Inria / IUF\\
+%Email: romain.rouvoy@inria.fr}
+%\and
+%\IEEEauthorblockN{Christof Fetzer}
+%\IEEEauthorblockA{Technical University of Dresden\\
+%Email: }}
+
+\maketitle
+
+%\thispagestyle{empty}
+
+\begin{abstract}
+todo
+\end{abstract}
+
+\begin{IEEEkeywords}
+todo;tada;tidi;
+\end{IEEEkeywords}
+
+\input{introduction}
+
+\input{architecture}
+
+\input{evaluation}
+
+\input{conclusion}
+
+\section*{Acknowledgments}
+The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
+%This work was partially supported by a grant from CPER Nord-Pas de Calais/FEDER DATA Advanced data science and technologies 2015-2020.
+% \vspace{-10pt}
+
+{
+ \footnotesize
+\bibliographystyle{IEEEtran}
+\bibliography{biblio}
+% \balancing
+}
+
+\end{document}

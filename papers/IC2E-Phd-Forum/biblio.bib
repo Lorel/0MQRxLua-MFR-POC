@@ -1,0 +1,304 @@
+% Optional fields: author, title, howpublished, month, year, note
+@article{hirofuchi2012reactive,
+  title={Reactive cloud: Consolidating virtual machines with postcopy live migration},
+  author={Hirofuchi, Takahiro and Nakada, Hidemoto and Itoh, Satoshi and Sekiguchi, Satoshi},
+  journal={Information and Media Technologies},
+  volume={7},
+  number={2},
+  pages={614--626},
+  year={2012},
+  publisher={Information and Media Technologies}
+}
+@inproceedings{verma2008power,
+  title={Power-aware dynamic placement of hpc applications},
+  author={Verma, Akshat and Ahuja, Puneet and Neogi, Anindya},
+  booktitle={Proceedings of the 22nd annual international conference on Supercomputing},
+  pages={175--184},
+  year={2008},
+  organization={ACM}
+}
+@inproceedings{DBLP:conf/eurosys/ColmantKFHRS15,
+  author    = {Maxime Colmant and Mascha Kurpicz and Pascal Felber and Lo{\"{\i}}c Huertas and Romain Rouvoy and Anita Sobe},
+  title     = {Process-level power estimation in VM-based systems},
+  booktitle = {EuroSys},
+  pages     = {14:1--14:14},
+  publisher = {{ACM}},
+  year      = {2015}
+}
+@inproceedings{DBLP:conf/eurosys/VermaPKOTW15,
+  author    = {Abhishek Verma and Luis Pedrosa and Madhukar Korupolu and Eric Tune and John Wilkes},
+  title     = {Large-scale cluster management at {Google} with {Borg}},
+  booktitle = {EuroSys},
+  pages     = {18:1--18:17},
+  publisher = {{ACM}},
+  year      = {2015}
+}
+
+These entries can be used to cite the traces themselves.
+The first couple are for the May 2011 "full" trace.
+@Misc{clusterdata:Wilkes2011,
+  author = {John Wilkes},
+  title = {More {Google} cluster data},
+  howpublished = {Google research blog},
+  month = Nov,
+  year = 2011,
+  note = {Posted at
+	\url{http://googleresearch.blogspot.com/2011/11/more-google-cluster-data.html}.},
+}
+
+@TechReport{clusterdata:Reiss2011,
+  author = {Charles Reiss and John Wilkes and Joseph L. Hellerstein},
+  title = {{Google} cluster-usage traces: format + schema},
+  institution = {Google Inc.},
+  year = 2011,
+  month = Nov,
+  type = {Technical Report},
+  address = {Mountain View, CA, USA},
+  note = {Revised 2012.03.20.  Posted at
+	\url{http://code.google.com/p/googleclusterdata/wiki/TraceVersion2}},
+}
+@INPROCEEDINGS{clusterdata:Reiss2012b,
+  title = {Heterogeneity and dynamicity of clouds at scale: {Google}
+	trace analysis},
+  author = {Charles Reiss and Alexey Tumanov and Gregory R. Ganger and
+	Randy H. Katz and Michael A. Kozuch},
+  booktitle = {ACM Symposium on Cloud Computing (SoCC)},
+  year = 2012,
+  month = Oct,
+  address = {San Jose, CA, USA},
+  abstract = {To better understand the challenges in developing
+	effective cloud-based resource schedulers, we analyze the
+	first publicly available trace data from a sizable
+	multi-purpose cluster.  The most notable workload
+	characteristic is heterogeneity: in resource types (e.g.,
+	cores:RAM per machine) and their usage (e.g., duration and
+	resources needed). Such heterogeneity reduces the
+	effectiveness of traditional slot- and core-based scheduling.
+	Furthermore, some tasks are constrained as to the kind of
+	machine types they can use, increasing the complexity of
+	resource assignment and complicating task migration. The
+	workload is also highly dynamic, varying over time and most
+	workload features, and is driven by many short jobs that
+	demand quick scheduling decisions.  While few simplifying
+	assumptions apply, we find that many longer-running jobs have
+	relatively stable resource utilizations, which can help
+	adaptive resource schedulers.},
+  privatenote = {An earlier version of this was posted at
+	\url{http://www.istc-cc.cmu.edu/publications/papers/2012/ISTC-CC-TR-12-101.pdf},
+	and included here as clusterdata:Reiss2012a. Please use this
+	version instead of that.},
+}
+
+@article{Ungar:1984:GSN:390011.808261,
+ author = {Ungar, David},
+ title = {Generation Scavenging: A Non-disruptive High Performance Storage Reclamation Algorithm},
+ journal = {SIGPLAN Not.},
+ issue_date = {May 1984},
+ volume = {19},
+ number = {5},
+ month = apr,
+ year = {1984},
+ issn = {0362-1340},
+ pages = {157--167},
+ numpages = {11},
+ doi = {10.1145/390011.808261},
+ acmid = {808261},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Generation, Grabage collection, Personnel computer, Real time, Scavenge, Smalltalk, Virtual memory, Workstation},
+} 
+
+@article{Lieberman:1983:RGC:358141.358147,
+ author = {Lieberman, Henry and Hewitt, Carl},
+ title = {A Real-time Garbage Collector Based on the Lifetimes of Objects},
+ journal = {Commun. ACM},
+ issue_date = {June 1983},
+ volume = {26},
+ number = {6},
+ month = jun,
+ year = {1983},
+ issn = {0001-0782},
+ pages = {419--429},
+ numpages = {11},
+ doi = {10.1145/358141.358147},
+ acmid = {358147},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {LISP, algorithms, languages, lisp, object-oriented programming, parallel processing, performance, real-time garbage collection, reference counting, virtual memory},
+} 
+
+@article{Barroso:2007:Energy:Proportional:Computing,
+title = {The Case for Energy-Proportional Computing},
+author  = {Luiz André Barroso and Urs Hölzle},
+year  = 2007,
+journal = {IEEE Computer},
+volume  = {40}
+}
+
+@inproceedings{tannenbaum2001condor,
+  title={Condor: a distributed job scheduler},
+  author={Tannenbaum, Todd and Wright, Derek and Miller, Karen and Livny, Miron},
+  booktitle={Beowulf cluster computing with Linux},
+  pages={307--350},
+  year={2001},
+  organization={MIT press}
+}
+
+@inproceedings{buyya2000nimrod,
+  title={Nimrod/G: An architecture for a resource management and scheduling system in a global computational grid},
+  author={Buyya, Rajkumar and Abramson, David and Giddy, Jonathan},
+  booktitle={High Performance Computing in the Asia-Pacific Region, 2000. Proceedings. The Fourth International Conference/Exhibition on},
+  volume={1},
+  pages={283--289},
+  year={2000},
+  organization={IEEE}
+}
+
+@Inbook{Jackson2001,
+author="Jackson, David
+and Snell, Quinn
+and Clement, Mark",
+editor="Feitelson, Dror G.
+and Rudolph, Larry",
+title="Core Algorithms of the Maui Scheduler",
+bookTitle="Job Scheduling Strategies for Parallel Processing: 7th International Workshop, JSSPP 2001 Cambridge, MA, USA, June 16, 2001 Revised Papers",
+year="2001",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="87--102",
+isbn="978-3-540-45540-0",
+doi="10.1007/3-540-45540-X_6",
+}
+
+@inproceedings{Yarn,
+ author = {Vavilapalli, Vinod Kumar and Murthy, Arun C. and Douglas, Chris and Agarwal, Sharad and Konar, Mahadev and Evans, Robert and Graves, Thomas and Lowe, Jason and Shah, Hitesh and Seth, Siddharth and Saha, Bikas and Curino, Carlo and O'Malley, Owen and Radia, Sanjay and Reed, Benjamin and Baldeschwieler, Eric},
+ title = {Apache Hadoop YARN: Yet Another Resource Negotiator},
+ booktitle = {Proceedings of the 4th Annual Symposium on Cloud Computing},
+ series = {SOCC '13},
+ year = {2013},
+ isbn = {978-1-4503-2428-1},
+ location = {Santa Clara, California},
+ pages = {5:1--5:16},
+ articleno = {5},
+ numpages = {16},
+ doi = {10.1145/2523616.2523633},
+ acmid = {2523633},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@inproceedings{capit2005batch,
+  title={A batch scheduler with high level components},
+  author={Capit, Nicolas and Da Costa, Georges and Georgiou, Yiannis and Huard, Guillaume and Martin, Cyrille and Mouni{\'e}, Gr{\'e}gory and Neyron, Pierre and Richard, Olivier},
+  booktitle={CCGrid 2005. IEEE International Symposium on Cluster Computing and the Grid, 2005.},
+  volume={2},
+  pages={776--783},
+  year={2005},
+  organization={IEEE}
+}
+
+@article{Burns:2016:BOK:2930840.2890784,
+ author = {Burns, Brendan and Grant, Brian and Oppenheimer, David and Brewer, Eric and Wilkes, John},
+ title = {Borg, Omega, and Kubernetes},
+ journal = {Commun. ACM},
+ issue_date = {May 2016},
+ volume = {59},
+ number = {5},
+ month = apr,
+ year = {2016},
+ issn = {0001-0782},
+ pages = {50--57},
+ numpages = {8},
+ doi = {10.1145/2890784},
+ acmid = {2890784},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@inproceedings{litvinski2013openstack,
+  title={Openstack scheduler evaluation using design of experiment approach},
+  author={Litvinski, Oleg and Gherbi, Abdelouahed},
+  booktitle={16th IEEE International Symposium on Object/component/service-oriented Real-time distributed Computing (ISORC 2013)},
+  pages={1--7},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{knauth2012energy,
+  title={Energy-aware scheduling for infrastructure clouds},
+  author={Knauth, Thomas and Fetzer, Christof},
+  booktitle={Cloud Computing Technology and Science (CloudCom), 2012 IEEE 4th International Conference on},
+  pages={58--65},
+  year={2012},
+  organization={IEEE}
+}
+
+@article{anderson2015docker,
+  title={Docker.},
+  author={Anderson, Charles},
+  journal={IEEE Software},
+  volume={32},
+  number={3},
+  year={2015}
+}
+
+
+@misc{cAdvisor,
+  author = {{Google}},
+  title = {{cAdvisor}},
+  url = {https://github.com/google/cadvisor},
+}
+
+@misc{swarm,
+  author = {{Docker}},
+  title = {{Swarm}},
+  url = {https://www.docker.com/products/docker-swarm},
+}
+
+@misc{stress-ng,
+  author = {{Ubuntu}},
+  title = {{Stress-ng}},
+  url = {http://kernel.ubuntu.com/~cking/stress-ng},
+}
+
+@misc{influxdb,
+  author = {{influxdata}},
+  title = {{InfluxDB}},
+  url = {https://www.influxdata.com/time-series-platform/influxdb},
+}
+
+@misc{docker-api,
+  author = {{Swipely}},
+  title = {{Docker API}},
+  url = {https://github.com/swipely/docker-api},
+}
+
+@misc{docker-remote,
+  author = {{Docker}},
+  title = {{Docker Remote API}},
+  url = {https://docs.docker.com/engine/reference/api/docker_remote_api},
+}
+
+@misc{resque,
+  author = {{Resque}},
+  title = {{Resque}},
+  url = {https://github.com/resque/resque},
+}
+
+@misc{host-passthrough,
+  author = {{libvirt}},
+  title = {{host-passthrough}},
+  url = {https://libvirt.org/formatdomain.html},
+}
+
+@misc{docker-strategy,
+  author = {{Docker}},
+  title = {{Scheduler Strategies}},
+  url = {https://docs.docker.com/swarm/scheduler/strategy},
+}
+
+@misc{opennebula,
+  author = {{OpenNebula}},
+  title = {{Scheduler}},
+  url = {http://docs.opennebula.org/5.0/operation/host_cluster_management/scheduler.html},
+}
