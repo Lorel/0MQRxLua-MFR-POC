@@ -14,7 +14,7 @@
 
 
 \usepackage{url}
-%\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
+\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
 \renewcommand*{\UrlFont}{\ttfamily\rm}
 
 \newcommand{\comment}[1]{}
@@ -42,12 +42,12 @@
 
 % \def\arraystretch{0.9}
 
-\newcommand{\SYS}{\textsc{GenPack}\xspace}
+\newcommand{\SYS}{\textsc{0MQRxLua}\xspace}
 
 \setlength{\textfloatsep}{10pt}
 
 \newboolean{showcomments}
-\setboolean{showcomments}{false}
+\setboolean{showcomments}{true}
 \ifthenelse{\boolean{showcomments}}
 { \newcommand{\mynote}[3]{
    \fbox{\bfseries\sffamily\scriptsize#1}
@@ -59,7 +59,7 @@
 
 \begin{document}
 
-\title{\textsc{SomeThing}: Very Smart}
+\title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
 \date{}
 
 %\author{\IEEEauthorblockN{Aurelien Havet, Valerio Schiavoni, Pascal Felber}
@@ -82,27 +82,13 @@
 \IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
 \IEEEauthorblockA{\IEEEauthorrefmark{2}ADEME / Univ. Lille / Inria, France. Email: maxime.colmant@inria.fr}
 }
-%\IEEEauthorblockA{University of Neuchâtel\\
-%Email: firstname.lastname@unine.ch}
-%\and
-%\IEEEauthorblockN{Maxime Colmant}
-%\IEEEauthorblockA{ADEME / Univ. Lille / Inria\\
-%Email: maxime.colmant@inria.fr}
-%\and
-%\IEEEauthorblockN{Romain Rouvoy}
-%\IEEEauthorblockA{Univ. Lille / Inria / IUF\\
-%Email: romain.rouvoy@inria.fr}
-%\and
-%\IEEEauthorblockN{Christof Fetzer}
-%\IEEEauthorblockA{Technical University of Dresden\\
-%Email: }}
 
 \maketitle
 
 %\thispagestyle{empty}
 
 \begin{abstract}
-todo
+\vs{find pronounceable name. Check author list for PhD forum, maybe only Aurelien, everyone else can be mentioned in the Acks section.}
 \end{abstract}
 
 \begin{IEEEkeywords}
