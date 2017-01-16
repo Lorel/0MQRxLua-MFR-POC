@@ -10,3 +10,12 @@
   \item Secure Data Stream: TLS communication? \url{http://curvezmq.org/} (future work)
   \item Nowadays, streams are everywhere: event streams (Your Mouse Is a Database), IoT, ...
 \end{itemize}
+
+Data streams have taken an inescapable place in communication.
+In the world of all-connected and the Internet of things, on market places, or elsewhere, datas are produced in an unlimited way.
+Thus their processing requires to be reliable, scalable and even sometimes secured.
+We are introducing \textsc{SecureStreams}, a middleware for developping data stream processings and executing them on distributed systems.
+This middleware is designed according to The Reactive Manifesto(ref): it is responsive, resilient, elastic and message driven.
+It is inspired by the dataflow programming paradigm, giving to the developer an easy way to implement a processing pipe.
+It integrates an abstraction of the required infrastructure by deployment automation based on the Docker ecosystem.
+Finally, it aims to be secured, using the SSL protocol for data communication and giving the ability to process datas in trusted enclaves by the integration of the Intel SGX hardware.
