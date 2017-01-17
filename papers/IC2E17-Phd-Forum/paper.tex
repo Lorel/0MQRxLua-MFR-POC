@@ -11,24 +11,39 @@
 \usepackage{algorithm}
 %\usepackage[noend]{algpseudocode}
 \usepackage{algpseudocode}
-
+\usepackage{color}
+\usepackage{listings}
 
 \usepackage{url}
 \usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
 \renewcommand*{\UrlFont}{\ttfamily\rm}
 
 \usepackage{listings}
-\lstdefinestyle{Luastyle}
-{
-  language         = {[5.2]Lua},
-  basicstyle       = \small\ttfamily,
-  showstringspaces = false,
-  columns          = fixed,
-  frame            = bt,
-  captionpos       = b,
-  xleftmargin      = -10pt,
-  xrightmargin     = 10pt,
-}
+%\lstdefinestyle{Luastyle}
+%{
+%  language         = {[5.2]Lua},
+%  basicstyle       = \small\ttfamily,
+%  showstringspaces = false,
+%  columns          = fixed,
+%  frame            = bt,
+%  captionpos       = b,
+%  xleftmargin      = -10pt,
+%  xrightmargin     = 10pt,
+%}
+
+\lstset{float,
+  basicstyle=\scriptsize,
+  columns=fullflexible,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  xleftmargin=5pt,
+  frame=tb,
+  captionpos=b,
+  mathescape=true,
+  tabsize=2,
+%  showtabs=true,
+  escapeinside={(*@}{@*)}}
 
 \newcommand{\comment}[1]{}
 
@@ -69,6 +84,27 @@
 \newcommand{\pf}[1]{\mynote{Pascal}{#1}{red}}
 \newcommand{\vs}[1]{\mynote{Valerio}{#1}{blue}}
 \newcommand{\rr}[1]{\mynote{Romain}{#1}{green}}
+
+
+\definecolor{darkgreen}{rgb}{0.3,0.5,0.3}
+\definecolor{darkblue}{rgb}{0.3,0.3,0.5}
+\definecolor{darkred}{rgb}{0.5,0.3,0.3}
+\lstdefinelanguage{LUA}{%
+  sensitive=true,%
+  keywordstyle=[1]{\color{darkblue}\bfseries},%
+  keywordstyle=[2]{\color{darkgreen}\bfseries},%
+  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,%
+    nil,not,or,repeat,return,then,until,while,require,alias},% Official LUA keywords
+  morekeywords=[2]{},% Your private keywords
+  otherkeywords={.,=,~,*,>,:},%
+  morestring=[b]",%
+  stringstyle={\color{darkred}\itshape},%
+  breaklines=true,%
+  breakatwhitespace=true,%
+  linewidth=\columnwidth,%
+  comment=[l]{--},%
+  escapeinside={(*@}{@*)}
+}
 
 \begin{document}
 

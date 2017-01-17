@@ -8,10 +8,47 @@
 \end{itemize}
 
 
-\lstset{style = Luastyle}
+%\lstset{style = Luastyle}
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Process pipeline example, using the library RxLua},label=pipeline-example]
+%\begin{minipage}{\linewidth}
+%\begin{lstlisting}[caption={Process pipeline example, using the library RxLua},label=pipeline-example]
+%Rx.Observable.fromTable(people)
+%  :map(
+%    function(person)
+%      return person.age
+%    end
+%  )
+%  :filter(
+%    function(age)
+%      return age > 18
+%    end
+%  )
+%  :reduce(
+%    function(accumulator, age)
+%      accumulator[count] = (accumulator.count
+%        or 0) + 1
+%      accumulator[sum] = (accumulator.sum
+%        or 0) + age
+%      return accumulator
+%    end, {}
+%  )
+%  :subscribe(
+%    function(datas)
+%      print('Adult people average:',
+%        datas.sum / datas.count)
+%    end,
+%    function(err)
+%      print(err)
+%    end,
+%    function()
+%      print('Process complete!')
+%    end
+%  )
+%\end{lstlisting}
+%\end{minipage}
+
+
+\begin{lstlisting}[language=LUA,firstnumber=4,mathescape=true,caption={todo},label=lst:todo]
 Rx.Observable.fromTable(people)
   :map(
     function(person)
@@ -45,4 +82,3 @@ Rx.Observable.fromTable(people)
     end
   )
 \end{lstlisting}
-\end{minipage}
