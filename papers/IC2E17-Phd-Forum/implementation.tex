@@ -1,5 +1,5 @@
-\section{Architecture}
-\label{sec:architecture}
+\section{Implementation}
+\label{sec:implementation}
 
 \begin{itemize}
   \item Extension of the library RxLua
@@ -8,9 +8,10 @@
 \end{itemize}
 
 
-% \lstset{language=Lua,caption={Descriptive Caption Text},label=DescriptiveLabel}
+\lstset{style = Luastyle}
 
-\begin{lstlisting}[frame=single]
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Process pipeline example, using the library RxLua},label=pipeline-example]
 Rx.Observable.fromTable(people)
   :map(
     function(person)
@@ -24,20 +25,24 @@ Rx.Observable.fromTable(people)
   )
   :reduce(
     function(accumulator, age)
-      accumulator[count] = (accumulator.count or 0) + 1
-      accumulator[sum] = (accumulator.sum or 0) + age
+      accumulator[count] = (accumulator.count
+        or 0) + 1
+      accumulator[sum] = (accumulator.sum
+        or 0) + age
       return accumulator
     end, {}
   )
   :subscribe(
     function(datas)
-      print('Adult people avverage:', datas.sum / datas.count)
+      print('Adult people average:',
+        datas.sum / datas.count)
     end,
-    function(error)
-      print(error)
+    function(err)
+      print(err)
     end,
     function()
       print('Process complete!')
     end
   )
 \end{lstlisting}
+\end{minipage}
