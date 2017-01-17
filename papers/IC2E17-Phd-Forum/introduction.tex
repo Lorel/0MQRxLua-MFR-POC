@@ -24,5 +24,5 @@ Few mainstream solutions have already been implemented for distributed streams p
 Akka Streams Kafka, also known as Reactive Kafka\cite{reactivekafka}, achieves this on top of Apache Kafka\cite{apachekafka}.
 We could also quote  Apache Spark Streaming\cite{apachesparkstreaming}, Apache Storm\cite{apachestorm}, or even Infinispan\cite{infinispan}.
 All these solutions are using the Java Virtual Machine for their runtime.
-But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{intelsgxexplained}.
-If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks\cite{SecureKeeper}.
+But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
+If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks\cite{brenner_securekeeper:_2016}.

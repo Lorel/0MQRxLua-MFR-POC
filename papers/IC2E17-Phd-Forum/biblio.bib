@@ -1,55 +1,61 @@
 % Optional fields: author, title, howpublished, month, year, note
 @misc{reactivemanifesto,
-  author = {Jonas Bonér, Dave Farley, Roland Kuhn, and Martin Thompson},
-  title = {The Reactive Manifesto},
+  author = {Bonér, Jonas and Farley, Dave and Kuhn, Roland and Thompson, Martin},
+  title = {The {Reactive} {Manifesto}},
   url = {http://www.reactivemanifesto.org/},
-  day = 16,
-  month = sep,
-  year = 2014,
+  month = {sep},
+  year = {2014},
 }
 
 @misc{reactivekafka,
-  title = {Reactive Streams for Kafka},
+  title = {{Reactive} {Streams} for {Kafka}},
   url = {https://github.com/akka/reactive-kafka},
 }
 
 @misc{apachekafka,
-  title = {Apache Kafka, a distributed streaming platform},
+  title = {{Apache} {Kafka}, a distributed streaming platform},
   url = {https://kafka.apache.org/},
 }
 
 @misc{apachesparkstreaming,
-  title = {Spark Streaming makes it easy to build scalable fault-tolerant streaming applications},
+  title = {{Spark} {Streaming} makes it easy to build scalable fault-tolerant streaming applications},
   url = {https://spark.apache.org/streaming/},
 }
 
 @misc{apachestorm,
-  title = {Apache Storm},
+  title = {{Apache} {Storm}},
   url = {http://storm.apache.org/},
 }
 
 @misc{infinispan,
-  title = {Infinispan},
+  title = {{Infinispan}},
   url = {http://infinispan.org/},
 }
 
-@article{intelsgxexplained,
-  title={Intel SGX Explained},
-  author={Victor Costan and Srinivas Devadas},
-  month=jan,
-  year={2016},
-  publisher={Computer Science and Artificial Intelligence Laboratory, Massachusetts Institute of Technology},
-  url={https://eprint.iacr.org/2016/086.pdf},
+@techreport{costan_intel,
+  title = {{Intel} {SGX} explained},
+  url = {https://eprint.iacr.org/2016/086.pdf},
+  urldate = {2017-01-17},
+  institution = {Cryptology ePrint Archive, Report 2016/086, 2016. https://eprint. iacr. org/2016/086},
+  author = {Costan, Victor and Devadas, Srinivas},
+  file = {[PDF] iacr.org:/Users/lorel/Library/Application Support/Zotero/Profiles/pk5xssq8.default/zotero/storage/3XT2F66F/Costan et Devadas - Intel sgx explained.pdf:application/pdf}
 }
 
-@inproceedings{SecureKeeper,
-  author="Stefan Brenner, Colin Wulf, David Goltzsche, Nico Weichbrod, Matthias Lorenz, Christof Fetzer, Peter Pietzuch, Rüdiger Kapitza",
-  title="SecureKeeper: Confidential ZooKeeper using Intel SGX",
-  booktitle="Proceedings of the 17th International Middleware Conference",
-  year="2016",
-  publisher="ACM New York, NY, USA",
-  articleno = {14},
-  isbn="978-1-4503-4300-8",
-  doi="10.1145/2988336.2988350",
-  url="http://dx.doi.org/10.1145/2988336.2988350"
+@inproceedings{brenner_securekeeper:_2016,
+  address = {New York, NY, USA},
+  series = {Middleware '16},
+  title = {{SecureKeeper}: {Confidential} {ZooKeeper} {Using} {Intel} {SGX}},
+  isbn = {978-1-4503-4300-8},
+  shorttitle = {{SecureKeeper}},
+  url = {http://doi.acm.org/10.1145/2988336.2988350},
+  doi = {10.1145/2988336.2988350},
+  abstract = {Cloud computing, while ubiquitous, still suffers from trust issues, especially for applications managing sensitive data. Third-party coordination services such as ZooKeeper and Consul are fundamental building blocks for cloud applications, but are exposed to potentially sensitive application data. Recently, hardware trust mechanisms such as Intel's Software Guard Extensions (SGX) offer trusted execution environments to shield application data from untrusted software, including the privileged Operating System (OS) and hypervisors. Such hardware support suggests new options for securing third-party coordination services. We describe SecureKeeper, an enhanced version of the ZooKeeper coordination service that uses SGX to preserve the confidentiality and basic integrity of ZooKeeper-managed data. SecureKeeper uses multiple small enclaves to ensure that (i) user-provided data in ZooKeeper is always kept encrypted while not residing inside an enclave, and (ii) essential processing steps that demand plaintext access can still be performed securely. SecureKeeper limits the required changes to the ZooKeeper code base and relies on Java's native code support for accessing enclaves. With an overhead of 11\%, the performance of SecureKeeper with SGX is comparable to ZooKeeper with secure communication, while providing much stronger security guarantees with a minimal trusted code base of a few thousand lines of code.},
+  urldate = {2017-01-17},
+  booktitle = {Proceedings of the 17th {International} {Middleware} {Conference}},
+  publisher = {ACM},
+  author = {Brenner, Stefan and Wulf, Colin and Goltzsche, David and Weichbrodt, Nico and Lorenz, Matthias and Fetzer, Christof and Pietzuch, Peter and Kapitza, Rüdiger},
+  year = {2016},
+  keywords = {Apache ZooKeeper, Cloud Computing, Intel SGX},
+  pages = {14:1--14:13},
+  file = {2016-middleware-brenner-securekeeper.pdf:/Users/lorel/Documents/Thèse/SGX/2016-middleware-brenner-securekeeper.pdf:application/pdf}
 }
