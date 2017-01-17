@@ -19,31 +19,21 @@
 \renewcommand*{\UrlFont}{\ttfamily\rm}
 
 \usepackage{listings}
-%\lstdefinestyle{Luastyle}
-%{
-%  language         = {[5.2]Lua},
-%  basicstyle       = \small\ttfamily,
-%  showstringspaces = false,
-%  columns          = fixed,
-%  frame            = bt,
-%  captionpos       = b,
-%  xleftmargin      = -10pt,
-%  xrightmargin     = 10pt,
-%}
 
-\lstset{float,
-  basicstyle=\scriptsize,
-  columns=fullflexible,
-  numbers=left,
-  numberstyle=\tiny,
-  numbersep=5pt,
-  xleftmargin=5pt,
-  frame=tb,
-  captionpos=b,
-  mathescape=true,
-  tabsize=2,
-%  showtabs=true,
-  escapeinside={(*@}{@*)}}
+\lstset{
+  float,
+  basicstyle       = \scriptsize\ttfamily,
+  columns          = fixed,
+  numbers          = left,
+  numberstyle      = \tiny\ttfamily,
+  numbersep        = 5pt,
+  xleftmargin      = 5pt,
+  xrightmargin     = 10pt,
+  frame            = tb,
+  captionpos       = b,
+  upquote          = true,
+  showstringspaces = false,
+}
 
 \newcommand{\comment}[1]{}
 
