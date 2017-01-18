@@ -9,47 +9,47 @@
 %   \item ØMQ queues with push/pull protocol - Fire-and-forget messaging: a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols
 % \end{itemize}
 
-On September 2014 has been published the Reactive Manifesto\cite{reactivemanifesto}.
-This one attempts to define the principles to build systems more flexible, loosely-coupled and scalable.
-A \textit{reactive system} has to follow the four Reactive Principles:
-
-\begin{itemize}
-  \item Responsive: it is quick to react to all users in order to ensure a consistently positive user experience;
-  \item Elastic: it is easily upgraded on demand in order to ensure responsiveness under various load conditions;
-  \item Resilient: it applies proper design and architecture principles in order to ensure responsiveness;
-  \item Message-driven: it is based on a message-passing architecture to establish a boundary between components that ensures loose coupling, isolation and location transparency, e.g. event-driven, actor-based, or both of them.
-\end{itemize}
-
-The responsiveness of a system needs both elasticity and resiliency.
-Finally, a message-driven architecture is the foundation of elastic, resilient and responsive systems, as shown on figure \ref{fig:reactive-traits}.
-
-\begin{figure}[t!]
-  \centering
-  \includegraphics[width=.99\linewidth]{images/reactive-traits}
-  \caption{Reactive traits.}
-  \label{fig:reactive-traits}
-\end{figure}
-
-
-The term \textit{reactive} is not new in the field of computer sciences: Gérard Berry used it in 1989 while talking about \textit{real-time programming}\cite{berry:realtime_programming}.
-But recently the industry recognized the \textit{reactive paradigm} as the de facto way forward in system design\cite{malawski:why_reactive}.
-In the field of data streams, \textit{reactive programming} is programming with asynchronous streams, anything else.
-A stream is a sequence of ongoing events ordered in time, and these emitted events are captured only asynchronously by defining three functions:
-
-\begin{itemize}
-  \item an \textbf{onNext} function that will execute when a value is emitted;
-  \item an \textbf{onError} function executed when an error is emitted;
-  \item and finally an \textbf{onComplete} function executed when the stream is over.
-\end{itemize}
-
-These functions are observers, and the stream is an observable: this is precisely implemented with the \textit{Observer Design Pattern}\cite{szallies_using_1997}.
-
-A plenty of software libraries for different languages ensues from this paradigm\cite{reactive_streams}\cite{github:reactive_streams}.
-As exposed in section \ref{sec:architecture}, we chose the Lua technology as the basic of \SYS's implementation.
-Lua is a scripting language that is simple, efficient, extensible, functionnal and open-source\cite{ierusalimschy_programming_2006}.
-It will be easy to handle for the end user of \SYS.
-By the way, it is embedded in many application programs, such as Adobe Lighroom, Nmap, World of Warcraft or Nginx.
-
+%On September 2014 has been published the Reactive Manifesto\cite{reactivemanifesto}.
+%This one attempts to define the principles to build systems more flexible, loosely-coupled and scalable.
+%A \textit{reactive system} has to follow the four Reactive Principles:
+%
+%\begin{itemize}
+%  \item Responsive: it is quick to react to all users in order to ensure a consistently positive user experience;
+%  \item Elastic: it is easily upgraded on demand in order to ensure responsiveness under various load conditions;
+%  \item Resilient: it applies proper design and architecture principles in order to ensure responsiveness;
+%  \item Message-driven: it is based on a message-passing architecture to establish a boundary between components that ensures loose coupling, isolation and location transparency, e.g. event-driven, actor-based, or both of them.
+%\end{itemize}
+%
+%The responsiveness of a system needs both elasticity and resiliency.
+%Finally, a message-driven architecture is the foundation of elastic, resilient and responsive systems, as shown on figure \ref{fig:reactive-traits}.
+%
+%\begin{figure}[t!]
+%  \centering
+%  \includegraphics[width=.99\linewidth]{images/reactive-traits}
+%  \caption{Reactive traits.}
+%  \label{fig:reactive-traits}
+%\end{figure}
+%
+%
+%The term \textit{reactive} is not new in the field of computer sciences: Gérard Berry used it in 1989 while talking about \textit{real-time programming}\cite{berry:realtime_programming}.
+%But recently the industry recognized the \textit{reactive paradigm} as the de facto way forward in system design\cite{malawski:why_reactive}.
+%In the field of data streams, \textit{reactive programming} is programming with asynchronous streams, anything else.
+%A stream is a sequence of ongoing events ordered in time, and these emitted events are captured only asynchronously by defining three functions:
+%
+%\begin{itemize}
+%  \item an \textbf{onNext} function that will execute when a value is emitted;
+%  \item an \textbf{onError} function executed when an error is emitted;
+%  \item and finally an \textbf{onComplete} function executed when the stream is over.
+%\end{itemize}
+%
+%These functions are observers, and the stream is an observable: this is precisely implemented with the \textit{Observer Design Pattern}\cite{szallies_using_1997}.
+%
+%A plenty of software libraries for different languages ensues from this paradigm\cite{reactive_streams}\cite{github:reactive_streams}.
+%As exposed in section \ref{sec:architecture}, we chose the Lua technology as the basic of \SYS's implementation.
+%Lua is a scripting language that is simple, efficient, extensible, functionnal and open-source\cite{ierusalimschy_programming_2006}.
+%It will be easy to handle for the end user of \SYS.
+%By the way, it is embedded in many application programs, such as Adobe Lighroom, Nmap, World of Warcraft or Nginx.
+\vs{STOPPED HERE}
 \SYS is extending the library RxLua\cite{github:rxlua} which implements this pattern.
 It provides to the developer the required API to design a data stream processing pipeline in the way of dataflow programming\cite{uustalu_essence_2005}.
 A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
