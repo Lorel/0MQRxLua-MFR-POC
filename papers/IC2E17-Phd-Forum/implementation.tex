@@ -1,16 +1,29 @@
 \section{Implementation}
 \label{sec:implementation}
 
+% \begin{itemize}
+%   \item Extension of the library RxLua
+%   \item Why reactive?
+%     \url{http://www.reactivemanifesto.org/}
+%   \item ØMQ Lua bindings
+%   \item ØMQ queues with push/pull protocol - Fire-and-forget messaging: a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols
+% \end{itemize}
+
+Stream processings are more and more designed as reactive.
+
+On September 2014 has been published the Reactive Manifesto\cite{reactivemanifesto}.
+This one attempts to define the principles to build systems more flexible, loosely-coupled and scalable.
+A reactive system has to follow the four Reactive Principles:
+
 \begin{itemize}
-  \item Extension of the library RxLua
-  \item Why reactive?
-    \url{http://www.reactivemanifesto.org/}
-  \item ØMQ Lua bindings
-  \item ØMQ queues with push/pull protocol - Fire-and-forget messaging: a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols
+  \item Responsive: it is quick to react to all users in order to ensure a consistently positive user experience;
+  \item Elastic: it is easily upgraded on demand in order to ensure responsiveness under various load conditions;
+  \item Resilient: it applies proper design and architecture principles in order to ensure responsiveness;
+  \item Message-driven: it is based on a message-passing architecture to establish a boundary between components that ensures loose coupling, isolation and location transparency, e.g. event-driven, actor-based, or both of them.
 \end{itemize}
 
-
-
+The responsiveness of a system needs both elasticity and resiliency.
+Finally, a message-driven architecture is the foundation of elastic, resilient and responsive systems\ref{fig:reactive-traits}.
 
 \begin{figure}[t!]
   \centering
@@ -18,6 +31,8 @@
   \caption{Reactive traits.}
   \label{fig:reactive-traits}
 \end{figure}
+
+
 
 
 \begin{minipage}{\linewidth}
