@@ -46,6 +46,10 @@ These functions are observers, and the stream is an observable: this is precisel
 
 A plenty of software libraries for different languages ensues from this paradigm\cite{reactive_streams}\cite{github:reactive_streams}.
 As exposed in section \ref{sec:architecture}, we chose the Lua technology as the basic of \SYS's implementation.
+Lua is a scripting language that is simple, efficient, extensible, functionnal and open-source\cite{ierusalimschy_programming_2006}.
+It will be easy to handle for the end user of \SYS.
+By the way, it is embedded in many application programs, such as Adobe Lighroom, Nmap, World of Warcraft or Nginx.
+
 \SYS is extending the library RxLua\cite{github:rxlua} which implements this pattern.
 It provides to the developer the required API to design a data stream processing pipeline in the way of dataflow programming\cite{uustalu_essence_2005}.
 A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
