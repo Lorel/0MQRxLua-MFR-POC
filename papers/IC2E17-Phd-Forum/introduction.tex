@@ -36,6 +36,10 @@ This design choice is to prevent expensive encrypted memory paging mechanisms an
 
 %But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
 %If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
+To recap, the \textbf{contributions} of this paper are the followings: (i) we present the archicture of \SYS, (ii) provide details of our implementation choices, and (iii) present the results of our preliminary evaluation based on a real-world dataset. 
 
-\vs{recap contributions}
-\vs{This paper is organized as follows...bla bla}
+This paper is organized as follows. 
+The architecture of \SYS is described in Section~\ref{sec:architecture}.
+Our implementation choices and an example of \SYS program are presented in Section~\ref{sec:implementation}.
+Section~\ref{sec:eval} presents our preliminary evaluation with respect to throughput and scalability results.
+Before concluding, we wrap up by briefly describing our future work in Section~\ref{sec:future}. 
