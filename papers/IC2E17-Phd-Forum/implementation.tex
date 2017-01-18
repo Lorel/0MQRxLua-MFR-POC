@@ -9,11 +9,9 @@
 %   \item ØMQ queues with push/pull protocol - Fire-and-forget messaging: a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols
 % \end{itemize}
 
-Stream processings are more and more designed as reactive.
-
 On September 2014 has been published the Reactive Manifesto\cite{reactivemanifesto}.
 This one attempts to define the principles to build systems more flexible, loosely-coupled and scalable.
-A reactive system has to follow the four Reactive Principles:
+A \textit{reactive system} has to follow the four Reactive Principles:
 
 \begin{itemize}
   \item Responsive: it is quick to react to all users in order to ensure a consistently positive user experience;
@@ -23,7 +21,7 @@ A reactive system has to follow the four Reactive Principles:
 \end{itemize}
 
 The responsiveness of a system needs both elasticity and resiliency.
-Finally, a message-driven architecture is the foundation of elastic, resilient and responsive systems\ref{fig:reactive-traits}.
+Finally, a message-driven architecture is the foundation of elastic, resilient and responsive systems, as shown on figure \ref{fig:reactive-traits}.
 
 \begin{figure}[t!]
   \centering
@@ -33,6 +31,24 @@ Finally, a message-driven architecture is the foundation of elastic, resilient a
 \end{figure}
 
 
+The term \textit{reactive} is not new in the field of computer sciences: Gérard Berry used it in 1989 while talking about \textit{real-time programming}\cite{berry:realtime_programming}.
+But recently the industry recognized the \textit{reactive paradigm} as the de facto way forward in system design\cite{malawski:why_reactive}.
+In the field of data streams, \textit{reactive programming} is programming with asynchronous streams, anything else.
+A stream is a sequence of ongoing events ordered in time, and these emitted events are captured only asynchronously by defining three functions:
+
+\begin{itemize}
+  \item an \textbf{onNext} function that will execute when a value is emitted;
+  \item an \textbf{onError} function executed when an error is emitted;
+  \item and finally an \textbf{onComplete} function executed when the stream is over.
+\end{itemize}
+
+These functions are observers, and the stream is an observable: this is precisely implemented with the \textit{Observer Design Pattern}\cite{szallies_using_1997}.
+
+A plenty of software libraries for different languages ensues from this paradigm\cite{reactive_streams}\cite{github:reactive_streams}.
+As exposed in section \ref{sec:architecture}, we chose the Lua technology as the basic of \SYS's implementation.
+\SYS is extending the library RxLua\cite{github:rxlua} which implements this pattern.
+It provides to the developer the required API to design a data stream processing pipeline in the way of dataflow programming\cite{uustalu_essence_2005}.
+A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
 
 
 \begin{minipage}{\linewidth}
@@ -71,3 +87,8 @@ Rx.Observable.fromTable(people)
  )
 \end{lstlisting}
 \end{minipage}
+
+
+Our extension takes the business logic in each element of the pipeline to send and execute it in a Docker container.
+Then, the data is streamed accross the network communication built on top of the ØMQ protocol and implemented using the ØMQ Lua bindings\cite{github:lzmq}.
+Thus \SYS aims to keep as developer-friendly as possible by abstracting infrastucture and communication issues from the developer.
