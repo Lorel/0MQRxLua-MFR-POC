@@ -1,42 +1,54 @@
 % Optional fields: author, title, howpublished, month, year, note
 @misc{reactivemanifesto,
   author = {Bonér, Jonas and Farley, Dave and Kuhn, Roland and Thompson, Martin},
-  title = {The {Reactive} {Manifesto}},
-  url = {http://www.reactivemanifesto.org/},
-  month = {sep},
-  year = {2014},
+  title = {{The Reactive Manifesto}},
+  howpublished = {\url{http://www.reactivemanifesto.org}},
 }
 
 @misc{reactivekafka,
-  title = {{Reactive} {Streams} for {Kafka}},
-  url = {https://github.com/akka/reactive-kafka},
+  title = {{Reactive Streams for Kafka}},
+  howpublished= {\url{https://github.com/akka/reactive-kafka}}
 }
 
 @misc{apachekafka,
-  title = {{Apache} {Kafka}, a distributed streaming platform},
-  url = {https://kafka.apache.org/},
+  title = {{Apache Kafka}},
+  howpublished=  {\url{https://kafka.apache.org}},
 }
 
 @misc{apachesparkstreaming,
-  title = {{Spark} {Streaming} makes it easy to build scalable fault-tolerant streaming applications},
-  url = {https://spark.apache.org/streaming/},
+  title = {{Spark Streaming}},
+  howpublished = {\url{https://spark.apache.org/streaming}}
 }
 
 @misc{apachestorm,
-  title = {{Apache} {Storm}},
-  url = {http://storm.apache.org/},
+  title = {{Apache Storm}},
+  howpublished = {\url{http://storm.apache.org}}
 }
 
 @misc{infinispan,
   title = {{Infinispan}},
-  url = {http://infinispan.org/},
+   howpublished = {\url{http://infinispan.org}}
+}
+
+@misc{docker:swarm_2016,
+	title = {{Docker Swarm}},
+	howpublished = {\url{https://www.docker.com/products/docker-swarm}},
+}
+
+@misc{zero_mq,
+	title = {{Distributed Messaging - ØMQ}},
+	howpublished = {\url{http://zeromq.org}},
+}
+
+@misc{zero_mq:pipeline,
+	title = {{ZeroMQ Pipeline}},
+	howpublished = {\url{https://rfc.zeromq.org/spec:30/PIPELINE/}},
 }
 
 @techreport{costan_intel,
-  title = {{Intel} {SGX} explained},
-  url = {https://eprint.iacr.org/2016/086.pdf},
+  title = {{Intel SGX explained}},
   urldate = {2017-01-17},
-  institution = {Cryptology ePrint Archive, Report 2016/086, 2016. https://eprint. iacr. org/2016/086},
+  institution = {Cryptology ePrint Archive, Report 2016/086, 2016.},
   author = {Costan, Victor and Devadas, Srinivas}
 }
 
@@ -46,7 +58,6 @@
   title = {{SecureKeeper}: {Confidential} {ZooKeeper} {Using} {Intel} {SGX}},
   isbn = {978-1-4503-4300-8},
   shorttitle = {{SecureKeeper}},
-  url = {http://doi.acm.org/10.1145/2988336.2988350},
   doi = {10.1145/2988336.2988350},
   abstract = {Cloud computing, while ubiquitous, still suffers from trust issues, especially for applications managing sensitive data. Third-party coordination services such as ZooKeeper and Consul are fundamental building blocks for cloud applications, but are exposed to potentially sensitive application data. Recently, hardware trust mechanisms such as Intel's Software Guard Extensions (SGX) offer trusted execution environments to shield application data from untrusted software, including the privileged Operating System (OS) and hypervisors. Such hardware support suggests new options for securing third-party coordination services. We describe SecureKeeper, an enhanced version of the ZooKeeper coordination service that uses SGX to preserve the confidentiality and basic integrity of ZooKeeper-managed data. SecureKeeper uses multiple small enclaves to ensure that (i) user-provided data in ZooKeeper is always kept encrypted while not residing inside an enclave, and (ii) essential processing steps that demand plaintext access can still be performed securely. SecureKeeper limits the required changes to the ZooKeeper code base and relies on Java's native code support for accessing enclaves. With an overhead of 11\%, the performance of SecureKeeper with SGX is comparable to ZooKeeper with secure communication, while providing much stronger security guarantees with a minimal trusted code base of a few thousand lines of code.},
   urldate = {2017-01-17},
@@ -62,8 +73,6 @@
 	title = {Lua—{An} {Extensible} {Extension} {Language}},
 	volume = {26},
 	issn = {1097-024X},
-	url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-024X(199606)26:6<635::AID-SPE26>3.0.CO;2-P/abstract},
-	doi = {10.1002/(SICI)1097-024X(199606)26:6<635::AID-SPE26>3.0.CO;2-P},
 	abstract = {This paper describes Lua, a language for extending applications. Lua combines procedural features with powerful data description facilities, by using a simple, yet powerful, mechanism of tables . This mechanism implements the concepts of records, arrays and recursive data types (pointers), and adds some object-oriented facilities, such as methods with dynamic dispatching. Lua presents a mechanism of fallbacks that allows programmers to extend the semantics of the language in some unconventional ways. As a noteworthy example, fallbacks allow the user to add different kinds of inheritance to the language. Currently, Lua is being extensively used in production for several tasks, including user configuration, general-purpose data-entry, description of user interfaces, storage of structured graphical metafiles, and generic attribute configuration for finite element meshes.},
 	language = {en},
 	number = {6},
@@ -76,33 +85,10 @@
 	pages = {635--652}
 }
 
-@misc{docker:swarm_2016,
-	title = {Docker {Swarm}},
-	url = {https://www.docker.com/products/docker-swarm},
-	urldate = {2017-01-17},
-	journal = {Docker},
-	month = jan,
-	year = {2016}
-}
-
-@misc{zero_mq,
-	title = {Distributed {Messaging} - {ØMQ}},
-	url = {http://zeromq.org/},
-	urldate = {2017-01-17}
-}
-
-@misc{zero_mq:pipeline,
-	title = {30/{PIPELINE} · {ZeroMQ} {RFC}},
-	url = {https://rfc.zeromq.org/spec:30/PIPELINE/},
-	urldate = {2017-01-17}
-}
 
 @inproceedings{voelter_patterns_2003,
-	title = {Patterns for {Asynchronous} {Invocations} in {Distributed} {Object} {Frameworks}.},
-	url = {http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.555.3427&rep=rep1&type=pdf},
-	urldate = {2017-01-17},
+    title={{Patterns for Asynchronous Invocations in Distributed Object Frameworks.}},
 	booktitle = {{EuroPLoP}},
-	publisher = {Citeseer},
 	author = {Voelter, Markus and Kircher, Michael and Zdun, Uwe and Englbrecht, Michael},
 	year = {2003},
 	pages = {269--284}
