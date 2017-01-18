@@ -17,26 +17,27 @@ The latest estimates predict a total of \vs{fill} TB/s to be analyzed efificient
 This stream processing requires to be reliable, scalable and secure.
 This paper introduces \SYS, our initial work on a middleware for developping secure stream processings.
 \SYS supports the implementation, deployment and the execution of stream processing tasks in distributed setting, such as clusters of machines or research testbeds.
-It is message-oriented\vs{add ref}, responsive, resilient to faults.
+It is message-oriented~\cite{mom}, responsive, resilient to faults.
 Finally it is easy to scale horizontally and vertically.
 %Its design This middleware is designed according to The Reactive Manifesto: it is responsive, resilient, elastic and message driven\cite{reactivemanifesto}.
 Briefly, its design is inspired by the dataflow programming paradigm\vs{add ref}: the developer combines together several independent processing components (e.g. mappers, reducers, sinks, shufflers, joiners, etc.) to compose several processing pipes.% an easy way to implement a processing pipe.
 The framework integrates an abstraction of the required deployment infrastructure.
-It smoothly integrate with industrial-grade lightweight virtualization technologies (e.g. Docker~\cite{}\vs{add ref}).%by deployment automation based on the Docker ecosystem
-It aims to be secure: communication channels use the SSL protocol\vs{add ref} for data communication.
-Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowdays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\cite{costan_intel} in the SkyLake processors\vs{add ref}.
+It smoothly integrate with industrial-grade lightweight virtualization technologies (e.g. Docker~\cite{docker}).%by deployment automation based on the Docker ecosystem
+It aims to be secure: communication channels use the SSL protocol~\cite{freier2011secure} for data communication.
+Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowdays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\cite{costan_intel} in the SkyLake processors\cite{skylake}.
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
 Few mainstream solutions exist today for distributed stream processing.
-Akka Streams Kafka/Reactive Kafka\cite{reactivekafka} allows stream processing on top of Apache Kafka\cite{apachekafka}.
-More recently, few open-source solutions (e.g. Apache Spark Streaming\cite{apachesparkstreaming}, Apache Storm\cite{apachestorm}, Infinispan\cite{infinispan}) allow developers to quickly setup and deploy a stream processing infrastructure.
-These solutions rely on the Java Virtual Machine (JVM)\cite{}\vs{add ref}.
-\SYS proposes an lightweight and low memory-footprint framework that can fully execute inside SGX enclaves, which themselves currently have an hard-limit of 128 MB.
-This design choice is to prevent expensive encrypted memory paging mechanisms and serious performance leaks~\cite{brenner_securekeeper:_2016}.
+Reactive Kafka\cite{reactivekafka} allows stream processing on top of Apache Kafka\cite{apachekafka}.
+More recently, few open-source solutions (e.g. Apache Spark Streaming\cite{apachesparkstreaming}, Apache Storm\cite{apachestorm}, Infinispan\cite{infinispan}) introduced APIs to allow developers to quickly setup and deploy stream processing infrastructures.
+These systems rely on the Java Virtual Machine (JVM)\cite{lindholm2014java}.
+However, SGX currently impose an hard memory limit of 128 MB to the enclaved code, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{brenner_securekeeper:_2016} when this limit is crossed.
+\SYS proposes an lightweight and low memory-footprint framework that can fully execute inside SGX enclaves.
+We detail our implementation choices in Section~\ref{sec:implementation}.
 
 %But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
 %If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
-To recap, the \textbf{contributions} of this paper are the followings: (i) we present the archicture of \SYS, (ii) provide details of our implementation choices, and (iii) present the results of our preliminary evaluation based on a real-world dataset.
+To recap, our \textbf{contributions} are the followings: (i) we present the archicture of \SYS, (ii) provide details of our implementation choices, and (iii) present the results of our preliminary evaluation based on a real-world dataset.
 
 This paper is organized as follows.
 The architecture of \SYS is described in Section~\ref{sec:architecture}.
