@@ -24,15 +24,18 @@ Briefly, its design is inspired by the dataflow programming paradigm\vs{add ref}
 The framework integrates an abstraction of the required deployment infrastructure.
 It smoothly integrate with industrial-grade lightweight virtualization technologies (e.g. Docker~\cite{}\vs{add ref}).%by deployment automation based on the Docker ecosystem
 It aims to be secure: communication channels use the SSL protocol\vs{add ref} for data communication.
-Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowdays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\vs{add ref} in the SkyLake processors\vs{add ref}.
+Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowdays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\cite{costan_intel} in the SkyLake processors\vs{add ref}.
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
-Few mainstream solutions have already been implemented for distributed streams processing.
-Akka Streams Kafka, also known as Reactive Kafka\cite{reactivekafka}, achieves this on top of Apache Kafka\cite{apachekafka}.
-We could also quote  Apache Spark Streaming\cite{apachesparkstreaming}, Apache Storm\cite{apachestorm}, or even Infinispan\cite{infinispan}.
-All these solutions are using the Java Virtual Machine for their runtime.
-But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
-If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
+Few mainstream solutions exist today for distributed stream processing.
+Akka Streams Kafka/Reactive Kafka\cite{reactivekafka} allows stream processing on top of Apache Kafka\cite{apachekafka}.
+More recently, more open-source solutions like Apache Spark Streaming\cite{apachesparkstreaming}, Apache Storm\cite{apachestorm}, or Infinispan\cite{infinispan} allow developers to quickly setup and deploy a stream processing infrastructure. 
+These solutions rely on the Java Virtual Machine (JVM)\cite{}\vs{add ref}.
+\SYS proposes an lightweight and low memory-footprint framework that can fully execute inside SGX enclaves, which themselves currently have an hard-limit of 96 MB.
+This design choice is to prevent expensive encrypted memory paging mechanisms and serious performance leaks~\cite{brenner_securekeeper:_2016}.  
+
+%But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
+%If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
 
 \vs{recap contributions}
 \vs{This paper is organized as follows...bla bla}
