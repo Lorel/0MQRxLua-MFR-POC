@@ -26,8 +26,8 @@ We implement a simple application on top of \SYS to determine average delays and
 We design and implement a simple processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (map), (ii) filters by relevancy (i.e. if the data concerns a delayed flight), and (iii) finally reduces to compute to obtain the required informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{Diving into Akka Streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
 We use the 4 last years of the available dataset (from 2005 to 2008), for a total of 28 millions of entries to process and 2.73 GB of data.
 
-\textbf{Benchmark: throughput.} This benchmark shows the upload throughtput observed across all cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
-We gather banwdwidth measurements by exploting Docker's own monitoring and statistical modules.
+\textbf{Benchmark: throughput.} This benchmark shows the upload throughput observed across all cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
+We gather bandwidth measurements by exploiting Docker's own monitoring and statistical modules.
 %Throughput accross containers wrapping each node of the processing pipeline are measured from Docker stats.
 The statistics are gathered at runtime while the experiment is executing.
 %During the experiment, we retrieve all the data stats for each container.
@@ -40,7 +40,7 @@ The white bar at the bottom represents the minimum value, the pale grey on top t
 Intermediate shades of grey represent the 25th, 50th–the median–, and 75th percentiles. 
 For instance, the median throughput at 200 seconds into the experiment almost hits 2500 kB/s, meaning that 50\% of the nodes in that moment are outputting data at 2500 kB/s or less.
 %These datas are computed to be plotted together by percentile, as shown on figure \ref{fig:throughput}.\ah{maybe it could be relevant to put three plots, corresponding to experiments 4-datas-1-worker, 4-datas-2-workers and 4-datas-4-workers}
-With the current implementation, we obseve a peak of 10MB/s upload throughput the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
+With the current implementation, we observe a peak of 10MB/s upload throughput the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
 
@@ -69,8 +69,8 @@ Conversely, we do not observe similar improvements when using 4 workers.
   \label{fig:scalability}
 \end{figure}
 
-We believe this behaviour can be explained by existing bottlenecks in the pipelining infrastructure, lack of optimizations in the application logic as well as tuning options of the \zmq queues. 
-These hypotesys are confirmed by observing the throughput of the system once we increase the processing workers to 2 and 4, respectively in Figure~\ref{fig:throughput2} and Figure~\ref{fig:throughput4}.
+We believe this behaviour can be explained by existing bottlenecks in the pipelining infrastructure, lack of optimization in the application logic as well as tuning options of the \zmq queues. 
+These hypotheses are confirmed by observing the throughput of the system once we increase the processing workers to 2 and 4, respectively in Figure~\ref{fig:throughput2} and Figure~\ref{fig:throughput4}.
 We observe the following facts.
 First, the system is far from saturating the network's available bandwidth, hitting a peak of 10 MB/s.
 Second, a small percentage of nodes consumes much more bandwidth than the other components.

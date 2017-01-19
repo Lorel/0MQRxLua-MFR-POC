@@ -13,9 +13,9 @@
 
 Data streams have taken an inescapable place in communication.
 In the world of all-connected and the Internet-of-Things (IoT), on market places, or elsewhere, data is continuously produced and consumed.
-The latest estimates predict a total of \vs{fill} TB/s to be analyzed efificiently and securely within the next 10 years.
+The latest estimates predict a total of \vs{fill} TB/s to be analyzed efficiently and securely within the next 10 years.
 This stream processing requires to be reliable, scalable and secure.
-This paper introduces \SYS, our initial work on a middleware for developping secure stream processings.
+This paper introduces \SYS, our initial work on a middleware for developing secure stream processing.
 \SYS supports the implementation, deployment and the execution of stream processing tasks in distributed setting, such as clusters of machines or research testbeds.
 It is message-oriented~\cite{mom}, responsive, resilient to faults.
 Finally it is easy to scale horizontally and vertically.
@@ -24,7 +24,7 @@ Briefly, its design is inspired by the dataflow programming paradigm\cite{uustal
 The framework integrates an abstraction of the required deployment infrastructure.
 It smoothly integrate with industrial-grade lightweight virtualization technologies (e.g. Docker~\cite{docker}).%by deployment automation based on the Docker ecosystem
 It aims to be secure: communication channels use the SSL protocol~\cite{freier2011secure} for data communication.
-Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowdays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\cite{costan_intel} in the SkyLake processors\cite{skylake}.
+Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowadays widely available into mass-market thanks to the introduction of Intel's Software Guard Extensions (SGX)\cite{costan_intel} in the SkyLake processors\cite{skylake}.
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
 Few mainstream solutions exist today for distributed stream processing.
@@ -37,7 +37,7 @@ We detail our implementation choices in Section~\ref{sec:implementation}.
 
 %But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
 %If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
-To recap, our \textbf{contributions} are the followings: (i) we present the archicture of \SYS, (ii) provide details of our implementation choices, and (iii) present the results of our preliminary evaluation based on a real-world dataset.
+To recap, our \textbf{contributions} are the followings: (i) we present the architecture of \SYS, (ii) provide details of our implementation choices, and (iii) present the results of our preliminary evaluation based on a real-world dataset.
 
 This paper is organized as follows.
 The architecture of \SYS is described in Section~\ref{sec:architecture}.

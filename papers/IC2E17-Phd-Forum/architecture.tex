@@ -16,7 +16,7 @@
 % \end{itemize}
 
 The architecture of \textsc{SecureStreams} comprises of a combination two different types of components: worker and routers.
-A worker component executes continuosly listen for incoming data by means of non-blocking I/O.
+A worker component executes continuously listen for incoming data by means of non-blocking I/O.
 As soon as a data flows in, some application-dependent business logic is applied.
 A typical use-case is the deployment of a MapReduce processing pipeline~\cite{Dean:2008:MSD:1327452.1327492}, with worker nodes that execute \texttt{map}, \texttt{filter} and \texttt{reduce} functions.
 Router act as message brokers between workers in the pipeline and transfer data between workers according to some dispatching policy.
