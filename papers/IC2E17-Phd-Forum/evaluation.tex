@@ -13,7 +13,7 @@ Finally some preliminary benchmarks, namely throughput and scalability.
 
 \textbf{Evaluation settings.} We deploy a cluster of virtual machines (VM) based on Ubuntu 16.04 LTS and running a daemon Docker (v.1.13.0-rc3).
 Each VM is set with 2 CPU cores and 2GB RAM, and interconnected using a switched 1~Gbps network.
-Nodes join a Docker Swarm~\cite{}\vs{FIX} (v1.2.5), and Consul 0.5.2~\cite{}\vs{FIX} as discovery service.
+Nodes join a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5), and Consul 0.5.2~\cite{consul} as discovery service.
 Each VM only execute one single Docker instance, to prevent cross-container interferences\vs{we should add a ref about this}. 
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to comunicate to each other.
