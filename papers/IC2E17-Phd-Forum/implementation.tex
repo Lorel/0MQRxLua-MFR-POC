@@ -94,7 +94,7 @@ Rx.Observable.fromTable(people)
 Our implementation is remarkably compact, as it consists of only 120 lines of code (without counting the dependencies).
 The framework partially extends \rxl~\cite{github:rxlua}, a library for reactive programming in Lua.
 \rxl provides to the developer the required API to design a data stream processing pipeline following a simple dataflow programming pattern\cite{uustalu_essence_2005}.
-Listing \ref{pipeline-example} shows a simple example of a \rxl program to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter} and \texttt{:reduce} functions.
+Listing \ref{pipeline-example} shows a simple example of a \rxl program (and consequently, a \SYS program) to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter} and \texttt{:reduce} functions.
 The \texttt{:subscribe} function performs the subscription to the 3 observers to the observable object.
 %A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
 \SYS dynamically ships the business logic for each component into a dedicated Docker container and executes it.
