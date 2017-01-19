@@ -21,7 +21,7 @@ Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of MapR
 However, the Enclave Page Cache (EPC) is currently limited at 128 MB.
 To overcome these limitations, we settled on a lightweight yet efficient embeddable runtime based on the Lua Virtual Machine\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
 Note that the Lua runtime requires only few kB of memory, and thus representing an ideal candidate to execute in the limited space allowed by the EPC.
-The application-specific functions can be quickly prototyped in Lua. 
+The application-specific functions can be quickly prototyped in Lua.
 %If a process exceeds the available memory, an encrypted pagination mechanism leads to performance leaks.
 %Thus \textsc{SecureStreams} has been designed to use a Lua runtime.
 %Lua is a lightweight multi-paradigm programming language designed primarily for embedded systems and clients\cite{ierusalimschy_luaextensible_1996}.
@@ -30,12 +30,12 @@ Each component is wrapped inside a Docker container to easily embed all required
 By doing so, a processing pipeline can be easily deployed on different infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
-Each router component inbound and outbound queues of fixed size\vs{how much?}.
-In particular, we use the \zmq's pipeline pattern with the \emph{push}/\emph{pull} protocol\cite{zero_mq:pipeline}.
-The inbound queue is a \emph{pull} socket type.
-The messages are streamed from a set of anonymous \emph{push} peers (normally the upstream workers in the pipeline).\footnote{\vs{Explain anonymous here.}}
-Upon reception, a fair-queuing algorithm dispatches the messages.
-Conversely, the outbound queue is a \emph{push} socket type, sending messages using a round-robin algorithm to a set of anonymous \emph{pull} peers, the downstream workers.
+Each router component inbound and outbound queues of fixed size\vs{how much?}\ah{We don't know, so we should not talk about queue size. BTW, I don't understand your sentence. Do you missed a verb?}.
+In particular, we use the \zmq's pipeline pattern with the \emph{PUSH}/\emph{PULL} protocol\cite{zero_mq:pipeline}.
+The inbound queue is a \emph{PULL} socket type.
+The messages are streamed from a set of anonymous \emph{PUSH} peers (normally\ah{what do you mean by normally? if it's not one of the upstream workers, so there is a bollock in the pâté} the upstream workers in the pipeline).\footnote{Anonymous is said about a peer without any identity, the server socket does not know which worker sent the message}
+Upon reception, a fair-queuing algorithm dispatches the messages.\ah{that's not true, the fair-queuing algorithm operates at the level of the reception of the queue, and it does not dispatch anything, the message is passed to the outgoing socket/queue, that's it}
+Conversely, the outbound queue is a \emph{PUSH} socket type, sending messages using a round-robin algorithm to a set of anonymous \emph{PULL} peers, the downstream workers.
 \vs{if there is time, it could be useful to have a drawing that zooms into this aspect of the architecture, not the full pipeline}
 This design allows to dynamically scale up/down each stage of the pipeline. %It is scalable in that nodes can join at any time.
 Finally, \zmq guarantees that the messages are delivered across each stage via reliable TCP channels.

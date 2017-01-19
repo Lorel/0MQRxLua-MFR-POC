@@ -9,14 +9,17 @@
 This section presents our preliminary evaluation of \SYS.
 First we present our evaluation settings, then the dataset and finally some preliminary benchmark, namely in terms of throughput and scalability.
 
-\textbf{Evaluation settings.} 
-\vs{todo: number of nodes, OS, cores, network , docker+swarm version}.
+\textbf{Evaluation settings.} We use a cluster of virtual machines based on Ubuntu 16.04 LTS OS and running a daemon Docker 1.13.0-rc3.
+Each VM is set with 2 CPU cores and 2GB RAM.
+Nodes are clusterised by Docker Swarm 1.2.5, using Consul 0.5.2 as discovery service.
+A single-one container is launch on each node.
+Containers are communicating accross a Docker overlay network.
 
 \textbf{Dataset.} In our experiments we process a real dataset released by the American Bureau of Transportation Statistic\cite{rita:bts}, including each flight's departure and arrivals\cite{statistical_computing:data}.
-The dataset reports the flight departures and arrivals of \vs{how many? FIX} air carriers.
+The dataset reports the flight departures and arrivals of 20 air carriers.\ah{pointers on datas are not relevant?}
 We implement a simple application on top of \SYS to determine average delays and the total of delayed flights for each air carrier.
 %These datas report flights departures and arrivals\cite{rita:bts} and are available on the Statistical Computing\cite{statistical_computing:data}.
-We design and implement a simple processing pipeline, that (i) parsed the input datasets (in a comma-separated-value format) to data structure (map), (ii) filter by relevancy (i.e. if the data concerns a delayed flight), and (iii) finally \emph{reduce} to compute the wanted insights.
+We design and implement a simple processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (map), (ii) filters by relevancy (i.e. if the data concerns a delayed flight), and (iii) finally reduces to compute the wanted insights.\footnote{This experiment is inspired by the blog post \emph{Diving into Akka Streams} written by Kevin Webber (\url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0})}
 We use the 4 last years of the available dataset (from 2005 to 2008), for a total of 28 millions of entries to process.
 
 
