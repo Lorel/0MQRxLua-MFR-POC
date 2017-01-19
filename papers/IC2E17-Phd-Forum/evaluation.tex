@@ -25,6 +25,12 @@ We use the 4 last years of the available dataset (from 2005 to 2008), for a tota
 
 \textbf{Benchmark: throughput}
 \ah{expose throughput results}
+Throughput accross containers wrapping each node of the processing pipeline are measured from Docker stats.
+During the experiment, we retrieve all the data stats for each container.
+In particular, \texttt{txbytes} stats are extracted to measure containers output throughput.
+These datas are computed to be plotted together by percentile, as shown on figure \ref{fig:throughput}.\ah{maybe it could be relevant to put three plots, corresponding to experiments 4-datas-1-worker, 4-datas-2-workers and 4-datas-4-workers}
+A maximum of around 10MB/s throughput between containers then is observed.\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
+
 
 \begin{figure}[t!]
   \centering
