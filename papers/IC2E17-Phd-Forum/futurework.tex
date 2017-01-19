@@ -2,10 +2,29 @@
 \label{sec:future}
 
 
-\begin{itemize}
-  \item Fix bottleneck in routers
-  \item Ability to embed Lua libraries and C or C++ components
-  \item Implements TLS/SSL communication with Curve
-  \item SGX integration
-  \item Architecture automation using Docker API
-\end{itemize}
+% \begin{itemize}
+%   \item Fix bottleneck in routers
+%   \item Ability to embed Lua libraries and C or C++ components
+%   \item Implements TLS/SSL communication with Curve
+%   \item SGX integration
+%   \item Architecture automation using Docker API
+% \end{itemize}
+
+At the moment \SYS is not yet secured.
+To do this, we have to secure both the communication and the processing.
+
+The communication between the nodes of the processing pipeline will be secure by CurveZMQ\cite{zmq:curvezmq}, an authentication and encryption protocol for \zmq.
+This open-source codec is based on a fast, secure elliptic-curve crypto provided by the libraries CurveCP\cite{zmq:curvecp} and NaCl\cite{zmq:nacl}.
+\SYS will generate the certificates used by the containers on-the-fly when the pipeline containers are deployed.
+
+In an other hand, the processing of the data inside a worker or its routing inside a worker will be secure by SGX.
+The computation will be executed inside a trusted enclave, ensuring the encryption of the data and the integrity of the executed code.
+
+
+The current implementation of \SYS does not provide yet the automation of container deployments.
+The latter is done by a preceding setup executed throw Docker-Compose.
+In the future, \SYS will implement it using the Docker API.
+
+
+Finally, we want to provide all the power of Lua and its extensibility by giving to the developer the ability to embed some Lua libraries or C/C++ components inside a node of the processing pipeline.
+Thus, those libraries or components will be callable directly from the code given in an element of the pipeline.
