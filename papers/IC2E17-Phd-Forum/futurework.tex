@@ -9,22 +9,22 @@
 %   \item SGX integration
 %   \item Architecture automation using Docker API
 % \end{itemize}
+We plan to extend \SYS along the following directions, with the common goal of making the middleware more secure.
+First, the communication between the processing components will rely on secure channels. 
+%At the moment \SYS is not yet secured.
+%To do this, we have to secure both the communication and the processing.
+To this end, we plan to integrate \textsc{CurveZMQ}~\cite{zmq:curvezmq}, an open-source authentication and encryption protocol for \zmq.
+\textsc{CurveZMQ} is based on a fast, secure elliptic-curve cryptographic primitive provided by the \textsc{CurveCP}\cite{zmq:curvecp} and \textsc{NaCl}\cite{zmq:nacl} libraries.
+Moreover, \SYS will generate the authentication certificates in use by the containers on-the-fly at the moment of their deployement.
 
-At the moment \SYS is not yet secured.
-To do this, we have to secure both the communication and the processing.
-
-The communication between the nodes of the processing pipeline will be secure by CurveZMQ\cite{zmq:curvezmq}, an authentication and encryption protocol for \zmq.
-This open-source codec is based on a fast, secure elliptic-curve crypto provided by the libraries CurveCP\cite{zmq:curvecp} and NaCl\cite{zmq:nacl}.
-\SYS will generate the certificates used by the containers on-the-fly when the pipeline containers are deployed.
-
-In an other hand, the processing of the data inside a worker or its routing inside a worker will be secure by SGX.
+Secondly, the \SYS will exploit the SGX enclaves to both process and route data.
 The computation will be executed inside a trusted enclave, ensuring the encryption of the data and the integrity of the executed code.
 
+We intend to evaluate the impact of these modifications on the performance of the system, in particular with respect to the overal throughput, memory and CPU usage.
 
-The current implementation of \SYS does not provide yet the automation of container deployments.
-The latter is done by a preceding setup executed throw Docker-Compose.
-In the future, \SYS will implement it using the Docker API.
+The current implementation of \SYS does not provide yet full automation of container deployments.
+In particular, we will superseed the current approach based on Docker Compose and instead rely on the more portable Docker APIs.
 
-
-Finally, we want to provide all the power of Lua and its extensibility by giving to the developer the ability to embed some Lua libraries or C/C++ components inside a node of the processing pipeline.
-Thus, those libraries or components will be callable directly from the code given in an element of the pipeline.
+Finally, \SYS will allow to embed Lua scripts or native (e.g. C/C++) components inside a node of the processing pipeline.
+This feature will improve the usability of the framework.
+%Thus, those libraries or components will be callable directly from the code given in an element of the pipeline.
