@@ -1,5 +1,11 @@
 \section{Architecture}
 \label{sec:architecture}
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[scale=0.7]{images/architecture_pipeline}
+  \caption{Example of \SYS pipeline architecture.\vs{I will tune a bit the image}}
+  \label{fig:architecture_pipeline}
+\end{figure*}
 
 % \begin{itemize}
 %   \item Communication by ØMQ (version 4.1.4)
@@ -43,9 +49,4 @@ Finally, \zmq guarantees that the messages are delivered across each stage via r
 %This fire-and-forget messaging is a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols\cite{voelter_patterns_2003}.
 % The absence of response to a message provides some relevant performances.
 
-\begin{figure*}
-  \centering
-  \includegraphics[scale=0.7]{images/architecture_pipeline}
-  \caption{Example of \SYS pipeline architecture.\vs{I will tune a bit the image}}
-  \label{fig:architecture_pipeline}
-\end{figure*}
+
