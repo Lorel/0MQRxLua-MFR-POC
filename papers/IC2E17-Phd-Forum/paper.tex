@@ -101,27 +101,11 @@
 \begin{document}
 
 % \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
-\title{Introducing \textsc{SecureStreams}: Middleware for Reactive and Secure Data Stream Processing}
+\title{Introducing \textsc{SecureStreams}: Scalable Middleware for Reactive and Secure Data Stream Processing}
 \date{}
 
-%\author{\IEEEauthorblockN{Aurelien Havet, Valerio Schiavoni, Pascal Felber}
-%\IEEEauthorblockA{University of Neuchâtel\\
-%Email: firstname.lastname@unine.ch}
-%\and
-%\IEEEauthorblockN{Maxime Colmant}
-%\IEEEauthorblockA{ADEME / Univ. Lille / Inria\\
-%Email: maxime.colmant@inria.fr}
-%\and
-%\IEEEauthorblockN{Romain Rouvoy}
-%\IEEEauthorblockA{Univ. Lille / Inria / IUF\\
-%Email: romain.rouvoy@inria.fr}
-%\and
-%\IEEEauthorblockN{Christof Fetzer}
-%\IEEEauthorblockA{Technical University of Dresden\\
-%Email: }}
-
 \author{
-\IEEEauthorblockN{Aurelien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}}
+\IEEEauthorblockN{Aur\'elien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}}
 %\IEEEauthorblockN{Aurelien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}, Pascal Felber\IEEEauthorrefmark{1}, Romain Rouvoy\IEEEauthorrefmark{2}}
 
 \IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
@@ -133,13 +117,13 @@
 %\thispagestyle{empty}
 
 \begin{abstract}
-We present \SYS, a framework for secure stream processing.
-Its design will allow the exploitation of Intel's Secure Guard Extensions (SGX) to guarantee the privacy and the integrity of the data being processed. 
-Our initial performance results of the \SYS prototype are promising: the framework is easy to use, to program, and it is fast, allowing developers to implement complete processing pipelines in few lines of scripting code.
+We introduce \SYS{}, a middleware framework for secure stream processing.
+Its design builds on Intel's \emph{Secure Guard Extensions} (SGX) to guarantee the privacy and the integrity of the data being processed.
+Our initial experimental results of \SYS{} are promising: the framework is easy to use, and delivers high throughput, enabling developers to implement complex processing pipelines in a few lines of scripting code.
 \end{abstract}
 
 \begin{IEEEkeywords}
-streaming; reactive programming; lua; sgx;
+streaming; reactive programming; Lua; SGX
 \end{IEEEkeywords}
 
 \input{introduction}

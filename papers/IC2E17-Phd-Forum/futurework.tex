@@ -1,7 +1,5 @@
 \section{Future work}
 \label{sec:future}
-
-
 % \begin{itemize}
 %   \item Fix bottleneck in routers
 %   \item Ability to embed Lua libraries and C or C++ components
@@ -9,7 +7,7 @@
 %   \item SGX integration
 %   \item Architecture automation using Docker API
 % \end{itemize}
-We plan to extend \SYS along the following directions, with the common goal of making the middleware more secure.
+We plan to extend \SYS along the following directions, with the common goal of making the middleware framework more secure.
 First, the communication between the processing components will rely on secure channels.
 %At the moment \SYS is not yet secured.
 %To do this, we have to secure both the communication and the processing.
@@ -22,9 +20,9 @@ The computation will be executed inside a trusted enclave, ensuring the encrypti
 
 We intend to evaluate the impact of these modifications on the performance of the system, in particular with respect to the overall throughput, memory and CPU usage.
 
-The current implementation of \SYS does not provide yet full automation of container deployments.
+The current implementation of \SYS does not provide full automation of container deployments yet.
 In particular, we will supersede the current approach based on Docker Compose and instead will rely on the more portable Docker APIs.
 
-Finally, \SYS will allow to embed Lua scripts or native (e.g. C/C++) components inside a node of the processing pipeline.
+Finally, \SYS will allow to embed Lua scripts or native (\emph{e.g.}, C/C++) components inside a node of the processing pipeline.
 This feature will improve the usability of the framework.
 %Thus, those libraries or components will be callable directly from the code given in an element of the pipeline.
