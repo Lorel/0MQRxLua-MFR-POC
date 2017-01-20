@@ -8,13 +8,13 @@
 % \end{itemize}
 This section presents our preliminary evaluation of \SYS.
 First we present our evaluation settings.
-Secondly, we detail the real-world dataset used in our experiments. 
+Secondly, we detail the real-world dataset used in our experiments.
 Finally some preliminary benchmarks, namely throughput and scalability.
 
 \textbf{Evaluation settings.} We deploy a cluster of virtual machines (VM) based on Ubuntu 16.04 LTS and running a daemon Docker (v.1.13.0-rc3).
 Each VM is set with 2 CPU cores and 2GB RAM, and interconnected using a switched 1~Gbps network.
 Nodes join a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5), and Consul 0.5.2~\cite{consul} as discovery service.
-Each VM only execute one single Docker instance, to prevent cross-container interferences~\ref{koh2007analysis}. 
+Each VM only execute one single Docker instance, to prevent cross-container interferences~\ref{koh2007analysis}.
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to comunicate to each other.
 
@@ -35,9 +35,9 @@ The statistics are gathered at runtime while the experiment is executing.
 We present our results in Figure~\ref{fig:throughput}.
 In this scenario, 4 nodes concurrently inject the input data into the processing pipeline, each one using a subset of the full dataset.
 However, only one worker process is used for each step of the processing pipeline.
-We use a representation based on stacked percentiles. 
-The white bar at the bottom represents the minimum value, the pale grey on top the maximal value. 
-Intermediate shades of grey represent the 25th, 50th–the median–, and 75th percentiles. 
+We use a representation based on stacked percentiles.
+The white bar at the bottom represents the minimum value, the pale grey on top the maximal value.
+Intermediate shades of grey represent the 25th, 50th–the median–, and 75th percentiles.
 For instance, the median throughput at 200 seconds into the experiment almost hits 2500 kB/s, meaning that 50\% of the nodes in that moment are outputting data at 2500 kB/s or less.
 %These datas are computed to be plotted together by percentile, as shown on figure \ref{fig:throughput}.\ah{maybe it could be relevant to put three plots, corresponding to experiments 4-datas-1-worker, 4-datas-2-workers and 4-datas-4-workers}
 With the current implementation, we observe a peak of 10MB/s upload throughput the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
@@ -69,7 +69,7 @@ Conversely, we do not observe similar improvements when using 4 workers.
   \label{fig:scalability}
 \end{figure}
 
-We believe this behaviour can be explained by existing bottlenecks in the pipelining infrastructure, lack of optimization in the application logic as well as tuning options of the \zmq queues. 
+We believe this behaviour can be explained by existing bottlenecks in the pipelining infrastructure, lack of optimization in the application logic as well as tuning options of the \zmq queues.
 These hypotheses are confirmed by observing the throughput of the system once we increase the processing workers to 2 and 4, respectively in Figure~\ref{fig:throughput2} and Figure~\ref{fig:throughput4}.
 We observe the following facts.
 First, the system is far from saturating the network's available bandwidth, hitting a peak of 10 MB/s.
@@ -78,14 +78,11 @@ We intend to further investigate these effects as part of our future work, as we
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[scale=0.7]{../../experiment/results/throughput/outputs/tput_upload_4-datas-2-workers.pdf}
-  \caption{Upload throughput, 2 concurrent data sources. Peak throughput at 10MB/s.}
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-2-workers.pdf}
+  \caption{Upload throughput, 2 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
   \label{fig:throughput2}
-\end{figure}
-\begin{figure}[t!]
-  \centering
-  \includegraphics[scale=0.7]{../../experiment/results/throughput/outputs/tput_upload_4-datas-4-workers.pdf}
-  \caption{Upload throughput, 4 concurrent data sources. Peak throughput at 10MB/s.}
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-4-workers.pdf}
+  \caption{Upload throughput, 4 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
   \label{fig:throughput4}
 \end{figure}
 
