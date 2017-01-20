@@ -42,7 +42,7 @@
 %  \item and finally an \textbf{onComplete} function executed when the stream is over.
 %\end{itemize}
 %
-%These functions are observers, and the stream is an observable: this is precisely implemented with the \textit{Observer Design Pattern}\cite{szallies_using_1997}.
+%
 %
 %A plenty of software libraries for different languages ensues from this paradigm\cite{reactive_streams}\cite{github:reactive_streams}.
 %As exposed in section \ref{sec:architecture}, we chose the Lua technology as the basic of \SYS's implementation.
@@ -56,8 +56,10 @@ Our implementation is remarkably compact, as it consists of only 120 lines of co
 The framework partially extends \rxl~\cite{github:rxlua}, a library for reactive programming in Lua.
 \rxl provides to the developer the required API to design a data stream processing pipeline following a simple dataflow programming pattern\cite{uustalu_essence_2005}.
 Listing \ref{pipeline-example} shows a simple example of a \rxl program (and consequently, a \SYS program) to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter} and \texttt{:reduce} functions.
-The \texttt{:subscribe} function performs the subscription to the 3 observers to the observable object.
+The \texttt{:subscribe} function performs the subscription of 3 functions to the data stream.
+These functions are observers, and the stream is an observable: this is precisely an implementation of the \textit{Observer Design Pattern}\cite{szallies_using_1997}.
 %A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
+
 \SYS dynamically ships the business logic for each component into a dedicated Docker container and executes it.
 %Our extension takes the business logic in each element of the pipeline to send and execute it in a Docker container.
 The communication between the Docker container happens through \zmq (v4.1.2) and the corresponding Lua bindings~\cite{github:lzmq}.

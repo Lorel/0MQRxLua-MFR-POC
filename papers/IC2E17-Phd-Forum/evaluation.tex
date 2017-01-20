@@ -9,25 +9,25 @@
 This section presents our preliminary evaluation of \SYS.
 First we present our evaluation settings.
 Secondly, we detail the real-world dataset used in our experiments.
-Finally some preliminary benchmarks, namely throughput and scalability.
+Finally we analyze some preliminary benchmarks, namely throughput and scalability.
 
 \textbf{Evaluation settings.} We deploy a cluster of virtual machines (VM) based on Ubuntu 16.04 LTS and running a daemon Docker (v.1.13.0-rc3).
 Each VM is set with 2 CPU cores and 2GB RAM, and interconnected using a switched 1~Gbps network.
-Nodes join a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5), and Consul 0.5.2~\cite{consul} as discovery service.
-Each VM only execute one single Docker instance, to prevent cross-container interferences~\cite{koh2007analysis}.
+Nodes join a cluster Docker Swarm~\cite{docker:swarm_2016} (v1.2.5), using Consul~\cite{consul} (v0.5.2) as discovery service.
+Each VM only executes one single Docker instance, to prevent cross-container interferences~\cite{koh2007analysis}.
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to comunicate to each other.
 
 \textbf{Dataset.} In our experiments we process a real dataset released by the American Bureau of Transportation Statistic\cite{rita:bts}.
 %including each flight's departure and arrivals\cite{statistical_computing:data}.
-The dataset reports the flight departures and arrivals of 20 air carriers\cite{statistical_computing:data}.%\ah{pointers on datas are not relevant?}
+The dataset reports the flight departures and arrivals of 20 air carriers\cite{statistical_computing:data}.
 We implement a simple application on top of \SYS to determine average delays and the total of delayed flights for each air carrier.
 %These datas report flights departures and arrivals\cite{rita:bts} and are available on the Statistical Computing\cite{statistical_computing:data}.
-We design and implement a simple processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (map), (ii) filters by relevancy (i.e. if the data concerns a delayed flight), and (iii) finally reduces to compute to obtain the required informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{Diving into Akka Streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
+We design and implement a simple processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (map), (ii) filters data by relevancy (i.e. if the data concerns a delayed flight), and (iii) finally reduces it to compute the wanted informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{Diving into Akka Streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
 We use the 4 last years of the available dataset (from 2005 to 2008), for a total of 28 millions of entries to process and 2.73 GB of data.
 
-\textbf{Benchmark: throughput.} This benchmark shows the upload throughput observed across all cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
-We gather bandwidth measurements by exploiting Docker's own monitoring and statistical modules.
+\textbf{Benchmark: throughput.} This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
+We gather bandwidth measurements by exploiting Docker's own monitoring and statistical module.
 %Throughput accross containers wrapping each node of the processing pipeline are measured from Docker stats.
 The statistics are gathered at runtime while the experiment is executing.
 %During the experiment, we retrieve all the data stats for each container.
@@ -40,7 +40,7 @@ The white bar at the bottom represents the minimum value, the pale grey on top t
 Intermediate shades of grey represent the 25th, 50th–the median–, and 75th percentiles.
 For instance, the median throughput at 200 seconds into the experiment almost hits 2500 kB/s, meaning that 50\% of the nodes in that moment are outputting data at 2500 kB/s or less.
 %These datas are computed to be plotted together by percentile, as shown on figure \ref{fig:throughput}.\ah{maybe it could be relevant to put three plots, corresponding to experiments 4-datas-1-worker, 4-datas-2-workers and 4-datas-4-workers}
-With the current implementation, we observe a peak of 10MB/s upload throughput the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
+With the current implementation, we observe a peak of 10MB/s upload throughput into the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
 
@@ -81,6 +81,7 @@ We intend to further investigate these effects as part of our future work, as we
   \includegraphics[scale=0.7]{images/tput_upload_4-datas-2-workers.pdf}
   \caption{Upload throughput, 2 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
   \label{fig:throughput2}
+  \vspace{1cm}
   \includegraphics[scale=0.7]{images/tput_upload_4-datas-4-workers.pdf}
   \caption{Upload throughput, 4 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
   \label{fig:throughput4}
