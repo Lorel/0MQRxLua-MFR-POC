@@ -1,0 +1,237 @@
+% Optional fields: author, title, howpublished, month, year, note
+@misc{reactivemanifesto,
+  author = {Bonér, Jonas and Farley, Dave and Kuhn, Roland and Thompson, Martin},
+  title = {{The Reactive Manifesto}},
+  howpublished = {\url{http://www.reactivemanifesto.org}},
+}
+
+@misc{reactivekafka,
+  title = {{Reactive Streams for Kafka}},
+  howpublished= {\url{https://github.com/akka/reactive-kafka}}
+}
+
+@misc{apachekafka,
+  title = {{Apache Kafka}},
+  howpublished=  {\url{https://kafka.apache.org}},
+}
+
+@misc{apachesparkstreaming,
+  title = {{Spark Streaming}},
+  howpublished = {\url{https://spark.apache.org/streaming}}
+}
+
+@misc{apachestorm,
+  title = {{Apache Storm}},
+  howpublished = {\url{http://storm.apache.org}}
+}
+
+@misc{infinispan,
+  title = {{Infinispan}},
+   howpublished = {\url{http://infinispan.org}}
+}
+
+@misc{docker:swarm_2016,
+	title = {{Docker Swarm}},
+	howpublished = {\url{https://www.docker.com/products/docker-swarm}},
+}
+
+@misc{docker,
+	title = {{Docker}},
+	howpublished = {\url{https://www.docker.com}},
+}
+
+@misc{zero_mq,
+	title = {{Distributed Messaging - ØMQ}},
+	howpublished = {\url{http://zeromq.org}},
+}
+
+@misc{zero_mq:pipeline,
+	title = {{ZeroMQ Pipeline}},
+	howpublished = {\url{https://rfc.zeromq.org/spec:30/PIPELINE/}},
+}
+
+@techreport{costan_intel,
+  title = {{Intel SGX explained}},
+  urldate = {2017-01-17},
+  institution = {Cryptology ePrint Archive, Report 2016/086, 2016.},
+  author = {Costan, Victor and Devadas, Srinivas}
+}
+
+@misc{skylake,
+ title = {{Intel SkyLake}},
+ howpublished= {\url{https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz}}
+}
+@inproceedings{brenner_securekeeper:_2016,
+  series = {Middleware '16},
+  title = {{SecureKeeper}: {Confidential} {ZooKeeper} {Using} {Intel} {SGX}},
+  isbn = {978-1-4503-4300-8},
+  shorttitle = {{SecureKeeper}},
+  doi = {10.1145/2988336.2988350},
+  abstract = {Cloud computing, while ubiquitous, still suffers from trust issues, especially for applications managing sensitive data. Third-party coordination services such as ZooKeeper and Consul are fundamental building blocks for cloud applications, but are exposed to potentially sensitive application data. Recently, hardware trust mechanisms such as Intel's Software Guard Extensions (SGX) offer trusted execution environments to shield application data from untrusted software, including the privileged Operating System (OS) and hypervisors. Such hardware support suggests new options for securing third-party coordination services. We describe SecureKeeper, an enhanced version of the ZooKeeper coordination service that uses SGX to preserve the confidentiality and basic integrity of ZooKeeper-managed data. SecureKeeper uses multiple small enclaves to ensure that (i) user-provided data in ZooKeeper is always kept encrypted while not residing inside an enclave, and (ii) essential processing steps that demand plaintext access can still be performed securely. SecureKeeper limits the required changes to the ZooKeeper code base and relies on Java's native code support for accessing enclaves. With an overhead of 11\%, the performance of SecureKeeper with SGX is comparable to ZooKeeper with secure communication, while providing much stronger security guarantees with a minimal trusted code base of a few thousand lines of code.},
+  urldate = {2017-01-17},
+  booktitle = {Proceedings of the 17th {International} {Middleware} {Conference}},
+  publisher = {ACM},
+  author = {Brenner, Stefan and Wulf, Colin and Goltzsche, David and Weichbrodt, Nico and Lorenz, Matthias and Fetzer, Christof and Pietzuch, Peter and Kapitza, Rüdiger},
+  year = {2016},
+  keywords = {Apache ZooKeeper, Cloud Computing, Intel SGX},
+  pages = {14:1--14:13}
+}
+
+@article{ierusalimschy_luaextensible_1996,
+	title = {Lua—{An} {Extensible} {Extension} {Language}},
+	volume = {26},
+	issn = {1097-024X},
+	abstract = {This paper describes Lua, a language for extending applications. Lua combines procedural features with powerful data description facilities, by using a simple, yet powerful, mechanism of tables . This mechanism implements the concepts of records, arrays and recursive data types (pointers), and adds some object-oriented facilities, such as methods with dynamic dispatching. Lua presents a mechanism of fallbacks that allows programmers to extend the semantics of the language in some unconventional ways. As a noteworthy example, fallbacks allow the user to add different kinds of inheritance to the language. Currently, Lua is being extensively used in production for several tasks, including user configuration, general-purpose data-entry, description of user interfaces, storage of structured graphical metafiles, and generic attribute configuration for finite element meshes.},
+	language = {en},
+	number = {6},
+	urldate = {2017-01-17},
+	journal = {Software: Practice and Experience},
+	author = {Ierusalimschy, Roberto and de Figueiredo, Luiz Henrique and Filho, Waldemar Celes},
+	month = jun,
+	year = {1996},
+	keywords = {end-user programming, extension languages, programming languages},
+	pages = {635--652}
+}
+
+
+@inproceedings{voelter_patterns_2003,
+    title={{Patterns for Asynchronous Invocations in Distributed Object Frameworks.}},
+	booktitle = {{EuroPLoP}},
+	author = {Voelter, Markus and Kircher, Michael and Zdun, Uwe and Englbrecht, Michael},
+	year = {2003},
+	pages = {269--284}
+}
+
+@inbook {mom,
+title = {{Message-Oriented Middleware}},
+author = {Curry, Edward},
+publisher = {John Wiley \& Sons, Ltd},
+pages = {1--28},
+keywords = {Quality-of-Service (QoS), remote procedure call (RPC), Message-Oriented Middleware (MOM), message queue, point-to-point messaging model, hierarchical channels, message filtering, transactional messaging, load balancing, Service-Oriented Architectures (SOA)},
+booktitle = {Middleware for Communications},
+year = {2005},
+}
+
+@book{lindholm2014java,
+  title={{The Java Virtual Machine Specification: Java SE 8 Edition}},
+  author={Lindholm, Tim and Yellin, Frank and Bracha, Gilad and Buckley, Alex},
+  year={2014},
+  publisher={Pearson Education}
+}
+
+@article{freier2011secure,
+  title={The secure sockets layer (SSL) protocol version 3.0},
+  author={Freier, Alan and Karlton, Philip and Kocher, Paul},
+  year={2011}
+}
+
+@booklet{berry:realtime_programming,
+  author = {Berry, Gérard},
+  title = {Real time programming: special purpose or general purpose languages},
+  month = aug,
+  year = {1989},
+  howpublished = {\url{http://www-sop.inria.fr/members/Gerard.Berry/Papers/Berry-IFIP-89.pdf}},
+}
+
+@book{malawski:why_reactive,
+  author = {Malawski, Konrad},
+  title = {{Why Reactive?}},
+  year = {2015},
+  publisher = {O'Reilly},
+}
+
+@misc{reactive_streams,
+	title = {{Reactive Streams}},
+	howpublished = {\url{http://www.reactive-streams.org/}},
+}
+
+@misc{github:reactive_streams,
+	title = {{Reactive Streams Github Organization}},
+	howpublished = {\url{https://github.com/reactive-streams}},
+}
+
+@article{szallies_using_1997,
+	title = {On using the observer design pattern},
+	volume = {9},
+	url = {http://www.wohnklo.de/patterns/observer.ps},
+	journal = {XP-002323533,(Aug. 21, 1997)},
+	author = {Szallies, Constantin},
+	year = {1997}
+}
+
+@misc{github:rxlua,
+	title = {{Reactive Extensions for Lua}},
+	howpublished = {\url{https://github.com/bjornbytes/RxLua}},
+}
+
+@inproceedings{uustalu_essence_2005,
+	title = {The essence of dataflow programming},
+	url = {http://link.springer.com/chapter/10.1007/11894100_5},
+	booktitle = {{Central European Functional Programming School}},
+	publisher = {Springer},
+	author = {Uustalu, Tarmo and Vene, Varmo},
+	year = {2005},
+	pages = {135--167},
+}
+
+@misc{github:lzmq,
+	title = {{Lua binding to ZeroMQ}},
+	howpublished = {\url{https://github.com/zeromq/lzmq}},
+}
+
+@book{ierusalimschy_programming_2006,
+  title={{Programming in Lua, Fourth Edition}},
+  author={Ierusalimschy, Roberto},
+  year={2006},
+  publisher={Roberto Ierusalimschy}
+}
+
+@misc{lualang,
+    title="Lua",
+    howpublished={\url{www.lua.org}}
+}
+
+@misc{rita:bts,
+	title = {{RITA} {\textbar} {BTS}},
+	url = {http://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp},
+}
+
+@misc{rita:bts_datas,
+	title = {{RITA} {\textbar} {BTS} {\textbar} {Transtats}},
+	url = {http://www.transtats.bts.gov/Fields.asp?Table_ID=236},
+}
+
+@misc{statistical_computing:data,
+	title = {The data. {Data} expo 09. {ASA} {Statistics} {Computing} and {Graphics}},
+	url = {http://stat-computing.org/dataexpo/2009/the-data.html},
+}
+
+@inproceedings{gunther1993simple,
+  title={A simple capacity model of massively parallel transaction systems},
+  author={Gunther, Neil J},
+  booktitle={CMG-CONFERENCE-},
+  pages={1035--1035},
+  year={1993},
+  organization={COMPSCER MEASUREMENT GROUP INC}
+}
+
+@article{Dean:2008:MSD:1327452.1327492,
+ author = {Dean, Jeffrey and Ghemawat, Sanjay},
+ title = {{MapReduce: Simplified Data Processing on Large Clusters}},
+ journal = {Commun. ACM},
+ issue_date = {January 2008},
+ volume = {51},
+ number = {1},
+ month = jan,
+ year = {2008},
+ issn = {0001-0782},
+ pages = {107--113},
+ numpages = {7},
+ acmid = {1327492},
+
+} 
+
+@misc{awsec2container,
+    title="Amazon EC2 Container Service",
+    howpublished={\url{https://aws.amazon.com/ecs/}}
+}

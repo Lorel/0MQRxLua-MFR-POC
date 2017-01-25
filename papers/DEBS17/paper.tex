@@ -1,0 +1,152 @@
+\documentclass[10pt, conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{cite}
+
+\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+\usepackage{algpseudocode}
+\usepackage{color}
+\usepackage{listings}
+
+\usepackage{url}
+\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
+\renewcommand*{\UrlFont}{\ttfamily\rm}
+
+\usepackage{listings}
+
+\lstset{
+  float,
+  basicstyle       = \scriptsize\ttfamily,
+  columns          = fixed,
+  numbers          = left,
+  numberstyle      = \tiny\ttfamily,
+  numbersep        = 5pt,
+  xleftmargin      = 5pt,
+  xrightmargin     = 10pt,
+  frame            = tb,
+  captionpos       = b,
+  upquote          = true,
+  showstringspaces = false,
+}
+
+\newcommand{\comment}[1]{}
+
+% \usepackage{array}
+% \usepackage{multirow}
+% \usepackage{paralist}
+% \usepackage{ragged2e}
+
+% \usepackage[subtle]{savetrees}
+
+% \usepackage[small,compact,noindentafter]{titlesec}
+% \titlespacing\section{0pt}{6pt plus 2pt minus 2pt}{2pt plus 2pt minus 2pt}
+% \titlespacing\subsection{0pt}{4pt plus 2pt minus 2pt}{2pt plus 1pt minus 1pt}
+% \titlespacing{\paragraph}{0pt}{2pt plus 0pt minus 1pt}{1.0ex}
+
+% \usepackage{setspace}
+% \usepackage[margin=8pt,font={small,bf,stretch=0.85}]{caption}
+
+% \usepackage{enumitem}
+% \setitemize{noitemsep,topsep=3pt,parsep=3pt,partopsep=3pt}
+
+% \usepackage[inline]{enumitem}
+% \setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+% \def\arraystretch{0.9}
+
+\newcommand{\SYS}{\textsc{SecureStreams}\xspace}
+\newcommand{\zmq}{\textsc{ZeroMQ}\xspace}
+\newcommand{\rxl}{\textsc{RxLua}\xspace}
+
+\setlength{\textfloatsep}{10pt}
+
+\newboolean{showcomments}
+\setboolean{showcomments}{true}
+\ifthenelse{\boolean{showcomments}}
+{ \newcommand{\mynote}[3]{
+   \fbox{\bfseries\sffamily\scriptsize#1}
+   {\small$\blacktriangleright$\textsf{\emph{\color{#3}{#2}}}$\blacktriangleleft$}}}
+{ \newcommand{\mynote}[3]{}}
+\newcommand{\pf}[1]{\mynote{Pascal}{#1}{pink}}
+\newcommand{\vs}[1]{\mynote{Valerio}{#1}{blue}}
+\newcommand{\ah}[1]{\mynote{Aurelien}{#1}{red}}
+
+
+\definecolor{darkgreen}{rgb}{0.3,0.5,0.3}
+\definecolor{darkblue}{rgb}{0.3,0.3,0.5}
+\definecolor{darkred}{rgb}{0.5,0.3,0.3}
+\lstdefinelanguage{LUA}{%
+  sensitive=true,%
+  keywordstyle=[1]{\color{darkblue}\bfseries},%
+  keywordstyle=[2]{\color{darkgreen}\bfseries},%
+  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,%
+    nil,not,or,repeat,return,then,until,while,require,alias},% Official LUA keywords
+  morekeywords=[2]{},% Your private keywords
+  otherkeywords={.,=,~,*,>,:},%
+  morestring=[b]",%
+  stringstyle={\color{darkred}\itshape},%
+  breaklines=true,%
+  breakatwhitespace=true,%
+  linewidth=\columnwidth,%
+  comment=[l]{--},%
+  escapeinside={(*@}{@*)}
+}
+
+\begin{document}
+
+% \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
+\title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
+\date{}
+
+\author{
+%\IEEEauthorblockN{Aur\'elien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
+%%\IEEEauthorblockA{\IEEEauthorrefmark{2}Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
+}
+
+\maketitle
+
+%\thispagestyle{empty}
+
+\begin{abstract}
+We introduce \SYS{}, a middleware framework for secure stream processing.
+Its design builds on Intel's \emph{Secure Guard Extensions} (SGX) to guarantee the privacy and the integrity of the data being processed.
+Our initial experimental results of \SYS{} are promising: the framework is easy to use, and delivers high throughput, enabling developers to implement complex processing pipelines in a few lines of scripting code.
+\end{abstract}
+
+%\begin{IEEEkeywords}
+%streaming; reactive programming; Lua; SGX
+%\end{IEEEkeywords}
+
+\input{introduction}
+
+\input{architecture}
+
+\input{implementation}
+
+\input{evaluation}
+
+\input{futurework}
+
+\input{conclusion}
+
+\section*{Acknowledgments}
+Aurelien Havet's PhD research is co-supervised by Pascal Felber from the University of Neuchâtel and Romain Rouvoy from the University of Lille.
+The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
+%This work was partially supported by a grant from CPER Nord-Pas de Calais/FEDER DATA Advanced data science and technologies 2015-2020.
+% \vspace{-10pt}
+
+{
+\footnotesize
+\bibliographystyle{acm}
+\bibliography{biblio}
+% \balancing
+}
+
+\end{document}
