@@ -3,7 +3,7 @@
 \begin{figure*}[!t]
   \centering
   \includegraphics[scale=0.7]{images/architecture_pipeline}
-  \caption{Example of \SYS pipeline architecture.}
+  \caption{Example of \SYS pipeline architecture.\vs{put the updated version with the lockers}}
   \label{fig:architecture_pipeline}
 \end{figure*}
 
@@ -50,3 +50,7 @@ Finally, \zmq guarantees that the messages are delivered across each stage via r
 %The pattern is mostly reliable insofar as it will not discard messages unless a node disconnects unexpectedly.
 %This fire-and-forget messaging is a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols\cite{voelter_patterns_2003}.
 % The absence of response to a message provides some relevant performances.
+
+\vs{Add some paragraphs to  detail how  the interaction with the SGX enclaves work in the context of \SYS}
+
+\vs{It should be useful to describe how the dataflow pipeline is mapped to the underlying cluster.}

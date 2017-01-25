@@ -1,4 +1,4 @@
-\section{Preliminary Evaluation}
+\section{Evaluation}
 \label{sec:eval}
 
 % \begin{itemize}
@@ -6,7 +6,7 @@
 %   \item Infrastructure based on ONE cluster, VM 16.04 LTS (GNU/Linux 4.4.0-53-generic x86\_64), Docker 1.13.0-rc3, Docker Swarm 1.2.5 (discovery: Consul v0.5.2)
 %   \item Hardware?
 % \end{itemize}
-This section reports on our preliminary evaluation of \SYS in the Cloud.
+This section reports on our evaluation of \SYS.
 First, we present our evaluation settings.
 Secondly, we detail the real-world dataset used in our experiments.
 Finally, we analyze some preliminary benchmarks, namely throughput and scalability.
@@ -18,7 +18,7 @@ Nodes join a Docker Swarm cluster~\cite{docker:swarm_2016} (v1.2.5), using Consu
 Each VM only executes one single Docker instance, to prevent cross-container interferences~\cite{koh2007analysis}.
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to communicate to each other.
-
+\vs{add SGX things}
 \textbf{Dataset.}
 In our experiments, we process a real dataset released by the \emph{American Bureau of Transportation Statistic}~\cite{rita:bts}.
 %including each flight's departure and arrivals\cite{statistical_computing:data}.
@@ -27,6 +27,11 @@ We implement a benchmark application atop of \SYS to compute average delays and 
 %These datas report flights departures and arrivals\cite{rita:bts} and are available on the Statistical Computing\cite{statistical_computing:data}.
 We design and implement the full processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (\textsf{map}), (ii) filters data by relevancy (\emph{i.e.}, if the data concerns a delayed flight), and (iii) finally reduces it to compute the wanted informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{Diving into Akka Streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
 We use the 4 last years of the available dataset (from 2005 to 2008), for a total of 28 millions of entries to process and 2.73 GB of data.
+\vs{Update with the details of other datasets if any}
+
+\textbf{Micro-Benchmark: Lua in SGX.}
+\vs{NEW: here we show the overhead of executing Lua code inside/outside SGX enclaves. We should use well-known Lua benchmarks (maybe there are few in Lua's own test suite or come up with something that shows the trade-offs.)}
+\vs{we should explore a bit the design space: how much data should be sent at once into the enclave before side-effects kick-in ? upon these results, we choose the proper parameter for the follow-up experiments.}
 
 \textbf{Benchmark: throughput.}
 This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
@@ -54,6 +59,8 @@ With the current implementation, we observe a peak of 10\,MB/s upload throughput
   \label{fig:throughput}
 \end{figure}
 
+\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
+
 \textbf{Benchmark: scalability.} We conclude this preliminary by presenting scalability results of the \SYS framework.
 In particular, we scale up each stage of the processing pipeline, up to 4\,workers per stage.
 For each of the configurations, the experiment is repeated 20\,times.
@@ -68,7 +75,7 @@ Conversely, we do not observe similar improvements when using 4\,workers.
 \begin{figure}[t!]
   \centering
   \includegraphics[scale=0.5]{images/avg_stdev_4_streams}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 20 times.}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 20 times.\vs{plot can be improved, check if we actually keep this}}
   \label{fig:scalability}
 \end{figure}
 

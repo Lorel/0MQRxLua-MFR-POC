@@ -67,7 +67,7 @@ The communication between the Docker container happens through \zmq (v4.1.2) and
 In summary, \SYS{} abstracts the underlying infrastructure from the developer, relying on \zmq and Docker.
 We plan to release our code as open-source.
 
-\begin{minipage}{\linewidth}
+%\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=LUA,caption={Process pipeline example, using the library RxLua},label=pipeline-example]
 Rx.Observable.fromTable(people)
  :map(
@@ -102,4 +102,6 @@ Rx.Observable.fromTable(people)
    end
  )
 \end{lstlisting}
-\end{minipage}
+%\end{minipage}
+
+\vs{Describe what was implemented to have the Lua code interact with the SGX enclaves. Explain how the Lua VM+SGX work.}
