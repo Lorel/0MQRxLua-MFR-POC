@@ -1,3 +1,8 @@
 *.lb
 paper.pdf
 paper.synctec.gz
+paper.aux
+paper.bbl
+paper.blg
+paper.log
+paper.synctex.gz
