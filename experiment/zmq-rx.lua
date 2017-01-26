@@ -49,15 +49,14 @@ function Rx.Observable.fromZmqSocket(socket)
     log.info('Create Rx.Observable.fromZmqSocket from socket', socket, receiver_id)
 
     loop:add_socket(receiver, function(sok)
-      local message = assert(sok:recv())
-      local sender_id = string.match(message, Rx.utils.STOP .. '(.*)')
+      local payload = json.decode(assert(sok:recv()))
+      local sender_id = string.match(payload, Rx.utils.STOP .. '(.*)')
 
       --  Do the work
       if sender_id then
-        log.info('Received DONE token! receiveCounter:', message, receiveCounter, sender_id)
+        log.info('Received DONE token! receiveCounter:', payload, receiveCounter, sender_id)
         loop:interrupt()
       else
-        local payload = json.decode(message)
         receiveCounter = receiveCounter + 1
         Rx.utils.sample_logged(receiveCounter, 'receive msg', payload['msg'], payload['id'])
         observer:onNext(payload['msg'])
@@ -97,7 +96,7 @@ function Rx.Observable:subscribeToSocket(socket)
   local ok, err = sender:connect(socket)
   log.debug('Init socket connection', ok, err)
 
-  ok, err = sender:send(Rx.utils.START .. sender_id)
+  ok, err = sender:send(json.encode(Rx.utils.START .. sender_id))
   log.debug('Send startToken', Rx.utils.START, ok, err)
 
   return self:subscribe(
@@ -113,7 +112,7 @@ function Rx.Observable:subscribeToSocket(socket)
     end,
     function()
       log.info('Transmission done! sendCounter:', sendCounter)
-      sender:send(Rx.utils.STOP .. sender_id)
+      sender:send(json.encode(Rx.utils.STOP .. sender_id))
 
       local controller = ctx:socket(zmq.SUB)
       assert(controller:set_subscribe(Rx.utils.KILL))
