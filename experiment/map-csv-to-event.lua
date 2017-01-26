@@ -9,11 +9,16 @@ ZmqRx.Subject.fromZmqSocket(from_socket) -- 'tcp://localhost:5555'
   :map(
     function(value)
       -- print('process value', value)
-      local array = csv.parse(value)
-      local event = {}
-      event.uniquecarrier = array[9]
-      event.arrdelay = array[15]
-      return event
+      local success, array = pcall(csv.parse, value)
+
+      if success then
+        local event = {}
+        event.uniquecarrier = array[9]
+        event.arrdelay = array[15]
+        return event
+      end
+
+      return {}
     end
   )
   :subscribeToSocket(to_socket) -- 'tcp://localhost:5556'
