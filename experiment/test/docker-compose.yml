@@ -20,7 +20,7 @@ services:
   routerreduceprinter:
     image: "${IMAGE}"
     hostname: routerreduceprinter
-    entrypoint: lua router.lua
+    entrypoint: lua pipeline.lua
     environment:
       - TO=tcp://*:5562
       - FROM=tcp://*:5561
@@ -47,7 +47,7 @@ services:
   routerfilterreduce:
     image: "${IMAGE}"
     hostname: routerfilterreduce
-    entrypoint: lua router.lua
+    entrypoint: lua pipeline.lua
     environment:
       - TO=tcp://*:5560
       - FROM=tcp://*:5559
@@ -74,7 +74,7 @@ services:
   routermapperfilter:
     image: "${IMAGE}"
     hostname: routermapperfilter
-    entrypoint: lua router.lua
+    entrypoint: lua pipeline.lua
     environment:
       - TO=tcp://*:5558
       - FROM=tcp://*:5557
@@ -101,7 +101,7 @@ services:
   routerdatamapper:
     image: "${IMAGE}"
     hostname: routerdatamapper
-    entrypoint: lua router.lua
+    entrypoint: lua pipeline.lua
     environment:
       - TO=tcp://*:5556
       - FROM=tcp://*:5555
