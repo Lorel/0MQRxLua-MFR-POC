@@ -32,7 +32,12 @@ We use the 4 last years of the available dataset (from 2005 to 2008), for a tota
 \textbf{Micro-Benchmark: Lua in SGX.}
 \vs{NEW: here we show the overhead of executing Lua code inside/outside SGX enclaves. We should use well-known Lua benchmarks (maybe there are few in Lua's own test suite or come up with something that shows the trade-offs.)}
 \vs{we should explore a bit the design space: how much data should be sent at once into the enclave before side-effects kick-in ? upon these results, we choose the proper parameter for the follow-up experiments.}
-
+Planned benchmarks:
+\begin{itemize}
+	\item cost of entering/exiting the enclave from Lua without data
+	\item cost of entering/exiting the enclave with increasingly bigger datas (up to the point where we hit the well-known memory issues)
+	\item overhead of the Lua benchmarks from \url{https://github.com/ltratt/vms_experiment/tree/master/benchmarks}
+\end{itemize}
 \textbf{Benchmark: throughput.}
 This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
 We gather bandwidth measurements by exploiting Docker's own monitoring and statistical module.
