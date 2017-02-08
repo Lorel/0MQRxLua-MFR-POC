@@ -1,4 +1,11 @@
-\documentclass[10pt, conference]{IEEEtran}
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+
+\let\OLDthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \OLDthebibliography{#1}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt plus 0.3ex}
+}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -31,7 +38,6 @@
   xrightmargin     = 10pt,
   frame            = tb,
   captionpos       = b,
-  upquote          = true,
   showstringspaces = false,
 }
 
@@ -139,6 +145,7 @@ streaming; reactive programming; Lua; SGX
 \input{conclusion}
 
 \section*{Acknowledgments}
+This project is a part of a doctoral research on stream processing in large scale distributed systems.
 Aurelien Havet's PhD research is co-supervised by Pascal Felber from the University of Neuchâtel and Romain Rouvoy from the University of Lille.
 The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
 %This work was partially supported by a grant from CPER Nord-Pas de Calais/FEDER DATA Advanced data science and technologies 2015-2020.

@@ -82,17 +82,14 @@ Rx.Observable.fromTable(people)
  )
  :reduce(
    function(accumulator, age)
-     accumulator[count] = (accumulator.count
-       or 0) + 1
-     accumulator[sum] = (accumulator.sum
-       or 0) + age
+     accumulator[count] = accumulator.count + 1
+     accumulator[sum] = accumulator.sum + age
      return accumulator
-   end, {}
+   end, { count = 0, sum = 0 }
  )
  :subscribe(
    function(datas)
-     print("Adult people average:",
-       datas.sum / datas.count)
+     print("Average:", datas.sum / datas.count)
    end,
    function(err)
      print(err)

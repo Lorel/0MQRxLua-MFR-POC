@@ -18,7 +18,7 @@
 The architecture of \SYS{} comprises a combination two different types of components: \textsf{worker} and \textsf{router}.
 A worker component continuously listens for incoming data by means of non-blocking I/O.
 As soon as a data flows in, some application-dependent business logic is applied.
-A typical use-case is the deployment of a MapReduce processing pipeline~\cite{Dean:2008:MSD:1327452.1327492}, with worker nodes that execute \texttt{map}, \texttt{filter} and \texttt{reduce} functions.
+A typical use-case is the deployment of a processing pipeline, with worker nodes that execute \texttt{map}, \texttt{filter} and \texttt{reduce} functions.
 A router acts as a message broker between workers in the pipeline and transfers data between workers according to some dispatching policy.
 Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of MapReduce using the \SYS middleware.
 %Datas in \textsc{SecureStreams} are streamed accross the process pipeline as shown in figure \ref{fig:architecture_pipeline}.

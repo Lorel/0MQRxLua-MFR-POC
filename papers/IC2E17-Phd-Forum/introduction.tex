@@ -17,7 +17,7 @@ In the world of all-connected and the \emph{Internet-of-Things} (IoT), on market
 However, such data streams requires more and more to be processed with reliability, scalability and security in mind.
 This paper introduces \SYS{}, our initial work on a middleware framework for developing secure stream processing in the Cloud.
 \SYS{} supports the implementation, deployment and the execution of stream processing tasks in distributed settings, from clusters to large-scale Cloud infrastructures.
-\SYS{} adopts of message-oriented~\cite{mom}, responsive, resilient to faults middleware design.
+\SYS{} adopts of message-oriented, responsive, resilient to faults middleware design.
 Finally, it scales horizontally and vertically seamlessly.
 %Its design This middleware is designed according to The Reactive Manifesto: it is responsive, resilient, elastic and message driven\cite{reactivemanifesto}.
 Briefly, its design is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose several processing pipes.% an easy way to implement a processing pipe.
@@ -29,7 +29,7 @@ Finally, our design intends to exploit the secure processing capabilities offere
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
 Few mainstream solutions exist today for distributed stream processing.
-Reactive Kafka~\cite{reactivekafka} allows stream processing atop of Apache Kafka~\cite{apachekafka}.
+Reactive Kafka~\cite{reactivekafka} allows stream processing atop of Apache Kafka.
 More recently, few open-source solutions (\emph{e.g.}, Apache Spark Streaming~\cite{apachesparkstreaming}, Apache Storm~\cite{apachestorm}, Infinispan~\cite{infinispan}) introduced APIs to allow developers to quickly setup and deploy stream processing infrastructures.
 These systems rely on the \emph{Java Virtual Machine} (JVM)~\cite{lindholm2014java}.
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{brenner_securekeeper:_2016} when this limit is crossed.

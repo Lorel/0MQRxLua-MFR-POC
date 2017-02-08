@@ -1,11 +1,6 @@
 \section{Preliminary Evaluation}
 \label{sec:eval}
 
-% \begin{itemize}
-%   \item Experiment on datas from the Bureau of Transportation Statistic (\url{http://www.transtats.bts.gov/Fields.asp?Table_ID=236}) to evaluate flight delays by airport
-%   \item Infrastructure based on ONE cluster, VM 16.04 LTS (GNU/Linux 4.4.0-53-generic x86\_64), Docker 1.13.0-rc3, Docker Swarm 1.2.5 (discovery: Consul v0.5.2)
-%   \item Hardware?
-% \end{itemize}
 This section reports on our preliminary evaluation of \SYS in the Cloud.
 First, we present our evaluation settings.
 Secondly, we detail the real-world dataset used in our experiments.
@@ -49,9 +44,25 @@ With the current implementation, we observe a peak of 10\,MB/s upload throughput
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[scale=0.7]{../../experiment/results/throughput/outputs/tput_upload_4-datas-1-worker.pdf}
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-1-worker.pdf}
   \caption{Upload Throughput, single source. The middleware framework completes the processing of the dataset in 1,200\,seconds, with a peak of 4\,MB/s and an overall average throughput of 2.3\,MB/s}
   \label{fig:throughput}
+\end{figure}
+\begin{figure}[t!]
+  \centering
+  \includegraphics[scale=0.5]{images/avg_stdev_4_streams}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 20 times.}
+  \label{fig:scalability}
+\end{figure}
+\begin{figure}[t!]
+  \centering
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-2-workers.pdf}
+  \caption{Upload throughput, 2 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
+  \label{fig:throughput2}
+  \vspace{0.5cm}
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-4-workers.pdf}
+  \caption{Upload throughput, 4 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
+  \label{fig:throughput4}
 \end{figure}
 
 \textbf{Benchmark: scalability.} We conclude this preliminary by presenting scalability results of the \SYS framework.
@@ -65,12 +76,6 @@ Conversely, we do not observe similar improvements when using 4\,workers.
 %Results are represented on figure \ref{fig:scalability}, and show clearly better performances between the experiment using only one worker by task, and the one using 2 workers.
 %In an other hand, using 4 workers instead of 2 does not show any performance improvement.
 
-\begin{figure}[t!]
-  \centering
-  \includegraphics[scale=0.5]{images/avg_stdev_4_streams}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 20 times.}
-  \label{fig:scalability}
-\end{figure}
 
 We believe this behavior can be explained by existing bottlenecks in the pipelining infrastructure, lack of optimization in the application logic as well as tuning options of the \zmq queues.
 These hypotheses are confirmed by observing the throughput of the system once we increase the processing workers to 2 and 4 in Figure~\ref{fig:throughput2} and Figure~\ref{fig:throughput4}, respectively.
@@ -79,16 +84,6 @@ First, the system is far from saturating the network's available bandwidth, hitt
 Second, a small percentage of nodes consumes much more bandwidth than the other components.
 We intend to further investigate these effects as part of our future work, as we are going to elaborate in the following section.
 
-\begin{figure}[t!]
-  \centering
-  \includegraphics[scale=0.7]{images/tput_upload_4-datas-2-workers.pdf}
-  \caption{Upload throughput, 2 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
-  \label{fig:throughput2}
-  \vspace{0.5cm}
-  \includegraphics[scale=0.7]{images/tput_upload_4-datas-4-workers.pdf}
-  \caption{Upload throughput, 4 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
-  \label{fig:throughput4}
-\end{figure}
 
 %The latter observation can be explained by the fact that each job in our experiment is very simple and executed too quickly by the workers, compared to the throughput capacity of the communication between two steps of the process pipeline.
 %This may be due to the limitation of the network bandwith capacity, when the cost of data communication accross nodes is higher than the one of data computation, as described by the Gunther's Universal Law of Computational Scalability\cite{gunther1993simple}, where the relative capacity of a computational platform is inversely proportional to the sum of the levels of contention (e.g., queueing for shared resources) and coherency delay (i.e., latency for data to become consistent) in the system.
