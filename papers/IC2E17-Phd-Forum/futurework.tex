@@ -12,7 +12,7 @@ First, the communication between the processing components will rely on secure c
 %At the moment \SYS is not yet secured.
 %To do this, we have to secure both the communication and the processing.
 To this end, we plan to integrate \textsc{CurveZMQ}~\cite{zmq:curvezmq}, an open-source authentication and encryption protocol for \zmq.
-\textsc{CurveZMQ} is based on a fast, secure elliptic-curve cryptographic primitive provided by the libraries \textsc{CurveCP}\cite{zmq:curvecp} and \textsc{NaCl}\cite{zmq:nacl}.
+\textsc{CurveZMQ} is based on a fast, secure elliptic-curve cryptographic primitive provided by the libraries \textsc{CurveCP} and \textsc{NaCl}.
 Moreover, \SYS will generate the authentication certificates in use by the containers on-the-fly at the moment of their deployment.
 
 Secondly, the \SYS will exploit the SGX enclaves to both process and route data.

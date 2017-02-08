@@ -9,13 +9,13 @@ Finally, we analyze some preliminary benchmarks, namely throughput and scalabili
 \textbf{Evaluation settings.}
 We deploy a cluster of \emph{virtual machines} (VM) based on Ubuntu 16.04 LTS and running a daemon Docker (v.1.13.0-rc3).
 Each VM is set with 2 CPU cores and 2GB RAM, and interconnected using a switched 1~Gbps network.
-Nodes join a Docker Swarm cluster~\cite{docker:swarm_2016} (v1.2.5), using Consul~\cite{consul} (v0.5.2) as discovery service.
+Nodes join a Docker Swarm cluster~\cite{docker:swarm_2016} (v1.2.5).
 Each VM only executes one single Docker instance, to prevent cross-container interferences~\cite{koh2007analysis}.
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to communicate to each other.
 
 \textbf{Dataset.}
-In our experiments, we process a real dataset released by the \emph{American Bureau of Transportation Statistic}~\cite{rita:bts}.
+In our experiments, we process a real dataset released by the \emph{American Bureau of Transportation Statistic}.
 %including each flight's departure and arrivals\cite{statistical_computing:data}.
 The dataset reports on the flight departures and arrivals of 20 air carriers~\cite{statistical_computing:data}.
 We implement a benchmark application atop of \SYS to compute average delays and the total of delayed flights for each air carrier.

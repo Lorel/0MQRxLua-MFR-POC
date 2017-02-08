@@ -24,14 +24,14 @@ Briefly, its design is inspired by the dataflow programming paradigm~\cite{uusta
 The framework integrates an abstraction of the required deployment infrastructure.
 It smoothly integrate with industrial-grade lightweight virtualization technologies (\emph{e.g.}, Docker~\cite{docker}).
 %by deployment automation based on the Docker ecosystem
-It aims to be secure: communication channels use the SSL protocol~\cite{freier2011secure} for data communication.
+It aims to be secure: communication channels use the SSL protocol for data communication.
 Finally, our design intends to exploit the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowadays widely available into mass-market thanks to the introduction of Intel's \emph{Software Guard eXtensions} (SGX)~\cite{costan_intel} in the SkyLake processors~\cite{skylake}.
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
 Few mainstream solutions exist today for distributed stream processing.
 Reactive Kafka~\cite{reactivekafka} allows stream processing atop of Apache Kafka.
 More recently, few open-source solutions (\emph{e.g.}, Apache Spark Streaming~\cite{apachesparkstreaming}, Apache Storm~\cite{apachestorm}, Infinispan~\cite{infinispan}) introduced APIs to allow developers to quickly setup and deploy stream processing infrastructures.
-These systems rely on the \emph{Java Virtual Machine} (JVM)~\cite{lindholm2014java}.
+These systems rely on the \emph{Java Virtual Machine} (JVM).
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{brenner_securekeeper:_2016} when this limit is crossed.
 \SYS{} proposes a lightweight and low-memory footprint framework that can fully execute within SGX enclaves.
 We detail our implementation choices in Section~\ref{sec:implementation}.

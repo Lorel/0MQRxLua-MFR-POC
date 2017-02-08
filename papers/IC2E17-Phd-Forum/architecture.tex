@@ -34,7 +34,7 @@ The application-specific functions can be quickly prototyped in Lua.
 %Its runtime requires only few KB of memory, and thus fits easily in EPC.
 
 Each component is wrapped inside a Docker container to easily embed all required dependencies and ensure the correctness of their configuration.
-By doing so, a processing pipeline can be easily deployed on different infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
+By doing so, a processing pipeline can be easily deployed on different infrastructures, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
 Each router component hosts inbound and outbound queues. %\vs{how much?}\ah{We don't know, so we should not talk about queue size. BTW, I don't understand your sentence. Do you missed a verb?}.
