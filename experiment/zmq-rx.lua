@@ -12,18 +12,17 @@ log.level = os.getenv('LOG_LEVEL') or 'info'
 local controlConnectSocket = os.getenv('TO_CONTROLLER') or 'tcp://localhost:5554'
 local controlBindSocket = os.getenv('CONTROLLER') or 'tcp://*:5554'
 
---  Define utils
-Rx.utils = {}
-Rx.utils.START = '!START!'
-Rx.utils.STOP = '!STOP!'
-Rx.utils.KILL = 'KILL'
+--  Add some utility tools
+Rx.util.START = '!START!'
+Rx.util.STOP = '!STOP!'
+Rx.util.KILL = 'KILL'
 
-function Rx.utils.identity()
+function Rx.util.gen_id()
   math.randomseed(os.time() + math.random())
   return string.format('%04X-%04X', math.random (0x10000), math.random (0x10000))
 end
 
-function Rx.utils.sample_logged(i, ...)
+function Rx.util.sample_logged(i, ...)
   if not(log.is_enabled('debug')) then return end
   rate = math.tointeger(os.getenv('LOG_RATE')) or 100
   if log.level == 'debug' and i % rate == 0 then
@@ -38,7 +37,7 @@ local receiveCounter = 0
 
 function Rx.Observable.fromZmqSocket(socket)
   return Rx.Observable.create(function(observer)
-    local receiver_id = Rx.utils.identity()
+    local receiver_id = Rx.util.gen_id()
     local loop = zloop.new()
 
     --  Socket to receive messages on
@@ -50,7 +49,7 @@ function Rx.Observable.fromZmqSocket(socket)
 
     loop:add_socket(receiver, function(sok)
       local message = assert(sok:recv())
-      local sender_id = string.match(message, Rx.utils.STOP .. '(.*)')
+      local sender_id = string.match(message, Rx.util.STOP .. '(.*)')
 
       --  Do the work
       if sender_id then
@@ -59,7 +58,7 @@ function Rx.Observable.fromZmqSocket(socket)
       else
         local payload = json.decode(message)
         receiveCounter = receiveCounter + 1
-        Rx.utils.sample_logged(receiveCounter, 'receive msg', payload['msg'], payload['id'])
+        Rx.util.sample_logged(receiveCounter, 'receive msg', payload['msg'], payload['id'])
         observer:onNext(payload['msg'])
       end
     end)
@@ -67,7 +66,7 @@ function Rx.Observable.fromZmqSocket(socket)
     --  Socket to receive controls on
     local ctx = zmq.context()
     local controller = ctx:socket(zmq.SUB)
-    assert(controller:set_subscribe(Rx.utils.KILL))
+    assert(controller:set_subscribe(Rx.util.KILL))
     controller:connect(controlConnectSocket)
 
     loop:add_socket(controller, zmq.POLLIN, function()
@@ -86,7 +85,7 @@ function Rx.Observable.fromZmqSocket(socket)
 end
 
 function Rx.Observable:subscribeToSocket(socket)
-  local sender_id = Rx.utils.identity()
+  local sender_id = Rx.util.gen_id()
   log.info('Create Rx.Observable:subscribeToSocket to socket', socket, sender_id)
   local ctx = zmq.context()
 
@@ -97,8 +96,8 @@ function Rx.Observable:subscribeToSocket(socket)
   local ok, err = sender:connect(socket)
   log.debug('Init socket connection', ok, err)
 
-  ok, err = sender:send(Rx.utils.START .. sender_id)
-  log.debug('Send startToken', Rx.utils.START, ok, err)
+  ok, err = sender:send(Rx.util.START .. sender_id)
+  log.debug('Send startToken', Rx.util.START, ok, err)
 
   return self:subscribe(
     function(event)
@@ -106,17 +105,17 @@ function Rx.Observable:subscribeToSocket(socket)
 
       local ok, err = sender:send(msg)
       sendCounter = sendCounter + 1
-      Rx.utils.sample_logged(sendCounter, 'send msg', event, ok, err)
+      Rx.util.sample_logged(sendCounter, 'send msg', event, ok, err)
     end,
     function(error)
       log.error('Error:', error)
     end,
     function()
       log.info('Transmission done! sendCounter:', sendCounter)
-      sender:send(Rx.utils.STOP .. sender_id)
+      sender:send(Rx.util.STOP .. sender_id)
 
       local controller = ctx:socket(zmq.SUB)
-      assert(controller:set_subscribe(Rx.utils.KILL))
+      assert(controller:set_subscribe(Rx.util.KILL))
       controller:connect(controlConnectSocket)
 
       local message = controller:recv_new_msg()
@@ -144,14 +143,14 @@ function Rx.sendZmqCompleted()
   ztimer.sleep(500)
 
   --  Send kill signal to workers
-  controller:send(Rx.utils.KILL)
+  controller:send(Rx.util.KILL)
   log.debug('first KILL sent')
 
   -- Wait for other subscribers to connect
   ztimer.sleep(2000)
 
   --  Send kill signal to workers
-  controller:send(Rx.utils.KILL)
+  controller:send(Rx.util.KILL)
   log.debug('second KILL sent')
 
   controller:close()

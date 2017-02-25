@@ -18,7 +18,7 @@ RUN apt-get update && \
   mv /usr/local/lib/lua/lzmq.so /usr/local/lib/lua/5.3/lzmq.so && \
   rm -rf /root/lzmq/ && \
   cd /root && \
-  git clone https://github.com/mpx/lua-cjson.git && \
+  git clone https://github.com/cloudwu/lua-cjson.git && \
   cd lua-cjson && \
   make install LUA_INCLUDE_DIR=/usr/include/lua5.3 && \
   rm -rf /root/lua-cjson && \
