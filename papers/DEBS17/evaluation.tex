@@ -1,4 +1,5 @@
-\section{Evaluation}
+\section{Evaluatiogher
+n}
 \label{sec:eval}
 
 % \begin{itemize}
@@ -12,7 +13,7 @@ Secondly, we detail the real-world dataset used in our experiments.
 Finally, we analyze some preliminary benchmarks, namely throughput and scalability.
 
 \textbf{Evaluation settings.}
-We deploy a cluster of \emph{virtual machines} (VM) based on Ubuntu 16.04 LTS and running a daemon Docker (v.1.13.0-rc3).
+We deploy a cluster of \emph{virtual machines} (VM) based on Ubuntu 16.04 LTS \rp{This should change to 14.04, due to the compatibility requirement of SGX SDK} and running a daemon Docker (v.1.13.0-rc3).
 Each VM is set with 2 CPU cores and 2GB RAM, and interconnected using a switched 1~Gbps network.
 Nodes join a Docker Swarm cluster~\cite{docker:swarm_2016} (v1.2.5), using Consul~\cite{consul} (v0.5.2) as discovery service.
 Each VM only executes one single Docker instance, to prevent cross-container interferences~\cite{koh2007analysis}.
@@ -32,10 +33,22 @@ We use the 4 last years of the available dataset (from 2005 to 2008), for a tota
 \textbf{Micro-Benchmark: Lua in SGX.}
 \vs{NEW: here we show the overhead of executing Lua code inside/outside SGX enclaves. We should use well-known Lua benchmarks (maybe there are few in Lua's own test suite or come up with something that shows the trade-offs.)}
 \vs{we should explore a bit the design space: how much data should be sent at once into the enclave before side-effects kick-in ? upon these results, we choose the proper parameter for the follow-up experiments.}
+
+To estimate the cost of enclaved function calls we averaged the time it took to do one milion calls with no data transfers. 
+While normal function calls took 23.6 $ns$, enclaved calls took on average 2.35 $\mu s$, i.e., two orders of magnitude worse. 
+We then assessed the cost of copying data from the unshielded execution to the enclave and compared with the time it took to natively do the same. 
+We initialized a buffer of 100 MB with random data and copied its content by chunks of increasing sizes, with one function call per chunk. 
+Figure~\ref{fig:sgxmemcpy} shows the results. When using smaller chunks, the function call overhead plays an important role in the total time, which steadly drops until we send chunks of 64 KB. Then we can notice an abrupt growth for the enclaved execution time, which can probably be credited to cache phenomena \rp{???}.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[scale=0.45]{plots/memcpy.pdf}
+  \caption{Time to copy 100 MB of memory}
+  \label{fig:sgxmemcpy}
+\end{figure}
+
 Planned benchmarks:
 \begin{itemize}
-	\item cost of entering/exiting the enclave from Lua without data
-	\item cost of entering/exiting the enclave with increasingly bigger datas (up to the point where we hit the well-known memory issues)
 	\item overhead of the Lua benchmarks from \url{https://github.com/ltratt/vms_experiment/tree/master/benchmarks}
 \end{itemize}
 \textbf{Benchmark: throughput.}
