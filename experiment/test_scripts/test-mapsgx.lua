@@ -7,11 +7,17 @@ log.outfile = os.getenv('LOG_DIR') and os.getenv('LOG_DIR') .. os.getenv('HOSTNA
 local file = os.getenv('DATA_FILE') or 'data/sample.csv'
 log.info('Read file', file)
 
-csv = require 'csv'
-
 Rx.Subject.fromFileByLine(file)
   :mapSGX(
     function(value)
+      local csv
+
+      if ccsv then
+        csv = ccsv
+      else
+        csv = require "csv"
+      end
+
       local array = csv.parse(value)
       local event = {}
       event.uniquecarrier = array[9]
