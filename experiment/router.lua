@@ -16,7 +16,7 @@ local context = zmq.init(1)
 local frontend = context:socket(zmq.PULL)
 local backend = context:socket(zmq.PUSH)
 local controller = context:socket{ zmq.SUB,
-    subscribe = { ZmqRx.utils.KILL };
+    subscribe = { ZmqRx.util.KILL };
     connect = controlConnectSocket;
   }
 
@@ -38,10 +38,10 @@ poller:add(frontend, zmq.POLLIN, function ()
   local start_time = os.time()
 
   local msg = frontend:recv()
-  local start_sender_id = string.match(msg, ZmqRx.utils.START .. '(.*)')
-  local done_sender_id = string.match(msg, ZmqRx.utils.STOP .. '(.*)')
+  local start_sender_id = string.match(msg, ZmqRx.util.START .. '(.*)')
+  local done_sender_id = string.match(msg, ZmqRx.util.STOP .. '(.*)')
   receiveCounter = receiveCounter + 1
-  ZmqRx.utils.sample_logged(receiveCounter, 'frontend received msg: ', msg)
+  ZmqRx.util.sample_logged(receiveCounter, 'frontend received msg: ', msg)
 
   if start_sender_id then
     clients_counter = clients_counter + 1
@@ -52,7 +52,7 @@ poller:add(frontend, zmq.POLLIN, function ()
   else
     backend:send(msg)
     sendCounter = sendCounter + 1
-    ZmqRx.utils.sample_logged(sendCounter, 'Sent to backend', 'time (s)', os.time() - start_time)
+    ZmqRx.util.sample_logged(sendCounter, 'Sent to backend', 'time (s)', os.time() - start_time)
   end
 
   if (clients_counter == 0) then
@@ -67,7 +67,7 @@ poller:add(frontend, zmq.POLLIN, function ()
     end)
 
     while true do
-      backend:send(ZmqRx.utils.STOP)
+      backend:send(ZmqRx.util.STOP)
     end
   end
 end)
