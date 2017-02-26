@@ -9,6 +9,7 @@ _G.SGX = {
   cjson = cjson or require 'cjson',
   encrypt = sgxencrypt or function(x) return x end,
   process = sgxprocess or function(func, params)
+    log.debug('Call mocked sgxprocess with:', func, params)
     load('SGX.func = ' .. func)()
     return tostring(SGX.func(params)) -- ensure that sgxprocess returns a string value
   end,
@@ -46,7 +47,7 @@ end
 
 function SGX:function_wrapper (func)
   local prefix = 'function(params) func = '
-  local include_cjson = ' if not cjson then cjson = SGX.cjson end '
+  local include_cjson = ' if not cjson then cjson = SGX.cjson end '  -- use globally defined cjson for non-SGX execution
   local suffix = include_cjson .. ' return cjson.encode(func(table.unpack(cjson.decode(params)))) end'
   local wrapped_func = prefix .. func .. suffix
   log.debug('SGX:function_wrapper wrapped_func:', wrapped_func)
@@ -65,7 +66,7 @@ function SGX:exec (func, ...)
 end
 
 function SGX:exec_func (func, ...)
-  log.debug('SGX:exec', func, ...)
+  log.debug('SGX:exec_func', func, ...)
   return self:exec(decompile(func), ...)
 end
 
