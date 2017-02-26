@@ -10,7 +10,7 @@ _G.SGX = {
   encrypt = sgxencrypt or function(x) return x end,
   process = sgxprocess or function(func, params)
     load('SGX.func = ' .. func)()
-    return SGX.func(params)
+    return tostring(SGX.func(params)) -- ensure that sgxprocess returns a string value
   end,
   decrypt = sgxdecrypt or function(x) return x end,
 }
@@ -46,7 +46,8 @@ end
 
 function SGX:function_wrapper (func)
   local prefix = 'function(params) func = '
-  local suffix = ' return func(table.unpack(SGX.cjson.decode(params))) end'
+  local include_cjson = ' if not cjson then cjson = SGX.cjson end '
+  local suffix = include_cjson .. ' return cjson.encode(func(table.unpack(cjson.decode(params)))) end'
   local wrapped_func = prefix .. func .. suffix
   log.debug('SGX:function_wrapper wrapped_func:', wrapped_func)
   return wrapped_func
@@ -60,7 +61,7 @@ end
 
 function SGX:exec (func, ...)
   log.debug('SGX:exec', func, ...)
-  return self.decrypt(self.process(self.encrypt(self:function_wrapper(func)), self.encrypt(self:params_wrapper(...))))
+  return self.cjson.decode(self.decrypt(self.process(self.encrypt(self:function_wrapper(func)), self.encrypt(self:params_wrapper(...)))))
 end
 
 function SGX:exec_func (func, ...)
