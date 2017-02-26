@@ -20,7 +20,7 @@ RUN apt-get update && \
   cd /root && \
   git clone https://github.com/cloudwu/lua-cjson.git && \
   cd lua-cjson && \
-  make install LUA_INCLUDE_DIR=/usr/include/lua5.3 && \
+  make install LUA_INCLUDE_DIR=/usr/include/lua5.3 LUA_VERSION=5.3 && \
   rm -rf /root/lua-cjson && \
   cd /root/ && \
   git clone https://github.com/Lorel/luacsv.git && \
