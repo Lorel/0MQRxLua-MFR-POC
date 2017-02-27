@@ -1,4 +1,4 @@
-local Rx = require 'rx'
+local Rx = require 'zmq-rx'
 local SGX = require 'sgx'
 local log = require 'log'
 
