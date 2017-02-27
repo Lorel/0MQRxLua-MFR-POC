@@ -11,7 +11,7 @@ define_method(:git_pull) do |branch = 'master'|
     "cp -f ../reduce-events.lua reduce-events.lua",
     "cp -f ../print-results.lua print-results.lua",
     "cp -f ../router.lua router.lua",
-    "cp -f ../pipeline.lua pipeline.lua"
+    "cp -f ../sgx-map-csv-to-event.lua sgx-map-csv-to-event.lua"
   ]
 
   Node.all.push(Node.manager).map do |node|

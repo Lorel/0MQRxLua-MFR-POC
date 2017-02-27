@@ -14,6 +14,7 @@ define_method(:init_nodes) do
     "cp -f ../reduce-events.lua reduce-events.lua",
     "cp -f ../print-results.lua print-results.lua",
     "cp -f ../router.lua router.lua",
+    "cp -f ../sgx-map-csv-to-event.lua sgx-map-csv-to-event.lua",
     "hostname"
   ]
 
