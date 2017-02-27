@@ -14,7 +14,7 @@ proxy = Settings.ssh[:proxy] && Net::SSH::Proxy::Command.new("ssh -i #{Settings.
   protocol: ->(address) { address.match(URL_REGEX)[2] },
   ip: ->(address) { address.match(URL_REGEX)[3] },
   port: ->(address) { address.match(URL_REGEX)[6] || 22 },
-  ssh_exec: ->(address, commands) {
+  ssh_exec: ->(address, commands, opts={}) {
     command = [commands].flatten.join(";\\\n")
     puts "\n[#{"Run on host".colorize(:yellow)} (#{address.colorize(:blue)})] - #{Time.now.to_s.colorize(:magenta)}\n\t#{command.colorize(:green)}\n\n"
     config = {
@@ -29,7 +29,33 @@ proxy = Settings.ssh[:proxy] && Net::SSH::Proxy::Command.new("ssh -i #{Settings.
       Settings.ssh.user,
       config
     ) do |ssh|
-      ssh.exec!(command).colorize(:light_yellow)
+      if opts[:pty]
+        ssh.open_channel do |channel|
+          channel.request_pty do |ch, success|
+            channel.exec(command) do |ch, success|
+              abort "could not execute command".colorize(:red) unless success
+              puts "Received from remote:".colorize(:yellow)
+
+              channel.on_data do |ch, data|
+                puts data.colorize(:white)
+                channel.send_data(opts[:interactive] && gets || "\n")
+              end
+
+              channel.on_extended_data do |ch, type, data|
+                puts data.colorize(:white)
+              end
+
+              channel.on_close do |ch|
+                puts "Connection closed".colorize(:yellow)
+              end
+            end
+          end
+        end
+
+        ssh.loop
+      else
+        ssh.exec!(command).colorize(:light_yellow)
+      end
     end
   },
   is_gateway_open?: ->(port) {

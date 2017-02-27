@@ -48,6 +48,10 @@ define_method(:commands) do
     pull: {
       command: :git_pull,
       description: "Pull git repository on the branch given as argument (default `master`)"
+    },
+    test: {
+      command: :test_cluster,
+      description: "Run hello world on each Docker node using the Swarm manager"
     }
   }
 end
