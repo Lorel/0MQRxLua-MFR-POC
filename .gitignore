@@ -3,11 +3,11 @@
 data
 docs
 
-experiment/*/data/*
-!experiment/*/data/sample.csv
 experiment/*/logs
 experiment/*/output
 experiment/*/*.log
 experiment/*/*.lua
+experiment/*/run-local.sh
+!experiment/test_scripts/*
 
 remote/config.yml
