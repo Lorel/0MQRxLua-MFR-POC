@@ -17,8 +17,8 @@ define_method(:init_nodes) do
     "hostname"
   ]
 
-  Settings.nodes.map do |node|
-    sleep 1
+  Node.all.map do |node|
+    sleep rand(2)
     Thread.new do
       puts ssh_exec(node.ip, commands)
     end
@@ -33,7 +33,7 @@ define_method(:init_nodes) do
   }
 
   data_files.map do |data,file|
-    Node.roles(data).map do |node|
+    Node.with_roles(data).map do |node|
       commands = [
         'cd /home/ubuntu/zmqrxlua/zmqrxlua-poc/experiment/test/data',
         "wget http://stat-computing.org/dataexpo/2009/#{file}.csv.bz2 && bzip2 -d #{file}.csv.bz2"

@@ -7,14 +7,19 @@ define_method(:create_cluster) do |create = false|
     puts "Add nodes to Swarm cluster"
   end
 
-  threads = Settings.nodes.map do |node|
+  threads = Node.all.map do |node|
     Thread.new do
-      sleep rand(5)
+      sleep rand(2)
+
       node_commands = [
-        docker[:rm].call(Settings.node_localhost, '-f', 'swarm-node'),
+        docker[:rm].call(Settings.node_localhost, '-f', 'swarm-node')
+      ]
+
+      node_commands.push [
         'sudo rm /etc/docker/key.json',
         'sudo service docker restart'
-      ]
+      ] unless node.sgx?
+
       puts ssh_exec(node.ip, node_commands)
     end
   end
@@ -26,7 +31,7 @@ define_method(:create_cluster) do |create = false|
       'sudo rm /etc/docker/key.json',
       'sudo service docker restart'
     ]
-    puts ssh_exec(Settings.manager, manager_commands) if create
+    puts ssh_exec(Node.manager.ip, manager_commands) if create
   end
 
   threads.each{ |thread| thread.join }
@@ -43,8 +48,9 @@ define_method(:create_cluster) do |create = false|
     sleep 10
   end
 
-  threads = Settings.nodes.map do |node|
-    sleep rand(5)
+  Node.all.map do |node|
+    sleep rand(2)
+
     Thread.new do
       node_commands = [
         swarm[:join].call(node.ip)
@@ -52,20 +58,20 @@ define_method(:create_cluster) do |create = false|
       puts ssh_exec(node.ip, node_commands)
     end
   end
-  threads.each{ |thread| thread.join }
+  .each{ |thread| thread.join }
 
   # manager_commands = [
-  #   swarm[:manage].call(Settings.manager, Settings.manager_docker_port, strategy),
-  #   swarm[:join].call(Settings.manager)
+  #   swarm[:manage].call(Node.manager.ip, Settings.manager_docker_port, strategy),
+  #   swarm[:join].call(Node.manager.ip)
   # ]
   manager_commands = [
-    swarm[:manage].call(Settings.manager, Settings.manager_docker_port, strategy)
+    swarm[:manage].call(Node.manager.ip, Settings.manager_docker_port, strategy)
   ]
-  puts ssh_exec(Settings.manager, manager_commands) if create
+  puts ssh_exec(Node.manager.ip, manager_commands) if create
 
   manager_commands = [
     swarm[:list].call(),
     docker[:info].call(Settings.manager_localhost)
   ]
-  puts ssh_exec(Settings.manager, manager_commands)
+  puts ssh_exec(Node.manager.ip, manager_commands)
 end

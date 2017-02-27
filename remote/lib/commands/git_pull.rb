@@ -14,8 +14,8 @@ define_method(:git_pull) do |branch = 'master'|
     "cp -f ../pipeline.lua pipeline.lua"
   ]
 
-  Settings.nodes.push(Node.new(ip: Settings.manager, name: 'manager', roles: [:manager])).map do |node|
-    sleep 1
+  Node.all.push(Node.manager).map do |node|
+    sleep rand(2)
     Thread.new do
       puts ssh_exec(node.ip, commands)
     end
