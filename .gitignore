@@ -1,2 +1,13 @@
 *.bkp
+
+data
+docs
+
+experiment/*/data/*
+!experiment/*/data/sample.csv
+experiment/*/logs
+experiment/*/output
+experiment/*/*.log
+experiment/*/*.lua
+
 remote/config.yml
