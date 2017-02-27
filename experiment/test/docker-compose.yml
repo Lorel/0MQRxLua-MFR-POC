@@ -117,7 +117,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data"
+      - "constraint:type==data1"
       - DATA_FILE=data/sample.csv
     env_file: global.env
     volumes:
