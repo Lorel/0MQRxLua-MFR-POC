@@ -103,6 +103,11 @@ RUN mkdir -p $LUA_BUILD_DIR && \
 ADD build_files/luasgx $RUNTIME_DIR
 ADD build_files/start.sh $RUNTIME_DIR
 
+# add fancy Lua libs
+ADD build_files/zmq-rx.lua /usr/local/lib/lua/5.3/
+ADD build_files/sgx.lua /usr/local/lib/lua/5.3/
+ADD build_files/sgx-rx.lua /usr/local/lib/lua/5.3/
+
 
 WORKDIR $RUNTIME_DIR
 
