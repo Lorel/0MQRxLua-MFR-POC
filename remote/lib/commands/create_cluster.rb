@@ -12,13 +12,10 @@ define_method(:create_cluster) do |create = false|
       sleep rand(2)
 
       node_commands = [
-        docker[:rm].call(Settings.node_localhost, '-f', 'swarm-node')
-      ]
-
-      node_commands.push [
+        docker[:rm].call(Settings.node_localhost, '-f', 'swarm-node'),
         'sudo rm /etc/docker/key.json',
         'sudo service docker restart'
-      ] unless node.sgx?
+      ]
 
       puts ssh_exec(node.ip, node_commands)
     end
