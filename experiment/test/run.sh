@@ -19,19 +19,10 @@ case "$?" in
     ;;
 esac
 
-
 function run_xp {
   echo "Remove containers from a previous XP if exist..."
   docker-compose stop
   docker-compose rm -f
-
-  echo 'Update source files...'
-  cp -f ../data-stream.lua data-stream.lua
-  cp -f ../map-csv-to-event.lua map-csv-to-event.lua
-  cp -f ../filter-event.lua filter-event.lua
-  cp -f ../reduce-events.lua reduce-events.lua
-  cp -f ../print-results.lua print-results.lua
-  cp -f ../router.lua router.lua
 
   mkdir -p output
   mkdir -p logs
