@@ -130,7 +130,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data"
+      - "constraint:type==data1"
       - DATA_FILE=data/2005.csv
     env_file: global.env
     volumes:
@@ -143,7 +143,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data"
+      - "constraint:type==data2"
       - DATA_FILE=data/2006.csv
     env_file: global.env
     volumes:
@@ -156,7 +156,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data"
+      - "constraint:type==data3"
       - DATA_FILE=data/2007.csv
     env_file: global.env
     volumes:
@@ -169,7 +169,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data"
+      - "constraint:type==data4"
       - DATA_FILE=data/2008.csv
     env_file: global.env
     volumes:
