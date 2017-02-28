@@ -98,20 +98,20 @@ services:
     networks:
       - xp
 
-    mappersgx:
-      image: "${IMAGE_SGX}"
-      entrypoint: lua sgx-map-csv-to-event.lua
-      environment:
-        - TO=tcp://routermapperfilter:5557
-        - FROM=tcp://routerdatamapper:5556
-        - "constraint:type==sgx"
-      env_file: global.env
-      volumes:
-        - "${VOLUME}"
-      networks:
-        - xp
-      devices:
-        - "/dev/isgx"
+  mappersgx:
+    image: "${IMAGE_SGX}"
+    entrypoint: lua sgx-map-csv-to-event.lua
+    environment:
+      - TO=tcp://routermapperfilter:5557
+      - FROM=tcp://routerdatamapper:5556
+      - "constraint:type==sgx"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+    devices:
+      - "/dev/isgx"
 
   routerdatamapper:
     image: "${IMAGE}"
