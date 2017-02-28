@@ -11,6 +11,9 @@ def docker
     start: ->(host, opts, container){ "docker -H tcp://#{host} start #{opts} #{container}" },
     stop: ->(host, opts, container){ "docker -H tcp://#{host} stop #{opts} #{container}" },
     login: ->(host){ "docker -H tcp://#{host} login" },
-    inspect: ->(host, opts){ "docker -H tcp://#{host} inspect #{opts}" }
+    inspect: ->(host, opts){ "docker -H tcp://#{host} inspect #{opts}" },
+    network_ls: ->(host){ "docker -H tcp://#{host} network ls" },
+    network_rm: ->(host, network){ "docker -H tcp://#{host} network rm #{network}" },
+    network_create: ->(host, network, opts={}){ "docker -H tcp://#{host} network create #{opts.map{ |o,v| "--#{o}=#{v}"}.join(" ")} #{network}" }
   }
 end
