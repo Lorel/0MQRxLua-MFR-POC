@@ -111,6 +111,6 @@ ADD build_files/sgx-rx.lua /usr/local/lib/lua/5.3/
 
 WORKDIR $RUNTIME_DIR
 
-VOLUME ["/var/run"]
+VOLUME ["/root/worker"]
 
 ENTRYPOINT ["./start.sh"]

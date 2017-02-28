@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LUASGX=./luasgx
-LUA_DIR=/var/lua
+SRC_DIR=/root/worker
 SGX=/dev/isgx
 
 
@@ -16,14 +16,14 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-if [[ ! (-e $LUA_DIR) ]]; then
+if [[ ! (-e $SRC_DIR) ]]; then
     echo "No volume mounted - you have to mount a volume including the LUA code you want to embed in the container"
-    echo "Use 'docker run' flag -v: -v /my/lua/src:$LUA_DIR"
+    echo "Use 'docker run' flag -v: -v /my/lua/src:$SRC_DIR"
     exit 0
 fi
 
-if [[ ! (-e $LUA_DIR/$1) ]]; then
-    echo "File $LUA_DIR/$1 not found"
+if [[ ! (-e $SRC_DIR/$1) ]]; then
+    echo "File $SRC_DIR/$1 not found"
     exit 0
 fi
 
@@ -35,11 +35,11 @@ echo "Run AESM service"
 echo "Wait 1s for AESM service to be up"
 sleep 1
 
-echo "Copy source files from $LUA_DIR into $(pwd)"
-cp -r $LUA_DIR/* .
+echo "Copy source files from $SRC_DIR into $(pwd)"
+cp -r $SRC_DIR/* .
 
-echo "Run LUA_PATH='$LUA_DIR/?.lua;;' $LUASGX $LUA_DIR/$1"
-LUA_PATH="$LUA_DIR/?.lua;;" $LUASGX $LUA_DIR/$1
+echo "Run LUA_PATH='$SRC_DIR/?.lua;;' $LUASGX $SRC_DIR/$1"
+LUA_PATH="$SRC_DIR/?.lua;;" $LUASGX $SRC_DIR/$1
 
 
 #echo "Run bash for debugging"
