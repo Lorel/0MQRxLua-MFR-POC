@@ -62,7 +62,15 @@ end
 
 function SGX:exec (func, ...)
   log.trace('SGX:exec', func, ...)
-  return self.cjson.decode(self.decrypt(self.process(self.encrypt(self:function_wrapper(func)), self.encrypt(self:params_wrapper(...)))))
+  local sgx_reply = self.decrypt(self.process(self.encrypt(self:function_wrapper(func)), self.encrypt(self:params_wrapper(...))))
+  local resp
+  local status, err = pcall(function() resp = self.cjson.decode(sgx_reply) end)
+
+  if status then
+    return resp
+  else
+    return err
+  end
 end
 
 function SGX:exec_func (func, ...)

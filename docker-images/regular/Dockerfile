@@ -52,4 +52,5 @@ ADD build_files/sgx-rx.lua /usr/local/lib/lua/5.3/
 RUN mkdir /root/worker
 
 WORKDIR /root/worker
+
 ENTRYPOINT ["lua"]
