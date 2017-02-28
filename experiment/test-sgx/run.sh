@@ -19,11 +19,14 @@ case "$?" in
     ;;
 esac
 
-
-function run_xp {
+function clean {
   echo "Remove containers from a previous XP if exist..."
   docker-compose stop
   docker-compose rm -f
+}
+
+function run_xp {
+  clean;
 
   mkdir -p output
   mkdir -p logs
@@ -36,7 +39,7 @@ function run_xp {
 
   echo 'Let’s experiment!'
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
-  docker-compose scale mapper=${WORKERS:-1} filter=${WORKERS:-1} reduce=${WORKERS:-1}
+  docker-compose scale mappersgx=${WORKERS:-1} filter=${WORKERS:-1} reduce=${WORKERS:-1}
 
   #docker-compose scale data1=1 data2=1 data3=1 data4=1
   docker-compose scale data=1
@@ -58,3 +61,5 @@ do
     run_xp;
   done
 done
+
+clean;

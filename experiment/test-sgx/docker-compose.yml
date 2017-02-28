@@ -7,7 +7,7 @@ services:
     environment:
       - FROM=tcp://routerreduceprinter:5562
       - OUTPUT=$RESULT_OUTPUT
-      - "constraint:type==printer"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -24,7 +24,7 @@ services:
     environment:
       - TO=tcp://*:5562
       - FROM=tcp://*:5561
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -37,7 +37,7 @@ services:
     environment:
       - TO=tcp://routerreduceprinter:5561
       - FROM=tcp://routerfilterreduce:5560
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -51,7 +51,7 @@ services:
     environment:
       - TO=tcp://*:5560
       - FROM=tcp://*:5559
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -64,7 +64,7 @@ services:
     environment:
       - TO=tcp://routerfilterreduce:5559
       - FROM=tcp://routermapperfilter:5558
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -78,7 +78,7 @@ services:
     environment:
       - TO=tcp://*:5558
       - FROM=tcp://*:5557
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -87,7 +87,7 @@ services:
 
   mapper:
     image: "${IMAGE}"
-    entrypoint: lua sgx-map-csv-to-event.lua
+    entrypoint: lua map-csv-to-event.lua
     environment:
       - TO=tcp://routermapperfilter:5557
       - FROM=tcp://routerdatamapper:5556
@@ -98,6 +98,21 @@ services:
     networks:
       - xp
 
+    mappersgx:
+      image: "${IMAGE_SGX}"
+      entrypoint: lua sgx-map-csv-to-event.lua
+      environment:
+        - TO=tcp://routermapperfilter:5557
+        - FROM=tcp://routerdatamapper:5556
+        - "constraint:type==sgx"
+      env_file: global.env
+      volumes:
+        - "${VOLUME}"
+      networks:
+        - xp
+      devices:
+        - "/dev/isgx"
+
   routerdatamapper:
     image: "${IMAGE}"
     hostname: routerdatamapper
@@ -105,7 +120,7 @@ services:
     environment:
       - TO=tcp://*:5556
       - FROM=tcp://*:5555
-      - "constraint:type==worker"
+      - "constraint:type==sgx"
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -117,7 +132,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data1"
+      - "constraint:type==sgx"
       - DATA_FILE=data/sample.csv
     env_file: global.env
     volumes:
@@ -130,7 +145,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data1"
+      - "constraint:type==sgx"
       - DATA_FILE=data/2005.csv
     env_file: global.env
     volumes:
@@ -143,7 +158,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data2"
+      - "constraint:type==sgx"
       - DATA_FILE=data/2006.csv
     env_file: global.env
     volumes:
@@ -156,7 +171,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data3"
+      - "constraint:type==sgx"
       - DATA_FILE=data/2007.csv
     env_file: global.env
     volumes:
@@ -169,7 +184,7 @@ services:
     entrypoint: lua data-stream.lua
     environment:
       - TO=tcp://routerdatamapper:5555
-      - "constraint:type==data4"
+      - "constraint:type==sgx"
       - DATA_FILE=data/2008.csv
     env_file: global.env
     volumes:

@@ -19,10 +19,14 @@ case "$?" in
     ;;
 esac
 
-function run_xp {
+function clean {
   echo "Remove containers from a previous XP if exist..."
   docker-compose stop
   docker-compose rm -f
+}
+
+function run_xp {
+  clean;
 
   mkdir -p output
   mkdir -p logs
@@ -57,3 +61,5 @@ do
     run_xp;
   done
 done
+
+clean;
