@@ -51,7 +51,7 @@ function run_xp {
   docker-compose scale data1=1 data2=1 data3=1 data4=1
   #docker-compose scale data=1
 
-  slack_notify "Run XP $i/$N with $WORKERS worker(s)\n\`\`\`$(docker ps)\`\`\`"
+  slack_notify "Run XP $i/$N with $WORKERS worker(s)\n\`\`\`$(docker ps | sed 's/$/\\n/')\`\`\`"
   docker-compose up printer
   slack_notify "XP $i/$N done!"
 

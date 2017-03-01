@@ -14,7 +14,7 @@ then
         exit 1
 fi
 
-escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )
+escapedText=$(echo $text | sed 's/"/\\"/g' | sed "s/'/\\'/g" )
 json="{\"text\": \"$escapedText\"}"
 
 curl -X POST --data-urlencode "payload=$json" $webhook
