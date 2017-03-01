@@ -48,10 +48,10 @@ function run_xp {
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
   docker-compose scale mappersgx=${WORKERS:-1} filter=${WORKERS:-1} reduce=${WORKERS:-1}
 
-  #docker-compose scale data1=1 data2=1 data3=1 data4=1
-  docker-compose scale data=1
+  docker-compose scale data1=1 data2=1 data3=1 data4=1
+  #docker-compose scale data=1
 
-  slack_notify "Run XP $i/$N with $WORKERS worker(s)"
+  slack_notify "Run XP $i/$N with $WORKERS worker(s) using SGX\n\`\`\`$(docker ps)\`\`\`"
   docker-compose up printer
   slack_notify "XP $i/$N done!"
 
