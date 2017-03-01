@@ -6,6 +6,9 @@ export DOCKER_HOST=:2381
 echo "Check if network exist..."
 docker network ls | grep -e "\s$NETWORK\s"
 
+echo "Update docker images"
+docker-compose pull
+
 case "$?" in
   0)
     echo "So cool!"

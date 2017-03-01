@@ -38,6 +38,9 @@ sleep 1
 echo "Link source files from $SRC_DIR into $(pwd)"
 ln -s $SRC_DIR/* .
 
+echo "$(pwd) content"
+ls -al .
+
 echo "Run LUA_PATH='$SRC_DIR/?.lua;;' $LUASGX $SRC_DIR/$1"
 LUA_PATH="$SRC_DIR/?.lua;;" $LUASGX $SRC_DIR/$1
 
