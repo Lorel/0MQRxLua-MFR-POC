@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGE=lorel/zmqrxlua:lua-sgx
+IMAGE=lorel/zmqrxlua:sgx
 
 scp sgx2:/tmp/luasgx build_files/luasgx/
 scp sgx2:/tmp/EnclavedLua.signed.so build_files/luasgx/

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-IMAGE=lorel/zmqrxlua:lua
+IMAGE=lorel/zmqrxlua:lua-debug
 
 cp -f ../../experiment/zmq-rx.lua build_files/zmq-rx.lua
 cp -f ../../experiment/sgx.lua build_files/sgx.lua
