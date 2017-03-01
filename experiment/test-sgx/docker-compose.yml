@@ -100,7 +100,7 @@ services:
 
   mappersgx:
     image: "${IMAGE_SGX}"
-    entrypoint: lua sgx-map-csv-to-event.lua
+    entrypoint: ./start.sh sgx-map-csv-to-event.lua
     environment:
       - TO=tcp://routermapperfilter:5557
       - FROM=tcp://routerdatamapper:5556

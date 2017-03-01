@@ -19,6 +19,10 @@ case "$?" in
     ;;
 esac
 
+function slack_notify {
+  ../../slack-notifier/notifier.sh $1
+}
+
 function clean {
   echo "Remove containers from a previous XP if exist..."
   docker-compose stop
@@ -44,7 +48,9 @@ function run_xp {
   #docker-compose scale data1=1 data2=1 data3=1 data4=1
   docker-compose scale data=1
 
+  slack_notify "Run XP $i/$N with $WORKERS worker(s)"
   docker-compose up printer
+  slack_notify "XP $i/$N done!"
 
   echo 'Stop store_stats.rb'
   kill $store_stats_pid 2>> store-stats.log || echo "Failed at $(date)"
