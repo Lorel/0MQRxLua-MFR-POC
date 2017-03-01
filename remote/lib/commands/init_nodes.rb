@@ -35,13 +35,13 @@ define_method(:init_nodes) do
 
   data_files.map do |data,file|
     Node.with_roles(data).map do |node|
-      commands = [
-        'cd /home/ubuntu/zmqrxlua/zmqrxlua-poc/experiment/test/data',
-        "wget http://stat-computing.org/dataexpo/2009/#{file}.csv.bz2 && bzip2 -d #{file}.csv.bz2"
-      ]
-
       Thread.new do
-        puts ssh_exec(node.ip, commands.dup)
+        commands = [
+          'cd /home/ubuntu/zmqrxlua/zmqrxlua-poc/experiment/test/data',
+          "wget http://stat-computing.org/dataexpo/2009/#{file}.csv.bz2 && bzip2 -d #{file}.csv.bz2"
+        ]
+
+        puts ssh_exec(node.ip, commands)
       end
     end
   end
