@@ -35,8 +35,8 @@ echo "Run AESM service"
 echo "Wait 1s for AESM service to be up"
 sleep 1
 
-echo "Copy source files from $SRC_DIR into $(pwd)"
-cp -r $SRC_DIR/* .
+echo "Link source files from $SRC_DIR into $(pwd)"
+ln -s $SRC_DIR/* .
 
 echo "Run LUA_PATH='$SRC_DIR/?.lua;;' $LUASGX $SRC_DIR/$1"
 LUA_PATH="$SRC_DIR/?.lua;;" $LUASGX $SRC_DIR/$1
