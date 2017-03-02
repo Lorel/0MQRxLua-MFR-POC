@@ -72,3 +72,5 @@ do
 done
 
 clean;
+
+slack_notify "All XPs have been done! :party:"
