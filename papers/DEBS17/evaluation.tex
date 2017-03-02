@@ -1,5 +1,4 @@
-\section{Evaluatiogher
-n}
+\section{Evaluation}
 \label{sec:eval}
 
 % \begin{itemize}
@@ -20,8 +19,8 @@ Each VM only executes one single Docker instance, to prevent cross-container int
 %A single-one container is launch on each node.
 Containers leverage the Docker overlay network to communicate to each other.
 \vs{add SGX things}
-\textbf{Dataset.}
-In our experiments, we process a real dataset released by the \emph{American Bureau of Transportation Statistic}~\cite{rita:bts}.
+
+\textbf{Dataset.} In our experiments, we process a real dataset released by the \emph{American Bureau of Transportation Statistic}~\cite{rita:bts}.
 %including each flight's departure and arrivals\cite{statistical_computing:data}.
 The dataset reports on the flight departures and arrivals of 20 air carriers~\cite{statistical_computing:data}.
 We implement a benchmark application atop of \SYS to compute average delays and the total of delayed flights for each air carrier.
@@ -72,7 +71,7 @@ With the current implementation, we observe a peak of 10\,MB/s upload throughput
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[scale=0.7]{../../experiment/results/throughput/outputs/tput_upload_4-datas-1-worker.pdf}
+  \includegraphics[scale=0.7]{images/tput_upload_4-datas-1-worker.pdf}
   \caption{Upload Throughput, single source. The middleware framework completes the processing of the dataset in 1,200\,seconds, with a peak of 4\,MB/s and an overall average throughput of 2.3\,MB/s}
   \label{fig:throughput}
 \end{figure}
