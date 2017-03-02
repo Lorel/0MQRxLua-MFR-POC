@@ -104,4 +104,31 @@ Rx.Observable.fromTable(people)
 \end{lstlisting}
 %\end{minipage}
 
-\vs{Describe what was implemented to have the Lua code interact with the SGX enclaves. Explain how the Lua VM+SGX work.}
+Since the system software is not trusted in the SGX threat model, system calls are not allowed inside secure enclaves.
+That makes porting legacy applications, like the Lua interpreter, more effortful.
+We traced all calls made by the interpreter to the standard C library and replaced them by mock implementations that either mimic the real behavior or just do nothing.
+That means that pieces of script code that is meant to run inside enclaves will not perform as they were supposed to if they work on files, network sockets or use any other input/output instruction.
+Despite being a limitation, this approach also reinforces security. 
+Since the framework safely handles the data movement and their provisioning to enclaves, the Lua script that is to run within SGX should not use files or sockets anyway.
+Even if it does, that will be caught by the inocuous mock functions and make the attempt harmless.
+
+Another constraint that comes with secure SGX enclaves is the impossibility of linking code dynamically. 
+The reason is that the assurance that a given code is running inside a SGX-enabled processor is made through the measurement of its content at the event of enclave creation.
+Based on that, further attestation mechanisms guarantee the enclave integrity, which ultimately allows them to receive sensitive information, such as the keys with which sensitive data will be thereafter exchanged. 
+If additional code were allowed, that assurance would no longer hold, which would render the system exploitable by malicious attackers.
+A direct consequence of such limitation is the unfeasibility of plugging Lua extensions in the traditional dynamic linking way. Every extension has to be statically compiled and packed with the enclave code. To ease the development of applications that rely on \SYS{}, we packed \emph{json} and \emph{csv} parsers within our enclaved interpreter.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[scale=0.85]{images/arch-sgxlua.pdf}
+  \caption{Time to copy 100 MB of memory}
+  \label{fig:arch-luasgx}
+\end{figure}
+
+
+While this limited version of Lua was adapted to run inside SGX enclaves, we still needed to provide support for communication and the reactive streams framework itself.
+That was done through a fully-fledged vanilla Lua interpreter, with a couple adaptations that allowed the interaction with the SGX enclaves.
+Figure~\ref{fig:arch-luasgx} shows the conceived architecture.
+The Lua interface was provided with 3 functions: \texttt{sgxprocess}, \texttt{sgxencrypt} and \texttt{sgxdecrypt}. The first forwars the encrypted code and data to be processed in the enclave while the others provide crypto functionalities.
+In this work, we assume that attestation and key stablishment was previously done and we just happen to have a safe key inside the enclave.
+
