@@ -1,6 +1,6 @@
 set term post color eps 22 enhanced
 set output "memcpy.eps"
-load "styles.inc"
+load "../styles.inc"
 
 set size 1.2,1.0
 set logscale xy
