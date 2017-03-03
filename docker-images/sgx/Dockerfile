@@ -38,7 +38,7 @@ ADD build_files/docker_patches $SGX_PSW_BUILD_DIR
 RUN cd $SGX_PSW_BUILD_DIR && \
   patch linux/installer/bin/install-sgx-psw.bin.tmpl < 0001-Remove-modprobe-lsmod-for-use-in-docker-container.patch && \
   patch linux/installer/common/psw/install.sh < 0002-Remove-unnecessary-sudo-from-PSW-install-script.patch && \
-  patch psw/ae/aesm_service/source/aesm/application/main.cpp < 0003-Remove-daemonization-of-AESM.PATCH
+  patch psw/ae/aesm_service/source/aesm/application/main.cpp < 0003-Remove-daemonization-of-AESM.patch
 
 
 # install sgx-psw
