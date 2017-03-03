@@ -45,17 +45,17 @@ function run_xp {
   store_stats_pid=$!
 
   WORKERS=${WORKERS:-1}
-  SGX_FACTOR=${SGX_FACTOR:-1}
+
   echo "Use $WORKERS regular worker(s) and $((WORKERS * SGX_FACTOR)) sgx worker(s)"
 
   echo 'Let’s experiment!'
   docker-compose scale routerdatamapper=1 routermapperfilter=1 routerfilterreduce=1 routerreduceprinter=1
-  docker-compose scale mappersgx=$((WORKERS * SGX_FACTOR)) filter=$WORKERS reduce=$WORKERS
+  docker-compose scale mappersgx=$WORKERS filtersgx=$WORKERS reducesgx=$WORKERS
 
   docker-compose scale data1=1 data2=1 data3=1 data4=1
   #docker-compose scale data=1
 
-  slack_notify "Run XP $i/$N with $WORKERS regular worker(s) and $((WORKERS * SGX_FACTOR)) SGX worker(s)\n\`\`\`$(docker ps | sed 's/$/\\n/')\`\`\`"
+  slack_notify "Run !!FULL SGX XP!! XP $i/$N with $WORKERS SGX worker(s)\n\`\`\`$(docker ps | sed 's/$/\\n/')\`\`\`"
   docker-compose up printer
   slack_notify "XP $i/$N done!"
 
@@ -77,4 +77,4 @@ done
 
 clean;
 
-slack_notify "All XPs have been done! :party:"
+slack_notify "!!FULL SGX XP!! have been done! :party:"
