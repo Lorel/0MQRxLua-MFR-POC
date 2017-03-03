@@ -56,6 +56,8 @@ services:
       - "${VOLUME}"
     networks:
       - xp
+    devices:
+      - "/dev/isgx"
 
   routerfilterreduce:
     image: "${IMAGE}"
@@ -96,6 +98,8 @@ services:
       - "${VOLUME}"
     networks:
       - xp
+    devices:
+      - "/dev/isgx"
 
   routermapperfilter:
     image: "${IMAGE}"
