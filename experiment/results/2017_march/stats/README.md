@@ -49,7 +49,7 @@ CPU usage CDF:
 
 Memory usage CDF:
 
-![throughput](outputs/cpu_usage_1-workers.png)
+![throughput](outputs/memory_usage_1-workers.png)
 
 
 ### Two workers by processing stage
@@ -159,7 +159,6 @@ CPU usage CDF:
 Memory usage CDF:
 
 ![throughput](outputs/memory_usage_2-workers-sgx.png)
-
 
 
 ### Four workers by processing stage
