@@ -8,5 +8,5 @@ Produced plots are stored in the directory [../outputs](../outputs).
 
 Generate all the corresponding plots by running the following command:
 ```bash
-$ ./generate_tput_upload_plots.sh
+$ ./generate_plots.sh
 ```

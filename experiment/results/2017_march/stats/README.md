@@ -39,9 +39,17 @@ Datas:
 * Rx (bytes)
 * Tx (bytes)
 
-Throughput:
+Throughput CDF:
 
 ![throughput](outputs/tput_upload_1-workers.png)
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_1-workers.png)
+
+Memory usage CDF:
+
+![throughput](outputs/cpu_usage_1-workers.png)
 
 
 ### Two workers by processing stage
@@ -59,7 +67,15 @@ Datas:
 
 Throughput:
 
-![throughput](outputs/tput_upload_2-workers.png)
+![throughput](outputs/tput_upload_2-workers.png))
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_2-workers.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_2-workers.png)
 
 
 ### Four workers by processing stage
@@ -77,7 +93,15 @@ Datas:
 
 Throughput:
 
-![throughput](outputs/tput_upload_4-workers.png)
+![throughput](outputs/tput_upload_4-workers.png))
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_4-workers.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_4-workers.png)
 
 
 
@@ -102,6 +126,14 @@ Throughput:
 
 ![throughput](outputs/tput_upload_1-workers-sgx.png)
 
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_1-workers-sgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_1-workers-sgx.png)
+
 
 ### Two workers by processing stage
 
@@ -120,6 +152,15 @@ Throughput:
 
 ![throughput](outputs/tput_upload_2-workers-sgx.png)
 
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_2-workers-sgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_2-workers-sgx.png)
+
+
 
 ### Four workers by processing stage
 
@@ -137,3 +178,11 @@ Datas:
 Throughput:
 
 ![throughput](outputs/tput_upload_4-workers-sgx.png)
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_4-workers-sgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_4-workers-sgx.png)
