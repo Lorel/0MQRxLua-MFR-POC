@@ -9,7 +9,10 @@ ENV LINUX_SGX_COMMIT f4005be591a82b1bedfbf8021cec8929a3911bb1
 
 ENV LUA53_REPO deb http://ppa.launchpad.net/ubuntu-cloud-archive/mitaka-staging/ubuntu trusty main
 
-ENV SGX_PSW_BUILD_DIR /root/sgx-psw-build
+ENV LUASGX_REPO git@github.com:Lorel/luasgx.git
+
+ENV SGX_BUILD_DIR /root/sgx-build
+ENV SGX_SDK_DIR /root/sgx-sdk
 ENV LUA_BUILD_DIR /root/lua-buid
 ENV RUNTIME_DIR /root/luasgx
 
@@ -24,8 +27,8 @@ RUN echo $LUA53_REPO >> /etc/apt/sources.list && \
 
 
 # get linux-sgx and patch it
-RUN mkdir -p $SGX_PSW_BUILD_DIR && \
-  cd $SGX_PSW_BUILD_DIR && \
+RUN mkdir -p $SGX_BUILD_DIR && \
+  cd $SGX_BUILD_DIR && \
   git init && \
   git remote add origin $LINUX_SGX_GIT && \
   git fetch origin  && \
@@ -34,18 +37,23 @@ RUN mkdir -p $SGX_PSW_BUILD_DIR && \
 
 
 # add patches
-ADD build_files/docker_patches $SGX_PSW_BUILD_DIR
-RUN cd $SGX_PSW_BUILD_DIR && \
+ADD build_files/docker_patches $SGX_BUILD_DIR
+RUN cd $SGX_BUILD_DIR && \
   patch linux/installer/bin/install-sgx-psw.bin.tmpl < 0001-Remove-modprobe-lsmod-for-use-in-docker-container.patch && \
   patch linux/installer/common/psw/install.sh < 0002-Remove-unnecessary-sudo-from-PSW-install-script.patch && \
-  patch psw/ae/aesm_service/source/aesm/application/main.cpp < 0003-Remove-daemonization-of-AESM.PATCH
+  patch psw/ae/aesm_service/source/aesm/application/main.cpp < 0003-Remove-daemonization-of-AESM.patch && \
+  patch linux/installer/bin/install-sgx-sdk.bin.tmpl < 0004-use_INSTALL_PATH_var_for-ssdk_install.patch
 
 
-# install sgx-psw
-RUN cd $SGX_PSW_BUILD_DIR && \
+# install sgx-psw and sgx-sdk
+RUN cd $SGX_BUILD_DIR && \
   ./download_prebuilt.sh && \
-  make psw_install_pkg && \
-  linux/installer/bin/sgx_linux_x64_psw_1.6.100.34922.bin
+  make && \
+  cd linux/installer/bin && \
+  ./build-installpkg.sh psw && \
+  ./sgx_linux_x64_psw_1.6.100.34922.bin && \
+  ./build-installpkg.sh sdk && \
+  INSTALL_PATH=$SGX_SDK_DIR ./sgx_linux_x64_sdk_1.6.100.34922.bin
 
 
 # install libzmq5 and libzmq5-dev from downloaded package because they are not available in Ubuntu14.04 apt repositories
@@ -100,6 +108,15 @@ RUN mkdir -p $LUA_BUILD_DIR && \
 
 
 # add LuaSGX
+ENV LUASGX_REPO_KEY /root/.ssh/id_rsa
+ADD build_files/.ssh/id_luasgx $LUASGX_REPO_KEY
+RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
+  git clone $LUASGX_REPO luasgx-build && \
+  ls -al luasgx-build && \
+  ls -al /usr/include && \
+  cd luasgx-build/app && \
+  SGX_SDK=$SGX_SDK_DIR/sgxsdk make -I/usr/include/ && \
+  ls -al .
 ADD build_files/luasgx $RUNTIME_DIR
 ADD build_files/start.sh $RUNTIME_DIR
 
