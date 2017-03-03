@@ -1,12 +1,12 @@
 *.bkp
 
-data
 docs
 
 experiment/*/logs
 experiment/*/output
 experiment/*/*.log
-experiment/*/*.lua
+experiment/test/*.lua
+experiment/test-sgx/*.lua
 experiment/*/run-local.sh
 !experiment/test_scripts/*
 
