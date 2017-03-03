@@ -113,7 +113,7 @@ The mapper is processing inside a trusted SGX enclave using LuaSGX, other worker
 
 ![schema](../images/4_data_1_worker_by_type_sgxmapper.png)
 
-Files: [data/1-workers/](data/1-workers/)
+Files: [data/1-workers-sgx/](data/1-workers-sgx/)
 
 Datas:
 * Timestamp (s)
@@ -139,7 +139,7 @@ Memory usage CDF:
 
 ![schema](../images/4_data_2_workers_by_type_sgxmapper.png)
 
-File: [data/2-workers/](data/2-workers/)
+File: [data/2-workers-sgx/](data/2-workers-sgx/)
 
 Datas:
 * Timestamp (s)
@@ -165,7 +165,7 @@ Memory usage CDF:
 
 ![schema](../images/4_data_4_workers_by_type_sgxmapper.png)
 
-File: [data/4-workers/](data/4-workers/)
+File: [data/4-workers-sgx/](data/4-workers-sgx/)
 
 Datas:
 * Timestamp (s)
