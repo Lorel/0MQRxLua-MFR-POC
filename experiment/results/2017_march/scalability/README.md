@@ -90,7 +90,7 @@ Datas: processing time (s)
 
 ### Average and standard deviation
 
-![schema](outputs/avg_stdev.png)
+![schema](outputs/avg_stdev_sgx.png)
 
 File: [outputs/avg_stdev.dat](outputs/avg_stdev.dat)
 
@@ -98,3 +98,12 @@ Datas:
 * number of workers by processing stage
 * average processing time (s)
 * standard deviation (s)
+
+
+## Processing time w/o SGX vs w/ SGX
+
+According to the numbers of workers used for each pipeline's step:
+
+![schema](outputs/avg_stdev_versus.png)
+
+File: [outputs/avg_stdev_versus.dat](outputs/avg_stdev_versus.dat)
