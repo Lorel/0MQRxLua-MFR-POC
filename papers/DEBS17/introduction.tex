@@ -14,7 +14,7 @@ This paper introduces \SYS{}, our initial work on a middleware framework for dev
 In particular, \SYS{} adopts of message-oriented~\cite{mom}, responsive, resilient-to-faults middleware design.
 Finally, it scales horizontally and vertically seamlessly \rp{SGX is limited in memory usage, which weakens the claim of vertical scalibity} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
 %Its design This middleware is designed according to The Reactive Manifesto: it is responsive, resilient, elastic and message driven\cite{reactivemanifesto}.
-Briefly, its design is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose several processing pipes.% an easy way to implement a processing pipe.
+Briefly, its design is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose several processing pipes.
 The framework integrates an abstraction of the required deployment infrastructure.
 \SYS{} smoothly integrates with industrial-grade lightweight virtualization technologies (\emph{e.g.}, Docker~\cite{docker}).
 %by deployment automation based on the Docker ecosystem
