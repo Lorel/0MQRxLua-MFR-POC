@@ -103,7 +103,8 @@
 \begin{document}
 
 % \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
-\title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
+% \title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
+\title{SecureStreams: Reactive Middleware for Secure Data Stream Processing}
 \date{}
 
 \author{
@@ -117,9 +118,10 @@
 %\thispagestyle{empty}
 
 \begin{abstract}
-The growing adoption of distributed data processing frameworks in a wide diversity of domains challenges the integration of security properties when considering large-scale cluster or multi-tenant Cloud infrastructures.
-This paper introduces \SYS{}, a versatile middleware framework to deploy and process secure streams at scale.
-Its design combines the dataflow programming paradigm with Intel's \emph{Secure Guard Extensions} (SGX) to guarantee the privacy and the integrity of the data being processed.
+The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges the integration of properties like security when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
+
+This paper therefore introduces \SYS{}, a reactive middleware framework to deploy and process secure streams at scale.
+Its design combines the reactive dataflow programming paradigm with Intel's \emph{Secure Guard Extensions} (SGX) to guarantee the privacy and the integrity of the data being processed.
 Our initial experimental results of \SYS{} are promising: while offering a fluent scripting language based on \textsc{Lua}, our middleware delivers high processing throughput, thus enabling developers to implement complex processing pipelines in a few lines of code.
 \end{abstract}
 
