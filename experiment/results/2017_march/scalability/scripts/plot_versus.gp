@@ -26,10 +26,12 @@ bs = 0.2
 name_data_file=system('echo $OUTPUT')
 
 plot [-0.5:2.5] [0:] \
-  name_data_file i 0 u ($0-bs):($1):(bs*2) t 'w/o SGX' w boxes, \
+  name_data_file i 0 u ($0-bs):($1):(bs) t 'w/o SGX' w boxes, \
   name_data_file i 0 u ($0-bs):($1):($2) notitle w yerrorb ls 1, \
-  name_data_file i 1 u ($0+bs):($1):(bs*2) t 'w/ SGX' w boxes, \
-  name_data_file i 1 u ($0+bs):($1):($2) notitle w yerrorb ls 1
+  name_data_file i 1 u ($0):($1):(bs) t 'w/ mapper SGX' w boxes, \
+  name_data_file i 1 u ($0):($1):($2) notitle w yerrorb ls 1, \
+  name_data_file i 2 u ($0+bs):($1):(bs) t 'w/ mapper/filter/reduce SGX' w boxes, \
+  name_data_file i 2 u ($0+bs):($1):($2) notitle w yerrorb ls 1
 
 set terminal postscript color portrait size 6,4
 name_eps=system('echo "$OUTPUT" | sed s/dat/eps/')

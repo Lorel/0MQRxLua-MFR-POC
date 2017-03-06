@@ -60,7 +60,7 @@ Datas:
 * standard deviation (s)
 
 
-## Secure processing
+## Secure mapper processing
 
 ### One worker by processing stage
 
@@ -93,6 +93,46 @@ Datas: processing time (s)
 ![schema](outputs/avg_stdev_mappersgx.png)
 
 File: [outputs/avg_stdev_mappersgx.dat](outputs/avg_stdev_mappersgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Secure mapper/filter/reduce processing
+
+### One worker by processing stage
+
+The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+
+![schema](../images/4_data_1_worker_by_type_fullsgx.png)
+
+Files: [data/results-1-workers-fullsgx.dat](data/results-1-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_2_workers_by_type_fullsgx.png)
+
+File: [data/results-2-workers-fullsgx.dat](data/results-2-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_4_workers_by_type_fullsgx.png)
+
+File: [data/results-4-workers-fullsgx.dat](data/results-4-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_fullsgx.png)
+
+File: [outputs/avg_stdev_fullsgx.dat](outputs/avg_stdev_fullsgx.dat)
 
 Datas:
 * number of workers by processing stage
