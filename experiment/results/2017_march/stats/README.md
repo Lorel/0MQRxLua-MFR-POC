@@ -113,7 +113,7 @@ The mapper is processing inside a trusted SGX enclave using LuaSGX, other worker
 
 ![schema](../images/4_data_1_worker_by_type_sgxmapper.png)
 
-Files: [data/1-workers-sgx/](data/1-workers-sgx/)
+Files: [data/1-workers-mappersgx/](data/1-workers-mappersgx/)
 
 Datas:
 * Timestamp (s)
@@ -124,22 +124,22 @@ Datas:
 
 Throughput:
 
-![throughput](outputs/tput_upload_1-workers-sgx.png)
+![throughput](outputs/tput_upload_1-workers-mappersgx.png)
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_1-workers-sgx.png)
+![throughput](outputs/cpu_usage_1-workers-mappersgx.png)
 
 Memory usage CDF:
 
-![throughput](outputs/memory_usage_1-workers-sgx.png)
+![throughput](outputs/memory_usage_1-workers-mappersgx.png)
 
 
 ### Two workers by processing stage
 
 ![schema](../images/4_data_2_workers_by_type_sgxmapper.png)
 
-File: [data/2-workers-sgx/](data/2-workers-sgx/)
+File: [data/2-workers-mappersgx/](data/2-workers-mappersgx/)
 
 Datas:
 * Timestamp (s)
@@ -150,22 +150,22 @@ Datas:
 
 Throughput:
 
-![throughput](outputs/tput_upload_2-workers-sgx.png)
+![throughput](outputs/tput_upload_2-workers-mappersgx.png)
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_2-workers-sgx.png)
+![throughput](outputs/cpu_usage_2-workers-mappersgx.png)
 
 Memory usage CDF:
 
-![throughput](outputs/memory_usage_2-workers-sgx.png)
+![throughput](outputs/memory_usage_2-workers-mappersgx.png)
 
 
 ### Four workers by processing stage
 
 ![schema](../images/4_data_4_workers_by_type_sgxmapper.png)
 
-File: [data/4-workers-sgx/](data/4-workers-sgx/)
+File: [data/4-workers-mappersgx/](data/4-workers-mappersgx/)
 
 Datas:
 * Timestamp (s)
@@ -176,12 +176,12 @@ Datas:
 
 Throughput:
 
-![throughput](outputs/tput_upload_4-workers-sgx.png)
+![throughput](outputs/tput_upload_4-workers-mappersgx.png)
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_4-workers-sgx.png)
+![throughput](outputs/cpu_usage_4-workers-mappersgx.png)
 
 Memory usage CDF:
 
-![throughput](outputs/memory_usage_4-workers-sgx.png)
+![throughput](outputs/memory_usage_4-workers-mappersgx.png)
