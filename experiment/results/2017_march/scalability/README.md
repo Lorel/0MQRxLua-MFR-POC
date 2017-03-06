@@ -147,3 +147,16 @@ According to the numbers of workers used for each pipeline's step:
 ![schema](outputs/avg_stdev_versus.png)
 
 File: [outputs/avg_stdev_versus.dat](outputs/avg_stdev_versus.dat)
+
+
+## Processing time with 1 non-SGX filter/reduce worker and variable SGX mapper workers
+
+This XP is based on the architecture drawn below, where the number of SGX mappers changes:
+
+![schema](../images/4_data_variable_workers_by_type_mappersgx.png)
+
+According to the numbers of workers used for each pipeline's step:
+
+![schema](outputs/avg_stdev_mappersgx_variation.png)
+
+File: [outputs/avg_stdev_versus.dat](outputs/avg_stdev_mappersgx_variation.dat)
