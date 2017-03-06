@@ -159,4 +159,4 @@ According to the numbers of workers used for each pipeline's step:
 
 ![schema](outputs/avg_stdev_mappersgx_variation.png)
 
-File: [outputs/avg_stdev_versus.dat](outputs/avg_stdev_mappersgx_variation.dat)
+File: [outputs/avg_stdev_mappersgx_variation.dat](outputs/avg_stdev_mappersgx_variation.dat)

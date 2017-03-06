@@ -4,7 +4,7 @@ set terminal png
 name_png=system('echo "$OUTPUT" | sed s/dat/png/')
 set output name_png
 set title 'Processing time: Average and standard deviation'
-set xlabel '# of workers'
+set xlabel '# of SGX workers'
 set ylabel 'Processing time (s)'
 set logscale x
 set boxwidth 0.5 relative
