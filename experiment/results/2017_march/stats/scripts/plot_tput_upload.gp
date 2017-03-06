@@ -5,7 +5,7 @@ set terminal png
 name_png=system('echo "$OUTPUT_DIR/tput_upload_$XP.png"')
 set output name_png
 
-set ylabel "Upload Throghput\nKB/sec" offset 0.5,0
+set ylabel "Upload Throughput\nMB/sec" offset 0.5,0
 set grid x y front
 
 name_data_file=system('echo "$DATA_DIR/$XP/tput_tx_percentiles_$XP.txt"')
