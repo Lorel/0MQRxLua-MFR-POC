@@ -24,7 +24,7 @@ function parse_stats {
 
   paste ${tmp_files_list[@]} > all_mem.dat
 
-  cat all_mem.dat | lua  stats.lua > $DATA_DIR/$XP/memory_usage_percentiles_$XP.txt
+  cat all_mem.dat | lua  stats_cdf.lua > $DATA_DIR/$XP/memory_usage_percentiles_$XP.txt
 
   rm ${tmp_files_list[@]} all_mem.dat
 }

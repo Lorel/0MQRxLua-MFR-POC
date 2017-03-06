@@ -45,7 +45,11 @@ Throughput CDF:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_1-workers.png)
+![throughput](outputs/cpu_usage_cdf_1-workers.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_1-workers.png)
 
 Memory usage CDF:
 
@@ -71,7 +75,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_2-workers.png)
+![throughput](outputs/cpu_usage_cdf_2-workers.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_2-workers.png)
 
 Memory usage CDF:
 
@@ -97,7 +105,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_4-workers.png)
+![throughput](outputs/cpu_usage_cdf_4-workers.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_4-workers.png)
 
 Memory usage CDF:
 
@@ -128,7 +140,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_1-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_cdf_1-workers-mappersgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_1-workers-mappersgx.png)
 
 Memory usage CDF:
 
@@ -154,7 +170,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_2-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_cdf_2-workers-mappersgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_2-workers-mappersgx.png)
 
 Memory usage CDF:
 
@@ -180,7 +200,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_4-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_cdf_4-workers-mappersgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_4-workers-mappersgx.png)
 
 Memory usage CDF:
 
@@ -210,7 +234,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_1-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_cdf_1-workers-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_1-workers-fullsgx.png)
 
 Memory usage CDF:
 
@@ -236,7 +264,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_2-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_cdf_2-workers-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_2-workers-fullsgx.png)
 
 Memory usage CDF:
 
@@ -262,7 +294,11 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_4-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_cdf_4-workers-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_4-workers-fullsgx.png)
 
 Memory usage CDF:
 

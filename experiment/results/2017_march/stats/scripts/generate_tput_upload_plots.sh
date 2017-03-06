@@ -24,7 +24,7 @@ function parse_stats {
 
   paste ${tmp_files_list[@]} > all_tx.dat
 
-  cat all_tx.dat | lua  stats.lua > $DATA_DIR/$XP/tput_tx_percentiles_$XP.txt
+  cat all_tx.dat | lua  stats_cdf.lua > $DATA_DIR/$XP/tput_tx_percentiles_$XP.txt
 
   rm ${tmp_files_list[@]} all_tx.dat
 }
