@@ -64,3 +64,21 @@ export XP="4-workers-mappersgx"
 export CONTAINERS="data1_1 data2_1 data3_1 data4_1 mappersgx_1 mappersgx_2 mappersgx_3 mappersgx_4 filter_1 filter_2 filter_3 filter_4 reduce_1 reduce_2 reduce_3 reduce_4 printer_1 routerdatamapper_1 routerfilterreduce_1 routermapperfilter_1 routerreduceprinter_1"
 parse_stats
 ./plot_memory_usage.gp
+
+
+export PREFIX=stats-testsgx_
+
+export XP="1-workers-fullsgx"
+export CONTAINERS="data1_1 data2_1 data3_1 data4_1 mappersgx_1 filtersgx_1 reducesgx_1 printer_1 routerdatamapper_1 routerfilterreduce_1 routermapperfilter_1 routerreduceprinter_1"
+parse_stats
+./plot_memory_usage.gp
+
+export XP="2-workers-fullsgx"
+export CONTAINERS="data1_1 data2_1 data3_1 data4_1 mappersgx_1 mappersgx_2 filtersgx_1 filtersgx_2 reducesgx_1 reducesgx_2 printer_1 routerdatamapper_1 routerfilterreduce_1 routermapperfilter_1 routerreduceprinter_1"
+parse_stats
+./plot_memory_usage.gp
+
+export XP="4-workers-fullsgx"
+export CONTAINERS="data1_1 data2_1 data3_1 data4_1 mappersgx_1 mappersgx_2 mappersgx_3 mappersgx_4 filtersgx_1 filtersgx_2 filtersgx_3 filtersgx_4 reducesgx_1 reducesgx_2 reducesgx_3 reducesgx_4 printer_1 routerdatamapper_1 routerfilterreduce_1 routermapperfilter_1 routerreduceprinter_1"
+parse_stats
+./plot_memory_usage.gp

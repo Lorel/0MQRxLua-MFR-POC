@@ -66,33 +66,33 @@ Datas:
 
 The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
 
-![schema](../images/4_data_1_worker_by_type_sgxmapper.png)
+![schema](../images/4_data_1_worker_by_type_mappersgx.png)
 
-Files: [data/results-1-workers.dat](data/results-1-workers.dat)
+Files: [data/results-1-workers-mappersgx.dat](data/results-1-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Two workers by processing stage
 
-![schema](../images/4_data_2_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_2_workers_by_type_mappersgx.png)
 
-File: [data/results-2-workers.dat](data/results-2-workers.dat)
+File: [data/results-2-workers-mappersgx.dat](data/results-2-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Four workers by processing stage
 
-![schema](../images/4_data_4_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_4_workers_by_type_mappersgx.png)
 
-File: [data/results-4-workers.dat](data/results-4-workers.dat)
+File: [data/results-4-workers-mappersgx.dat](data/results-4-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Average and standard deviation
 
-![schema](outputs/avg_stdev_sgx.png)
+![schema](outputs/avg_stdev_mappersgx.png)
 
-File: [outputs/avg_stdev.dat](outputs/avg_stdev.dat)
+File: [outputs/avg_stdev_mappersgx.dat](outputs/avg_stdev_mappersgx.dat)
 
 Datas:
 * number of workers by processing stage

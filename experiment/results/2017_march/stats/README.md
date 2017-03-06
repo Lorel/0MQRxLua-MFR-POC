@@ -105,13 +105,13 @@ Memory usage CDF:
 
 
 
-## Secure processing
+## Secure mapper processing
 
 ### One worker by processing stage
 
 The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
 
-![schema](../images/4_data_1_worker_by_type_sgxmapper.png)
+![schema](../images/4_data_1_worker_by_type_mappersgx.png)
 
 Files: [data/1-workers-mappersgx/](data/1-workers-mappersgx/)
 
@@ -137,7 +137,7 @@ Memory usage CDF:
 
 ### Two workers by processing stage
 
-![schema](../images/4_data_2_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_2_workers_by_type_mappersgx.png)
 
 File: [data/2-workers-mappersgx/](data/2-workers-mappersgx/)
 
@@ -163,7 +163,7 @@ Memory usage CDF:
 
 ### Four workers by processing stage
 
-![schema](../images/4_data_4_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_4_workers_by_type_mappersgx.png)
 
 File: [data/4-workers-mappersgx/](data/4-workers-mappersgx/)
 
@@ -185,3 +185,85 @@ CPU usage CDF:
 Memory usage CDF:
 
 ![throughput](outputs/memory_usage_4-workers-mappersgx.png)
+
+
+## Secure mapper/filter/reduce processing
+
+### One worker by processing stage
+
+The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+
+![schema](../images/4_data_1_worker_by_type_fullsgx.png)
+
+Files: [data/1-workers-fullsgx/](data/1-workers-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_1-workers-fullsgx.png)
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_1-workers-fullsgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_1-workers-fullsgx.png)
+
+
+### Two workers by processing stage
+
+![schema](../images/4_data_2_workers_by_type_fullsgx.png)
+
+File: [data/2-workers-fullsgx/](data/2-workers-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_2-workers-fullsgx.png)
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_2-workers-fullsgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_2-workers-fullsgx.png)
+
+
+### Four workers by processing stage
+
+![schema](../images/4_data_4_workers_by_type_fullsgx.png)
+
+File: [data/4-workers-fullsgx/](data/4-workers-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_4-workers-fullsgx.png)
+
+CPU usage CDF:
+
+![throughput](outputs/cpu_usage_4-workers-fullsgx.png)
+
+Memory usage CDF:
+
+![throughput](outputs/memory_usage_4-workers-fullsgx.png)
