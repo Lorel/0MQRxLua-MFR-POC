@@ -83,19 +83,20 @@
 \definecolor{darkgreen}{rgb}{0.3,0.5,0.3}
 \definecolor{darkblue}{rgb}{0.3,0.3,0.5}
 \definecolor{darkred}{rgb}{0.5,0.3,0.3}
-\lstdefinelanguage{LUA}{%
-  sensitive=true,%
-  keywordstyle=[1]{\color{darkblue}\bfseries},%
-  keywordstyle=[2]{\color{darkgreen}\bfseries},%
-  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,%
+\lstdefinelanguage{LUA}{
+  sensitive=true,
+  keywordstyle=[1]{\color{darkblue}\bfseries},
+  keywordstyle=[2]{\color{darkgreen}\bfseries},
+  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,
     nil,not,or,repeat,return,then,until,while,require,alias},% Official LUA keywords
   morekeywords=[2]{},% Your private keywords
-  otherkeywords={.,=,~,*,>,:},%
-  morestring=[b  stringstyle={\color{darkred}\itshape},%
-  breaklines=true,%]",%
-  breakatwhitespace=true,%
-  linewidth=\columnwidth,%
-  comment=[l]{--},%
+  otherkeywords={.,=,~,*,>,:},
+  morestring=[b]",
+  stringstyle={\color{darkred}\itshape},
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=\columnwidth,
+  comment=[l]{--},
   escapeinside={(*@}{@*)}
 }
 
