@@ -45,7 +45,7 @@ Throughput CDF:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_1-workers.png)
+![throughput](outputs/cpu_usage_percentiles_1-workers.png)
 
 CPU usage total:
 
@@ -75,7 +75,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_2-workers.png)
+![throughput](outputs/cpu_usage_percentiles_2-workers.png)
 
 CPU usage total:
 
@@ -105,7 +105,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_4-workers.png)
+![throughput](outputs/cpu_usage_percentiles_4-workers.png)
 
 CPU usage total:
 
@@ -140,7 +140,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_1-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_percentiles_1-workers-mappersgx.png)
 
 CPU usage total:
 
@@ -170,7 +170,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_2-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_percentiles_2-workers-mappersgx.png)
 
 CPU usage total:
 
@@ -200,7 +200,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_4-workers-mappersgx.png)
+![throughput](outputs/cpu_usage_percentiles_4-workers-mappersgx.png)
 
 CPU usage total:
 
@@ -234,7 +234,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_1-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_percentiles_1-workers-fullsgx.png)
 
 CPU usage total:
 
@@ -264,7 +264,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_2-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_percentiles_2-workers-fullsgx.png)
 
 CPU usage total:
 
@@ -294,7 +294,7 @@ Throughput:
 
 CPU usage CDF:
 
-![throughput](outputs/cpu_usage_cdf_4-workers-fullsgx.png)
+![throughput](outputs/cpu_usage_percentiles_4-workers-fullsgx.png)
 
 CPU usage total:
 
