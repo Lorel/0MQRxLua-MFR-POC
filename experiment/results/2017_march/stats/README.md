@@ -39,11 +39,11 @@ Datas:
 * Rx (bytes)
 * Tx (bytes)
 
-Throughput CDF:
+Throughput percentiles:
 
 ![throughput](outputs/tput_upload_1-workers.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_1-workers.png)
 
@@ -51,7 +51,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_1-workers.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_1-workers.png)
 
@@ -73,7 +73,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_2-workers.png))
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_2-workers.png)
 
@@ -81,7 +81,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_2-workers.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_2-workers.png)
 
@@ -103,7 +103,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_4-workers.png))
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_4-workers.png)
 
@@ -111,7 +111,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_4-workers.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_4-workers.png)
 
@@ -138,7 +138,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_1-workers-mappersgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_1-workers-mappersgx.png)
 
@@ -146,7 +146,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_1-workers-mappersgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_1-workers-mappersgx.png)
 
@@ -168,7 +168,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_2-workers-mappersgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_2-workers-mappersgx.png)
 
@@ -176,7 +176,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_2-workers-mappersgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_2-workers-mappersgx.png)
 
@@ -198,7 +198,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_4-workers-mappersgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_4-workers-mappersgx.png)
 
@@ -206,7 +206,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_4-workers-mappersgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_4-workers-mappersgx.png)
 
@@ -232,7 +232,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_1-workers-fullsgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_1-workers-fullsgx.png)
 
@@ -240,7 +240,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_1-workers-fullsgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_1-workers-fullsgx.png)
 
@@ -262,7 +262,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_2-workers-fullsgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_2-workers-fullsgx.png)
 
@@ -270,7 +270,7 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_2-workers-fullsgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_2-workers-fullsgx.png)
 
@@ -292,7 +292,7 @@ Throughput:
 
 ![throughput](outputs/tput_upload_4-workers-fullsgx.png)
 
-CPU usage CDF:
+CPU usage percentiles:
 
 ![throughput](outputs/cpu_usage_percentiles_4-workers-fullsgx.png)
 
@@ -300,6 +300,6 @@ CPU usage total:
 
 ![throughput](outputs/cpu_usage_sum_4-workers-fullsgx.png)
 
-Memory usage CDF:
+Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_4-workers-fullsgx.png)
