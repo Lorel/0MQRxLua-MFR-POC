@@ -17,6 +17,7 @@ set key outside horizontal right samplen 2
 
 
 set output 'tput_tx_percentiles_1-workers.eps'
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_1-workers.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -30,6 +31,7 @@ plot \
 
 
 set output 'tput_tx_percentiles_1-workers-fullsgx.eps'
+set ytics 1
 
 plot \
   'data/tput_tx_percentiles_1-workers-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -43,6 +45,7 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers.eps'
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_2-workers.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -56,6 +59,7 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers-fullsgx.eps'
+set ytics 1
 
 plot \
   'data/tput_tx_percentiles_2-workers-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -69,6 +73,7 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers.eps'
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_4-workers.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -82,6 +87,7 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers-fullsgx.eps'
+set ytics 1
 
 plot \
   'data/tput_tx_percentiles_4-workers-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
