@@ -1,19 +1,18 @@
-fs: encfs, metfs, sdsfuse_xor, cryfs, sdsfuse_fuse, ecryptfs, sdsfuse_aligned_det, sdsfuse_erasure, sdsfuse_aligned_aes, sdsfuse_rep, sdsfuse_nop_encode_nop_align, native
 # idx value color filesystem workload
 0
-1 0.0385315067916 255  0  0 "cryfs" "File-server-50th.f" "{/ZapfDingbats \300}"
-2 0.0894318122612 255  0  0 "cryfs" "Mail-server-16th.f" "{/ZapfDingbats \301}"
-3 0.110838095972 255  0  0 "cryfs" "Web-server-100th.f" "{/ZapfDingbats \302}"
-4 0.180649358723 255  0  0 "cryfs" "filemicro\\_rread\\_4K.f" "{/ZapfDingbats \303}"
-5 0.406285791769 255  165  0 "cryfs" "filemicro\\_rwrite\\_4K.f" "{/ZapfDingbats \304}"
-6 0.173377007745 255  0  0 "cryfs" "filemicro\\_seqread\\_4K.f" "{/ZapfDingbats \305}"
-7 0.229200951118 255  0  0 "cryfs" "filemicro\\_seqwrite\\_4K.f" "{/ZapfDingbats \306}"
+1 0.0385315067916 255  0  0 
+2 0.0894318122612 255  0  0 
+3 0.110838095972 255  0  0  
+4 0.180649358723 255  0  0  
+5 0.406285791769 255  165 0 
+6 0.173377007745 255  0  0  
+7 0.229200951118 255  0  0  
 8
-9 0.0442294161264 255  0  0 "ecryptfs" "File-server-50th.f" "{/ZapfDingbats \300}"
-10 0.0502789420173 255  0  0 "ecryptfs" "Mail-server-16th.f" "{/ZapfDingbats \301}"
-11 0.151638667158 255  0  0 "ecryptfs" "Web-server-100th.f" "{/ZapfDingbats \302}"
-12 0.373192127276 255  165  0 "ecryptfs" "filemicro\\_rread\\_4K.f" "{/ZapfDingbats \303}"
-13 0.529770099841 255  165  0 "ecryptfs" "filemicro\\_rwrite\\_4K.f" "{/ZapfDingbats \304}"
-14 0.119866734315 255  0  0 "ecryptfs" "filemicro\\_seqread\\_4K.f" "{/ZapfDingbats \305}"
-15 0.299291667935 255  165  0 "ecryptfs" "filemicro\\_seqwrite\\_4K.f" "{/ZapfDingbats \306}"
+9 0.0442294161264 255  0  0  
+10 0.0502789420173 255  0  0 
+11 0.151638667158 255  0  0  
+12 0.373192127276 255  165  0
+13 0.529770099841 255  165  0
+14 0.119866734315 255  0  0  
+15 0.299291667935 255  165  0
 16

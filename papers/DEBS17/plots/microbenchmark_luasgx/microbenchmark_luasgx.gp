@@ -52,7 +52,7 @@ set origin X_MARGIN+(X_POS*(WIDTH_IND+WIDTH_BETWEEN_X)), Y_MARGIN+(Y_POS*(HEIGHT
 set size WIDTH_IND,HEIGHT_IND
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
-plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)):xtic(8) w boxes lc rgbcolor variable,\
+plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)) w boxes lc rgbcolor variable,\
      1 with lines linecolor 0 linetype 6;
 
 
@@ -64,7 +64,7 @@ set origin X_MARGIN+(X_POS*(WIDTH_IND+WIDTH_BETWEEN_X)), Y_MARGIN+(Y_POS*(HEIGHT
 set size WIDTH_IND,HEIGHT_IND
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
-plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)):xtic(8) w boxes lc rgbcolor variable,\
+plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)) w boxes lc rgbcolor variable,\
      1 with lines linecolor 0 linetype 6;
 
 unset label 1001
@@ -79,7 +79,7 @@ set origin X_MARGIN+(X_POS*(WIDTH_IND+WIDTH_BETWEEN_X)), Y_MARGIN+(Y_POS*(HEIGHT
 set size WIDTH_IND,HEIGHT_IND
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
-plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)):xtic(8) w boxes lc rgbcolor variable,\
+plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)) w boxes lc rgbcolor variable,\
      1 with lines linecolor 0 linetype 6;
 
 
@@ -91,7 +91,7 @@ set origin X_MARGIN+(X_POS*(WIDTH_IND+WIDTH_BETWEEN_X)), Y_MARGIN+(Y_POS*(HEIGHT
 set size WIDTH_IND,HEIGHT_IND
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
-plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)):xtic(8) w boxes lc rgbcolor variable,\
+plot  "data/ratio.txt"   using  1:2:(rgb($3,$4,$5)) w boxes lc rgbcolor variable,\
      1 with lines linecolor 0 linetype 6;
 
 
