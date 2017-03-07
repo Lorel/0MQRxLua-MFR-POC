@@ -12,7 +12,7 @@ However, as some of these data streams may convey sensitive information, stream 
 This paper introduces \SYS{}, our initial work on a middleware framework for developing secure stream processing in the Cloud.
 \SYS{} supports the implementation, deployment and execution of stream processing tasks in distributed settings, from large-scale clusters to multi-tenant Cloud infrastructures.
 In particular, \SYS{} adopts of message-oriented~\cite{mom}, responsive, resilient-to-faults middleware design.
-Finally, it scales horizontally and vertically seamlessly \rp{SGX is limited in memory usage, which weakens the claim of vertical scalibity} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
+Finally, it scales horizontally and vertically seamlessly \rp{SGX is limited in memory usage, which weakens the claim of vertical scalability} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
 %Its design This middleware is designed according to The Reactive Manifesto: it is responsive, resilient, elastic and message driven\cite{reactivemanifesto}.
 Briefly, its design is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose several processing pipes.
 The framework integrates an abstraction of the required deployment infrastructure.

@@ -6,11 +6,12 @@ set size 1.2,1.0
 set logscale xy
 set xtics nomirror
 set ytics nomirror
-set y2tics
 set xlabel 'chunk size (bytes)
-set ylabel 'time (ms)'
-set format xy "10^%T"
+set ylabel 'time (s)'
+set format xy "10^{%T}"
+set arrow from 65536,0.01 to 65536,2 nohead lc rgb 'gray60'
 plot \
-    'memcpy.dat' u (104857600/$1):($3/1e+6) w lp ls 10 t "SGX", \
-    'memcpy.dat' u (104857600/$1):($6/1e+6) w lp ls 11 t "Native", \
-    'memcpy.dat' u (104857600/$1):($3/$6) w lp ls 12 axes x1y2 t 'Ratio (right-side scale)'
+    'memcpy.dat' u 1:2 w lp ls 10 t "SGX in", \
+    'memcpy.dat' u 1:6 w lp ls 21 t "Native in", \
+    'memcpy.dat' u 1:4 w lp ls 2 t "SGX in/out", \
+    'memcpy.dat' u 1:8 w lp ls 11 t "Native in/out"

@@ -40,8 +40,9 @@ While normal function calls took 23.6 $ns$, enclaved calls took on average 2.35 
 We then assessed the cost of copying data from the unshielded execution to the enclave and compared with the time it took to natively do the same.
 We initialized a buffer of 100 MB with random data and copied its content by chunks of increasing sizes, with one function call per chunk.
 Figure~\ref{fig:sgxmemcpy} shows the results.
-When using smaller chunks, the function call overhead plays an important role in the total time, which steadly drops until we send chunks of 64 KB.
-Then we can notice an abrupt growth for the enclaved execution time, which can probably be credited to cache phenomena \rp{???}.
+When using smaller chunks, the function call overhead plays an important role in the total time, which steadly drops until we send chunks of 64 KB (vertical line).
+We can also notice that copying data back to non-sgx execution impose an overhead of at most 20\%.
+Each point in the plot correspond to the average of 20 runs. Correctness of the copies was verified by SHA256 digest comparison between reproduced memory areas.
 
 \begin{figure}[t!]
   \centering
