@@ -2,10 +2,10 @@
 
 
 set terminal png
-name_png=system('echo "$OUTPUT_DIR/cpu_usage_cdf_$XP.png"')
+name_png=system('echo "$OUTPUT_DIR/cpu_usage_percentiles_$XP.png"')
 set output name_png
 
-set ylabel "CDF CPU usage\n% per CPU" offset 0.5,0
+set ylabel "Containers CPU usage\n% per CPU" offset 0.5,0
 set grid x y front
 
 name_data_file=system('echo "$DATA_DIR/$XP/cpu_usage_percentiles_$XP.txt"')
@@ -18,7 +18,7 @@ plot \
   name_data_file every 10 using 1:($2) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
 
 set term postscript monochrome eps enhanced 22
-name_eps=system('echo "$OUTPUT_DIR/cpu_usage_cdf_$XP.eps"')
+name_eps=system('echo "$OUTPUT_DIR/cpu_usage_percentiles_$XP.eps"')
 set output name_eps
 
 set size 1.0,0.65
@@ -37,7 +37,7 @@ set key outside horizontal right samplen 2
 
 replot
 
-!epstopdf `echo "$OUTPUT_DIR/cpu_usage_cdf_$XP.eps"`
-!rm `echo "$OUTPUT_DIR/cpu_usage_cdf_$XP.eps"`
+!epstopdf `echo "$OUTPUT_DIR/cpu_usage_percentiles_$XP.eps"`
+!rm `echo "$OUTPUT_DIR/cpu_usage_percentiles_$XP.eps"`
 
 quit
