@@ -1,4 +1,5 @@
 local ZmqRx = require 'sgx-rx'
+local log = require 'log'
 
 local from_socket = os.getenv('FROM') or 'tcp://localhost:5558'
 
@@ -9,8 +10,11 @@ local results = {}
 
 ZmqRx.Subject.fromZmqSocket(from_socket) -- 'tcp://localhost:5558'
   :subscribe(
-    function(datas)
-      for k,v in pairs(SGX.cjson.decode(SGX.decrypt(datas))) do
+    function(encrypted_data)
+      data = SGX.decrypt(encrypted_data)
+      log.info('Printer received:', data)
+
+      for k,v in pairs(SGX.cjson.decode(data)) do
         carrier = results[k] or {}
         results[k] = { count = (carrier.count or 0) + v.count, total = (carrier.total or 0) + v.total }
       end

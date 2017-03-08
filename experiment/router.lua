@@ -35,8 +35,6 @@ local clients_inventory = { count = 0 }
 local poller = zpoller.new(2)
 
 poller:add(frontend, zmq.POLLIN, function ()
-  local start_time = os.time()
-
   local msg = frontend:recv()
   local start_sender_id = string.match(msg, ZmqRx.util.START .. '(.*)')
   local done_sender_id = string.match(msg, ZmqRx.util.STOP .. '(.*)')
@@ -52,7 +50,7 @@ poller:add(frontend, zmq.POLLIN, function ()
   else
     backend:send(msg)
     sendCounter = sendCounter + 1
-    ZmqRx.util.sample_logged(sendCounter, 'Sent to backend', 'time (s)', os.time() - start_time)
+    ZmqRx.util.sample_logged(sendCounter, 'Sent to backend')
   end
 
   if (clients_counter == 0) then

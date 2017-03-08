@@ -24,6 +24,7 @@ services:
       - FROM=tcp://routerreduceprinter:5562
       - OUTPUT=$RESULT_OUTPUT
       - "constraint:type==sgx"
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"
