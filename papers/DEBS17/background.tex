@@ -8,7 +8,7 @@
 \section{SGX Lightning Tour}
 \label{sec:background}
 The design of \SYS revolves around the availability of SGX features in the host machines. 
-It consists in a form of Trusted Execution Environment (TEE) recently introduced into Intel SkyLake, similar in the spirit to ARM TrustZone [21]. 
+It consists in a form of Trusted Execution Environment (TEE) recently introduced into Intel SkyLake, similar in the spirit to ARM TrustZone~\cite{arm2009security}. 
 Applications create secure enclaves to protect the integrity and the confidentiality of the data and the code executed. 
 The SGX mechanism, as depicted in Figure~\ref{fig:sgx}, allows applications to access confidential data from inside the enclave. 
 The architecture guarantees that an attacker with physical access to a machine won’t be able to tamper with the application data. 
@@ -30,4 +30,4 @@ The execution flow of a program using SGX enclaves is like the following.
 First, an enclave is created (Figure~\ref{fig:sgx}-\ding{202}).
 As soon as a program needs to execute a trusted function (Figure~\ref{fig:sgx}-\ding{203}), it executes SGX's \texttt{ecall} (Figure~\ref{fig:sgx}-\ding{204}).
 The call goes through the SGX call gate to bring the execution flow inside the enclave (Figure~\ref{fig:sgx}-\ding{205}).
-Once the trusted function is executed by one of the enclave's threads (Figure~\ref{fig:sgx}-\ding{206}), its result is encrypted and sent back to the main processing thread (Figure~\ref{fig:sgx}-\ding{207}).
+Once the trusted function is executed by one of the enclave's threads (Figure~\ref{fig:sgx}-\ding{206}), its result is encrypted and sent back the result (Figure~\ref{fig:sgx}-\ding{207}) before giving back the control to the main processing thread (Figure~\ref{fig:sgx}-\ding{208}).
