@@ -11,11 +11,11 @@ However, as some of these data streams may convey sensitive information, stream 
 % In this context, data streams are expected to be processed with a native support for reliability, scalability and security properties.
 This paper introduces \SYS{}, our initial work on a middleware framework for developing and deploying secure stream processing on untrusted Cloud environments.
 \SYS{} supports the implementation, deployment and execution of stream processing tasks in distributed settings, from large-scale clusters to multi-tenant Cloud infrastructures.
-\SYS{} adopts a message-oriented~\cite{mom}, responsive, resilient-to-faults middleware design.\vs{if we mention fault-resilient, we need to show this in the eval somehow}
+\SYS{} adopts a message-oriented~\cite{mom} middleware design.
 While SGX limitations (detailed in Section~\ref{sec:background}) currently limits \SYS's vertical scalability, the middleware seamlessly scales horizontally.
 
 %\rp{and vertically seamlessly. SGX is limited in memory usage, which weakens the claim of vertical scalability} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
-%Its design This middleware is designed according to The Reactive Manifesto: it is responsive, resilient, elastic and message driven\cite{reactivemanifesto}.
+
 The design of the system is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose specific processing pipes.
 The framework integrates an abstraction of the required deployment infrastructure.
 \SYS{} smoothly integrates with industrial-grade lightweight virtualization technologies (\emph{e.g.}, Docker~\cite{docker}).
@@ -41,4 +41,4 @@ The remainder of this paper is organized as follows.
 The architecture of \SYS{} is described in Section~\ref{sec:architecture}.
 Our implementation choices and an example of \SYS{} program are reported in Section~\ref{sec:implementation}.
 Section~\ref{sec:eval} discusses our extensive evaluation, presenting a detailed analysis of micro-benchmark performances, as well as more comprehensive macro-benchmarks with respect to throughput and scalability results.
-Before concluding, Section~\ref{sec:future} briefly describes our future work. 
+Before concluding, Section~\ref{sec:future} briefly describes our future work.
