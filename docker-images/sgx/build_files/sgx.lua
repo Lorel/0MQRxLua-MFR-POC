@@ -5,15 +5,29 @@ log.outfile = os.getenv('LOG_DIR') and os.getenv('LOG_DIR') .. os.getenv('HOSTNA
 
 
 -- define SGX globally
+local encrypt
+local decrypt
+
+if not sgxprocess and os.getenv('ENCRYPT') == 'true' then
+  log.info('Use crypto from sgx_encryptor for functions encrypt and decrypt')
+  local encryptor = require 'sgx_encryptor'
+  encrypt = encryptor.encrypt
+  decrypt = encryptor.decrypt
+else
+  log.info('Use identity for functions encrypt and decrypt')
+  encrypt = function(x) return x end
+  decrypt = function(x) return x end
+end
+
 _G.SGX = {
   cjson = cjson or require 'cjson',
-  encrypt = sgxencrypt or function(x) return x end,
+  encrypt = sgxencrypt or encrypt,
   process = sgxprocess or function(func, params)
     log.trace('Call mocked sgxprocess with:', func, params)
     load('SGX.func = ' .. func)()
     return tostring(SGX.func(params)) -- ensure that sgxprocess returns a string value
   end,
-  decrypt = sgxdecrypt or function(x) return x end,
+  decrypt = sgxdecrypt or decrypt,
 }
 
 -- utils
