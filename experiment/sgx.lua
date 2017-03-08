@@ -98,8 +98,9 @@ end
 
 -- nasty code
 function SGX:exec_mapper (func, ...)
-  log.trace('SGX:exec_mapper', func, ...)
+  log.trace('SGX:exec_mapper call', func, ...)
   local sgx_reply = self.process(self.encrypt(self:function_wrapper(func)), ...)
+  log.trace('SGX:exec_mapper reply', sgx_reply)
 
   return sgx_reply
 end
