@@ -12,7 +12,8 @@ However, as some of these data streams may convey sensitive information, stream 
 This paper introduces \SYS{}, our initial work on a middleware framework for developing and deploying secure stream processing on untrusted Cloud environments.
 \SYS{} supports the implementation, deployment and execution of stream processing tasks in distributed settings, from large-scale clusters to multi-tenant Cloud infrastructures.
 \SYS{} adopts a message-oriented~\cite{mom} middleware design.
-While SGX limitations (detailed in Section~\ref{sec:background}) currently limits \SYS's vertical scalability, the middleware seamlessly scales horizontally.
+While the current version of SGX (detailed in Section~\ref{sec:background}) restrains \SYS's vertical scalability, the middleware seamlessly scales horizontally. 
+Infact, it is easy to add or remove processing nodes at any stage of the pipeline, for example to dynamically scale up or down with respect to the current workload.
 
 %\rp{and vertically seamlessly. SGX is limited in memory usage, which weakens the claim of vertical scalability} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
 
