@@ -5,15 +5,31 @@ log.outfile = os.getenv('LOG_DIR') and os.getenv('LOG_DIR') .. os.getenv('HOSTNA
 
 
 -- define SGX globally
+local encrypt
+local decrypt
+
+if not sgxprocess and os.getenv('ENCRYPT') == 'true' then
+  log.info('Use crypto from sgx_encryptor for functions encrypt and decrypt')
+  local encryptor = require 'sgx_encryptor'
+  encrypt = encryptor.encrypt
+  decrypt = encryptor.decrypt
+else
+  log.info('Use identity for functions encrypt and decrypt')
+  encrypt = function(x) return x end
+  decrypt = function(x) return x end
+end
+
 _G.SGX = {
   cjson = cjson or require 'cjson',
-  encrypt = sgxencrypt or function(x) return x end,
+  encrypt = sgxencrypt or encrypt,
   process = sgxprocess or function(func, params)
-    log.trace('Call mocked sgxprocess with:', func, params)
-    load('SGX.func = ' .. func)()
-    return tostring(SGX.func(params)) -- ensure that sgxprocess returns a string value
+    local decrypted_func = SGX.decrypt(func)
+    local decrypted_params = SGX.decrypt(params)
+    log.trace('Call mocked sgxprocess with:', decrypted_func, decrypted_params)
+    load('SGX.func = ' .. decrypted_func)()
+    return SGX.encrypt(tostring(SGX.func(decrypted_params))) -- ensure that sgxprocess returns a string value
   end,
-  decrypt = sgxdecrypt or function(x) return x end,
+  decrypt = sgxdecrypt or decrypt,
 }
 
 -- utils
@@ -48,7 +64,7 @@ end
 function SGX:function_wrapper (func)
   local prefix = 'function(params) func = '
   local include_cjson = ' if not cjson then cjson = SGX.cjson end '  -- use globally defined cjson for non-SGX execution
-  local suffix = include_cjson .. ' return cjson.encode(func(table.unpack(cjson.decode(params)))) end'
+  local suffix = include_cjson .. ' return cjson.encode(func(cjson.decode(params))) end' -- instead of ' return cjson.encode(func(table.unpack(cjson.decode(params)))) end' because we cannot pack params before
   local wrapped_func = prefix .. func .. suffix
   log.trace('SGX:function_wrapper wrapped_func:', wrapped_func)
   return wrapped_func
@@ -79,5 +95,46 @@ function SGX:exec_func (func, ...)
   return self:exec(decompile(func), ...)
 end
 
+
+-- nasty code
+function SGX:exec_mapper (func, ...)
+  log.trace('SGX:exec_mapper call', func, ...)
+  local sgx_reply = self.process(self.encrypt(self:function_wrapper(func)), ...)
+  log.trace('SGX:exec_mapper reply', sgx_reply)
+
+  return sgx_reply
+end
+
+function SGX:filter_function_wrapper (func)
+  local prefix = 'function(params) func = '
+  local include_cjson = ' if not cjson then cjson = SGX.cjson end '  -- use globally defined cjson for non-SGX execution
+  local suffix = include_cjson .. ' return func(cjson.decode(params)) or "" end'
+  local wrapped_func = prefix .. func .. suffix
+  log.trace('SGX:function_wrapper wrapped_func:', wrapped_func)
+  return wrapped_func
+end
+
+function SGX:exec_filter (func, ...)
+  log.trace('SGX:exec_filter', func, ...)
+  local sgx_reply = self.process(self.encrypt(self:filter_function_wrapper(func)), ...)
+
+  return #sgx_reply > 0
+end
+
+function SGX:reduce_function_wrapper (func)
+  local prefix = 'function(params) if not accumulator then accumulator = {} end func = '
+  local include_cjson = ' if not cjson then cjson = SGX.cjson end '  -- use globally defined cjson for non-SGX execution
+  local suffix = include_cjson .. ' return cjson.encode(func(cjson.decode(params))) or "" end'
+  local wrapped_func = prefix .. func .. suffix
+  log.trace('SGX:function_wrapper wrapped_func:', wrapped_func)
+  return wrapped_func
+end
+
+function SGX:exec_reduce (func, ...)
+  log.trace('SGX:exec_reduce', func, seed, ...)
+  local sgx_reply = self.process(self.encrypt(self:reduce_function_wrapper(func)), ...)
+
+  return sgx_reply
+end
 
 return SGX

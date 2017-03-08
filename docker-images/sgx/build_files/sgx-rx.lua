@@ -42,7 +42,7 @@ function Rx.Observable:mapSGX(callback)
 
     local function onNext(...)
       return Rx.util.tryWithObserver(observer, function(...)
-        return observer:onNext(SGX:exec(callback_string, ...))
+        return observer:onNext(SGX:exec_mapper(callback_string, ...))
       end, ...)
     end
 
@@ -69,7 +69,7 @@ function Rx.Observable:filterSGX(predicate)
 
     local function onNext(...)
       Rx.util.tryWithObserver(observer, function(...)
-        if SGX:exec(predicate_string, ...) then
+        if SGX:exec_filter(predicate_string, ...) then
           return observer:onNext(...)
         end
       end, ...)
@@ -104,7 +104,7 @@ function Rx.Observable:reduceSGX(accumulator, seed)
         first = false
       else
         return Rx.util.tryWithObserver(observer, function(...)
-          result = SGX:exec(accumulator_string, result, ...)
+          result = SGX:exec_reduce(accumulator_string, ...)
         end, ...)
       end
     end
@@ -122,5 +122,23 @@ function Rx.Observable:reduceSGX(accumulator, seed)
   end)
 end
 
+
+-- nasty code
+function Rx.Observable.fromFileByLineSGX(filename)
+  return Rx.Observable.create(function(observer)
+    local f = io.open(filename, 'r')
+    if f
+    then
+      f:close()
+      for line in io.lines(filename) do
+        observer:onNext(SGX.encrypt(SGX.cjson.encode(line)))
+      end
+
+      return observer:onCompleted()
+    else
+      return observer:onError(filename)
+    end
+  end)
+end
 
 return Rx

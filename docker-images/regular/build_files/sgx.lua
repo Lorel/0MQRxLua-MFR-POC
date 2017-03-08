@@ -98,8 +98,9 @@ end
 
 -- nasty code
 function SGX:exec_mapper (func, ...)
-  log.trace('SGX:exec_mapper', func, ...)
+  log.trace('SGX:exec_mapper call', func, ...)
   local sgx_reply = self.process(self.encrypt(self:function_wrapper(func)), ...)
+  log.trace('SGX:exec_mapper reply', sgx_reply)
 
   return sgx_reply
 end
@@ -123,7 +124,7 @@ end
 function SGX:reduce_function_wrapper (func)
   local prefix = 'function(params) if not accumulator then accumulator = {} end func = '
   local include_cjson = ' if not cjson then cjson = SGX.cjson end '  -- use globally defined cjson for non-SGX execution
-  local suffix = include_cjson .. ' return func(cjson.decode(params)) or "" end'
+  local suffix = include_cjson .. ' return cjson.encode(func(cjson.decode(params))) or "" end'
   local wrapped_func = prefix .. func .. suffix
   log.trace('SGX:function_wrapper wrapped_func:', wrapped_func)
   return wrapped_func
