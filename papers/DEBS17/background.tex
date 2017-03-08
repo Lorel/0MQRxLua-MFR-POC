@@ -25,3 +25,9 @@ The traffic between the CPU and the system memory is kept confidential by the me
 If a cache miss hits a protected region, the MEE encrypt or decrypt data before sending to, respectively fetching from, the system memory. 
 Data can also persisted on stable storage protected by a seal key. 
 This is useful in case the application restarts an enclave but without a new remote attestation.
+
+The execution flow of a program using SGX enclaves is like the following.
+First, an enclave is created (Figure~\ref{fig:sgx}-\ding{202}).
+As soon as a program needs to execute a trusted function (Figure~\ref{fig:sgx}-\ding{203}), it executes SGX's \texttt{ecall} (Figure~\ref{fig:sgx}-\ding{204}).
+The call goes through the SGX call gate to bring the execution flow inside the enclave (Figure~\ref{fig:sgx}-\ding{205}).
+Once the trusted function is executed by one of the enclave's threads (Figure~\ref{fig:sgx}-\ding{206}), its result is encrypted and sent back to the main processing thread (Figure~\ref{fig:sgx}-\ding{207}).
