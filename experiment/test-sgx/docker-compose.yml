@@ -17,6 +17,22 @@ services:
         aliases:
           - controller
 
+  printersgx:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-print-results.lua
+    environment:
+      - FROM=tcp://routerreduceprinter:5562
+      - OUTPUT=$RESULT_OUTPUT
+      - "constraint:type==sgx"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+
+    networks:
+      xp:
+        aliases:
+          - controller
+
   routerreduceprinter:
     image: "${IMAGE}"
     hostname: routerreduceprinter
@@ -51,6 +67,7 @@ services:
       - TO=tcp://routerreduceprinter:5561
       - FROM=tcp://routerfilterreduce:5560
       - "constraint:type==sgx"
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -93,6 +110,7 @@ services:
       - TO=tcp://routerfilterreduce:5559
       - FROM=tcp://routermapperfilter:5558
       - "constraint:type==sgx"
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -135,6 +153,7 @@ services:
       - TO=tcp://routermapperfilter:5557
       - FROM=tcp://routerdatamapper:5556
       - "constraint:type==sgx"
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -170,6 +189,20 @@ services:
     networks:
       - xp
 
+  datasgx:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==sgx"
+      - DATA_FILE=data/sample.csv
+      - ENCRYPT=true
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   data1:
     image: "${IMAGE}"
     entrypoint: lua data-stream.lua
@@ -177,6 +210,20 @@ services:
       - TO=tcp://routerdatamapper:5555
       - "constraint:type==sgx"
       - DATA_FILE=data/2005.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
+  datasgx1:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==sgx"
+      - DATA_FILE=data/2005.csv
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"
@@ -196,6 +243,20 @@ services:
     networks:
       - xp
 
+  datasgx2:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==sgx"
+      - DATA_FILE=data/2006.csv
+      - ENCRYPT=true
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   data3:
     image: "${IMAGE}"
     entrypoint: lua data-stream.lua
@@ -209,6 +270,20 @@ services:
     networks:
       - xp
 
+  datasgx3:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==sgx"
+      - DATA_FILE=data/2007.csv
+      - ENCRYPT=true
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
   data4:
     image: "${IMAGE}"
     entrypoint: lua data-stream.lua
@@ -216,6 +291,20 @@ services:
       - TO=tcp://routerdatamapper:5555
       - "constraint:type==sgx"
       - DATA_FILE=data/2008.csv
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+
+  datasgx4:
+    image: "${IMAGE}"
+    entrypoint: lua sgx-data-stream.lua
+    environment:
+      - TO=tcp://routerdatamapper:5555
+      - "constraint:type==sgx"
+      - DATA_FILE=data/2008.csv
+      - ENCRYPT=true
     env_file: global.env
     volumes:
       - "${VOLUME}"

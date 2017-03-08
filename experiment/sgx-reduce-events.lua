@@ -5,7 +5,7 @@ local to_socket = os.getenv('TO') or 'tcp://localhost:5558'
 
 ZmqRx.Subject.fromZmqSocket(from_socket) -- 'tcp://localhost:5557'
   :reduceSGX(
-    function(accumulator, event)
+    function(event)
       local carrier
       if accumulator[event.uniquecarrier] then
         carrier = accumulator[event.uniquecarrier]
