@@ -160,3 +160,92 @@ According to the numbers of workers used for each pipeline's step:
 ![schema](outputs/avg_stdev_mappersgx_variation.png)
 
 File: [outputs/avg_stdev_mappersgx_variation.dat](outputs/avg_stdev_mappersgx_variation.dat)
+
+
+## Using encrypted data w/o SGX processing
+
+### One worker by processing stage
+
+The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+
+![schema](../images/4_data_encrypted_1_worker_by_type_nosgx.png)
+
+Files: [data/results-1-workers-encrypted-nosgx.dat](data/results-1-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_nosgx.png)
+
+File: [data/results-2-workers-encrypted-nosgx.dat](data/results-2-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_nosgx.png)
+
+File: [data/results-4-workers-encrypted-nosgx.dat](data/results-4-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_encrypted_nosgx.png)
+
+File: [outputs/avg_stdev_encrypted_nosgx.dat](outputs/avg_stdev_encrypted_nosgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Using encrypted data w/o SGX processing
+
+### One worker by processing stage
+
+The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+
+![schema](../images/4_data_encrypted_1_worker_by_type_fullsgx.png)
+
+Files: [data/results-1-workers-encrypted-fullsgx.dat](data/results-1-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_fullsgx.png)
+
+File: [data/results-2-workers-encrypted-fullsgx.dat](data/results-2-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_fullsgx.png)
+
+File: [data/results-4-workers-encrypted-fullsgx.dat](data/results-4-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_encrypted_fullsgx.png)
+
+File: [outputs/avg_stdev_encrypted_fullsgx.dat](outputs/avg_stdev_encrypted_fullsgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Processing time using encrypted data w/o SGX vs w/ SGX
+
+According to the numbers of workers used for each pipeline's step:
+
+![schema](outputs/avg_stdev_encrypted_versus.png)
+
+File: [outputs/avg_stdev_encrypted_versus.dat](outputs/avg_stdev_encrypted_versus.dat)

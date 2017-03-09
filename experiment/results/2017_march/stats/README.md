@@ -303,3 +303,193 @@ CPU usage total:
 Memory usage percentiles:
 
 ![throughput](outputs/memory_usage_4-workers-fullsgx.png)
+
+
+
+## Using encrypted data w/o SGX processing
+
+In XPs below, data are encrypted from the input streams.
+
+### One worker by processing stage
+
+![schema](../images/4_data_encrypted_1_worker_by_type_nosgx.png)
+
+Files: [data/1-workers-encrypted-nosgx/](data/1-workers-encrypted-nosgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_1-workers-encrypted-nosgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_1-workers-encrypted-nosgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_1-workers-encrypted-nosgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_1-workers-encrypted-nosgx.png)
+
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_nosgx.png)
+
+File: [data/2-workers-encrypted-nosgx/](data/2-workers-encrypted-nosgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_2-workers-encrypted-nosgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_2-workers-encrypted-nosgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_2-workers-encrypted-nosgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_2-workers-encrypted-nosgx.png)
+
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_nosgx.png)
+
+File: [data/4-workers-encrypted-nosgx/](data/4-workers-encrypted-nosgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_4-workers-encrypted-nosgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_4-workers-encrypted-nosgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_4-workers-encrypted-nosgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_4-workers-encrypted-nosgx.png)
+
+
+
+## Using encrypted data w/ SGX processing
+
+In XPs below, data are encrypted from the input streams.
+
+### One worker by processing stage
+
+![schema](../images/4_data_encrypted_1_worker_by_type_fullsgx.png)
+
+Files: [data/1-workers-encrypted-fullsgx/](data/1-workers-encrypted-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_1-workers-encrypted-fullsgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_1-workers-encrypted-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_1-workers-encrypted-fullsgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_1-workers-encrypted-fullsgx.png)
+
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_fullsgx.png)
+
+File: [data/2-workers-encrypted-fullsgx/](data/2-workers-encrypted-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_2-workers-encrypted-fullsgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_2-workers-encrypted-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_2-workers-encrypted-fullsgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_2-workers-encrypted-fullsgx.png)
+
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_fullsgx.png)
+
+File: [data/4-workers-encrypted-fullsgx/](data/4-workers-encrypted-fullsgx/)
+
+Datas:
+* Timestamp (s)
+* Cpuusage (ticks)
+* Memory usage (bytes)
+* Rx (bytes)
+* Tx (bytes)
+
+Throughput:
+
+![throughput](outputs/tput_upload_4-workers-encrypted-fullsgx.png)
+
+CPU usage percentiles:
+
+![throughput](outputs/cpu_usage_percentiles_4-workers-encrypted-fullsgx.png)
+
+CPU usage total:
+
+![throughput](outputs/cpu_usage_sum_4-workers-encrypted-fullsgx.png)
+
+Memory usage percentiles:
+
+![throughput](outputs/memory_usage_4-workers-encrypted-fullsgx.png)
