@@ -7,13 +7,6 @@
   \label{fig:architecture_pipeline}
 \end{figure*}
 
-% \begin{itemize}
-%   \item Communication by ØMQ (version 4.1.4)
-%   \item Docker container for clustered deployment
-%   \item Workers connected by routers: define worker's role and router's operating
-%   \item Fire-and-forget messaging: a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols
-%   \item Based on Lua
-% \end{itemize}
 
 The architecture of \SYS{} comprises a combination of two different types of components: \textsf{worker} and \textsf{router}.
 A worker component continuously listens for incoming data by means of non-blocking I/O.
@@ -22,7 +15,6 @@ A typical use-case is the deployment of a classic filter/map/reduce pattern from
 In such case, worker nodes execute only one function, namely \texttt{map}, \texttt{filter} or \texttt{reduce}.
 A router acts as a message broker between workers in the pipeline and transfers data between them according to a given dispatching policy.
 Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of this dataflow pattern using the \SYS middleware.
-%Datas in \textsc{SecureStreams} are streamed accross the process pipeline as shown in figure \ref{fig:architecture_pipeline}.
 
 \SYS is designed to allow processing of sensible data inside SGX enclaves.
 As explained in the previous section, the \emph{Enclave Page Cache} (EPC) is currently limited at 128\,MB.\footnote{Future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
@@ -42,26 +34,27 @@ Each component is wrapped inside a lightweight Linux container (in our case, the
 Each container embeds all the required dependencies, while guaranteeing the correctness of their configuration, within an isolated and reproducible execution environment.
 By doing so, a \SYS processing pipeline can be easily deployed without changing the source code on different public or private infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
 \rp{Does Amazon offers machines with Skylake processors with EPC enabled?}
+\ah{It's planned: https://aws.amazon.com/fr/about-aws/whats-new/2016/11/coming-soon-amazon-ec2-c5-instances-the-next-generation-of-compute-optimized-instances/ but we don't know if SGX will be enabled. Google intends also: http://fortune.com/2017/02/24/google-intel-cloud-chip/. Do we have to cite there references?}
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
-Each router component hosts inbound and outbound queues. %\vs{how much?}\ah{We don't know, so we should not talk about queue size. BTW, I don't understand your sentence. Do you missed a verb?}.
-In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}. \rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}
+Each router component hosts inbound and outbound queues.
+In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}. \rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}\ah{It is, this is one of the different protocols of communication implemented in ZMQ, like explained in the target of the given pointer}
 The inbound queue is a \textsc{Pull} socket.
 The messages are streamed from a set of anonymous\footnote{\emph{Anonymous} is said about a peer without any identity: the server socket ignore which worker sent the message.} \textsc{Push} peers (\emph{e.g.}, the upstream workers in the pipeline).
 The inbound queue uses a fair-queuing scheduling to deliver the message to the upper layer.
-% dispatches the messages.\ah{that's not true, the fair-queuing algorithm operates at the level of the reception of the queue, and it does not dispatch anything, the message is passed to the outgoing socket/queue, that's it}
 Conversely, the outbound queue is a \textsc{Push} socket, sending messages using a round-robin algorithm to a set of anonymous \textsc{Pull} peers, the downstream workers.
 % \vs{if there is time, it could be useful to have a drawing that zooms into this aspect of the architecture, not the full pipeline}
-This design allows to dynamically scale up and down each stage of the pipeline in order to adapt it to application's needs or the workload. %It is scalable in that nodes can join at any time.
+This design allows to dynamically scale up and down each stage of the pipeline in order to adapt it to application's needs or the workload.
 Finally, \zmq guarantees that the messages are delivered across each stage via reliable TCP channels.
 %The pattern is mostly reliable insofar as it will not discard messages unless a node disconnects unexpectedly.
 %This fire-and-forget messaging is a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols\cite{voelter_patterns_2003}.
 % The absence of response to a message provides some relevant performances.
 
 We define the processing pipeline components by means of the Docker Compose description language~\cite{docker:compose}.
-Listing~\ref{pipeline-desc} shows a snippet of the description used to deploy the architecture in Figure~\ref{fig:architecture_pipeline}. 
+Listing~\ref{pipeline-desc} shows a snippet of the description used to deploy the architecture in Figure~\ref{fig:architecture_pipeline}.
 Once the processing pipeline is defined, the containers must be deployed on the computing infrastructure.
 We exploit the \texttt{constraint} mechanism to enforce the Docker Swarm's scheduler to deploy workers requiring SGX capabilities into appropriate hosts.
+
 
 \begin{lstlisting}[language=YAML,caption={\SYS pipeline description. Few attributes (\texttt{volume}, \texttt{networks}, \texttt{env\_file}) omitted.},label=pipeline-desc][!t]
 sgx_mapper:

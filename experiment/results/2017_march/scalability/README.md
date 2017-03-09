@@ -164,9 +164,9 @@ File: [outputs/avg_stdev_mappersgx_variation.dat](outputs/avg_stdev_mappersgx_va
 
 ## Using encrypted data w/o SGX processing
 
-### One worker by processing stage
+In XPs below, data are encrypted from the input streams.
 
-The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+### One worker by processing stage
 
 ![schema](../images/4_data_encrypted_1_worker_by_type_nosgx.png)
 
@@ -202,11 +202,11 @@ Datas:
 * standard deviation (s)
 
 
-## Using encrypted data w/o SGX processing
+## Using encrypted data w/ SGX processing
+
+In XPs below, data are encrypted from the input streams.
 
 ### One worker by processing stage
-
-The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
 
 ![schema](../images/4_data_encrypted_1_worker_by_type_fullsgx.png)
 
