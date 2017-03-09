@@ -15,21 +15,23 @@
 %   \item Based on Lua
 % \end{itemize}
 
-The architecture of \SYS{} comprises a combination two different types of components: \textsf{worker} and \textsf{router}.
+The architecture of \SYS{} comprises a combination of two different types of components: \textsf{worker} and \textsf{router}.
 A worker component continuously listens for incoming data by means of non-blocking I/O.
-As soon as data flows in, some application-dependent business logic is applied.
+As soon as data flows in, an application-dependent business logic is applied.
 A typical use-case is the deployment of a classic filter/map/reduce pattern from the functional programming paradigm~\cite{bird_introduction_1988}.
-In that case, worker nodes execute only one function, namely \texttt{map}, \texttt{filter} or \texttt{reduce}.
-A router acts as a message broker between workers in the pipeline and transfers data between workers according to some dispatching policy.
+In such case, worker nodes execute only one function, namely \texttt{map}, \texttt{filter} or \texttt{reduce}.
+A router acts as a message broker between workers in the pipeline and transfers data between them according to a given dispatching policy.
 Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of this dataflow pattern using the \SYS middleware.
 %Datas in \textsc{SecureStreams} are streamed accross the process pipeline as shown in figure \ref{fig:architecture_pipeline}.
 
 \SYS is designed to allow processing of sensible data inside SGX enclaves.
 As explained in the previous section, the \emph{Enclave Page Cache} (EPC) is currently limited at 128\,MB.\footnote{Future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
-To overcome these limitations, we settled on a lightweight yet efficient embeddable runtime, based on the Lua Virtual Machine~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
+To overcome this limitation, we settled on a lightweight yet efficient embeddable runtime, based on the Lua Virtual Machine~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
 The Lua runtime requires only few kilobytes of memory, and as such it represents an ideal candidate to execute in the limited space allowed by the EPC.
 Moreover, the application-specific functions can be quickly prototyped in Lua, and even complex algorithms can be implemented with an almost 1:1 mapping from pseudo-code~\cite{leonini2009splay}.
 We provide further implementation details of the embedding of the LuaVM inside an SGX enclave in Section~\ref{sec:implementation}.
+
+\rp{I would argue that the choice of Lua is not actually to overcome the memory limitation. I guess the majority of script interpreters would fit easily inside the the 90MB. Besides, *ideal* is a quite strong claim. Of course we do need a script language since we cannot link code dinamically, but I would rather go with the programability arguments, the availability of RxLua, besides of course being easily embeddable and tiny.}
 
 %If a process exceeds the available memory, an encrypted pagination mechanism leads to performance leaks.
 %Thus \textsc{SecureStreams} has been designed to use a Lua runtime.
@@ -39,17 +41,18 @@ We provide further implementation details of the embedding of the LuaVM inside a
 Each component is wrapped inside a lightweight Linux container (in our case, the defacto industrial standard Docker~\cite{docker}).
 Each container embeds all the required dependencies, while guaranteeing the correctness of their configuration, within an isolated and reproducible execution environment.
 By doing so, a \SYS processing pipeline can be easily deployed without changing the source code on different public or private infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
+\rp{Does Amazon offers machines with Skylake processors with EPC enabled?}
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
 Each router component hosts inbound and outbound queues. %\vs{how much?}\ah{We don't know, so we should not talk about queue size. BTW, I don't understand your sentence. Do you missed a verb?}.
-In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}.
+In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}. \rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}
 The inbound queue is a \textsc{Pull} socket.
 The messages are streamed from a set of anonymous\footnote{\emph{Anonymous} is said about a peer without any identity: the server socket ignore which worker sent the message.} \textsc{Push} peers (\emph{e.g.}, the upstream workers in the pipeline).
 The inbound queue uses a fair-queuing scheduling to deliver the message to the upper layer.
 % dispatches the messages.\ah{that's not true, the fair-queuing algorithm operates at the level of the reception of the queue, and it does not dispatch anything, the message is passed to the outgoing socket/queue, that's it}
 Conversely, the outbound queue is a \textsc{Push} socket, sending messages using a round-robin algorithm to a set of anonymous \textsc{Pull} peers, the downstream workers.
 % \vs{if there is time, it could be useful to have a drawing that zooms into this aspect of the architecture, not the full pipeline}
-This design allows to dynamically scale up and down each stage of the pipeline to adapt to the needs of the application or workload. %It is scalable in that nodes can join at any time.
+This design allows to dynamically scale up and down each stage of the pipeline in order to adapt it to application's needs or the workload. %It is scalable in that nodes can join at any time.
 Finally, \zmq guarantees that the messages are delivered across each stage via reliable TCP channels.
 %The pattern is mostly reliable insofar as it will not discard messages unless a node disconnects unexpectedly.
 %This fire-and-forget messaging is a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols\cite{voelter_patterns_2003}.
