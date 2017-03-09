@@ -60,7 +60,7 @@ Listing~\ref{pipeline-desc} shows a snippet of the description used to deploy th
 Once the processing pipeline is defined, the containers must be deployed on the computing infrastructure.
 We exploit the \texttt{constraint} mechanism to enforce the Docker Swarm's scheduler to deploy workers requiring SGX capabilities into appropriate hosts.
 
-\begin{lstlisting}[language=YAML,caption={\SYS pipeline description. Few attributes omitted (volume, networks, env\_file.)},label=pipeline-desc][!t]
+\begin{lstlisting}[language=YAML,caption={\SYS pipeline description. Few attributes (\texttt{volume}, \texttt{networks}, \texttt{env\_file}) omitted.},label=pipeline-desc][!t]
 sgx_mapper:
   image: "${IMAGE_SGX}"
   entrypoint: ./start.sh sgx-map-csv-to-event.lua

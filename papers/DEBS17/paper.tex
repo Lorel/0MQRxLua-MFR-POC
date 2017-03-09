@@ -103,6 +103,21 @@
   escapeinside={(*@}{@*)}
 }
 
+\lstdefinelanguage{YAML}{
+  sensitive=true,
+  keywordstyle=[1]{\color{darkblue}\bfseries},
+  keywordstyle=[2]{\color{darkgreen}\bfseries},
+  morekeywords=[1]{image, entrypoint, environment, devices, hostname},% Official LUA keywords
+  morekeywords=[2]{},% Your private keywords
+  otherkeywords={.,=,~,*,>,:},
+  morestring=[b]",
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=\columnwidth,
+  comment=[l]{--},
+  escapeinside={(*@}{@*)}
+}
+
 \begin{document}
 
 % \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
