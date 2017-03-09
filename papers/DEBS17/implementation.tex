@@ -87,7 +87,7 @@ Rx.Observable.fromTable(people)
      accumulator[sum] = (accumulator.sum
        or 0) + age
      return accumulator
-   end, {}
+   end,
  )
  :subscribe(
    function(datas)
