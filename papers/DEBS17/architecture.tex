@@ -87,9 +87,9 @@ data_stream:
   image: "${IMAGE}"
   entrypoint: lua data-stream.lua
   environment:
-    - TO=tcp://routerdatamapper:5555
+    - TO=tcp://router_data_mapper:5555
     - "constraint:type==sgx"
-    - DATA_FILE=data/sample.csv
+    - DATA_FILE=the_stream.csv
 \end{lstlisting}
 
 
