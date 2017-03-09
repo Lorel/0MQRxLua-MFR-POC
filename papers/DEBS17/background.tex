@@ -17,7 +17,7 @@ The CPU package represents the security boundary.
 Moreover, data belonging to an enclave is encrypted and authenticated when stored in main memory. 
 A memory dump on a victim’s machine will produce encrypted data. 
 A remote attestation protocol allows to verify that an enclave run on a genuine Intel processor with SGX. 
-An application using enclaves must ship a signed (not encrypted) shared library (\emph{e.g.} a \texttt{.so} in Linux) that can possibly be inspected by malicious attackers. 
+An application using enclaves must ship a signed (not encrypted) shared library (a shared object file in Linux) that can possibly be inspected by malicious attackers. 
 The Enclave Page Cache (EPC) is a 128 MB area of memory predefined at boot to store enclaved code and data. 
 At most around 90 MB can be used by application’s memory pages, while the remaining area is used to maintain SGX metadata. 
 Any access to an enclave page that does not reside in the EPC triggers a page fault. 
