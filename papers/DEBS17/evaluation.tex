@@ -52,9 +52,44 @@ Each point in the plot correspond to the average of 20 runs. Correctness of the 
 \end{figure}
 
 
+\begin{figure}[b!]
+  \centering
+  \includegraphics[scale=0.65]{plots/microbenchmark_luasgx/microbenchmark_luasgx.pdf}
+  \caption{Enclave versus native running times for Lua benchmarks}
+  \label{fig:luabenchs}
+\end{figure}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+               &parameter  &memory peak  \\
+    \hline
+dhrystone      &50K        &275KB        \\
+               &5M         &275KB        \\
+    \hline
+fannkuchredux  &10         &28KB         \\
+               &11         &28KB         \\
+    \hline
+nbody          &2.5M       &38KB         \\
+               &25M        &38KB         \\
+    \hline
+richards       &10         &106KB        \\
+               &100        &191KB        \\
+    \hline
+spectralnorm   &500        &52KB         \\
+               &5K         &404KB        \\
+    \hline
+binarytrees    &14         &25MB         \\
+               &19         &664MB        \\
+    \hline
+    \end{tabular}
+    \caption{\label{tab:codesize}Parameters and memory usage for Lua benchmarks}
+\end{table}
+
 Planned benchmarks:
 \begin{itemize}
-	\item overhead of the Lua benchmarks from \url{https://github.com/ltratt/vms_experiment/tree/master/benchmarks}
+	\item overhead of the Lua benchmarks from \url{https://github.com/ltratt/vms_experiment/tree/master/benchmarks}. From that set of benchmarks, we did not run fasta, knucleotide, mandelbrot, regexdna and revcomp due to depencies on input files.
 \end{itemize}
 
 \subsection{Benchmark: throughput.}
