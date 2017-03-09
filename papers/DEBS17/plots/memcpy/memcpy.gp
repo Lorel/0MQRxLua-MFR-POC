@@ -9,7 +9,8 @@ set ytics nomirror
 set xlabel 'chunk size (bytes)
 set ylabel 'time (s)'
 set format xy "10^{%T}"
-set arrow from 65536,0.01 to 65536,2 nohead lc rgb 'gray60'
+set label "{/Helvetica=15 64KB}" at 4e+4,2 
+set arrow from 65536,0.01 to 65536,1.3 nohead lc rgb 'gray60'
 plot \
     'memcpy.dat' u 1:2 w lp ls 10 t "SGX in", \
     'memcpy.dat' u 1:6 w lp ls 21 t "Native in", \

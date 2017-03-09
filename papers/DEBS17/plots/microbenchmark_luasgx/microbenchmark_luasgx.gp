@@ -8,6 +8,8 @@ WIDTH_IND=0.475
 HEIGHT_IND=0.5
 WIDTH_BETWEEN_X=0.01
 WIDTH_BETWEEN_Y=-0.05
+NTVPATT=2
+SGXPATT=6
 
 set size 1.0,0.8
 
@@ -56,8 +58,8 @@ set size 0.8,0.7
 set style fill pattern
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
 plot  \
-      "data/luabench_1ntv" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern 2 border rgb 'black' lc rgbcolor variable, \
-      "data/luabench_1sgx" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern 1 border rgb 'black' lc rgbcolor variable
+      "data/luabench_1ntv" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern NTVPATT border rgb 'black' lc rgbcolor variable, \
+      "data/luabench_1sgx" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern SGXPATT border rgb 'black' lc rgbcolor variable
 
 X_POS=1
 Y_POS=0
@@ -76,8 +78,8 @@ set size 0.26,0.7
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
 plot  \
-      "data/luabench_2sgx" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern 2 border rgb 'black' lc rgbcolor variable axes x1y2, \
-      "data/luabench_2ntv" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern 1 border rgb 'black' lc rgbcolor var axes x1y2
+      "data/luabench_2sgx" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern SGXPATT border rgb 'black' lc rgbcolor variable axes x1y2, \
+      "data/luabench_2ntv" using 1:2:3:(rgb($4,$5,$6)) w boxerror fill pattern NTVPATT border rgb 'black' lc rgbcolor var axes x1y2
 
 set key top left horizontal reverse Left samplen 1.5 width -20
 unset border
@@ -86,7 +88,7 @@ set origin 0.3, 0.15
 set size 0.6,0.7
 plot \
         [0:1] [0:1] \
-        NaN w boxerror fill pattern 1 border rgb 'black' t 'SGX' lc rgb 'gray50', \
-        NaN w boxerror fill pattern 2 border rgb 'black' t 'Native' lc rgb 'gray50'
+        NaN w boxerror fill pattern SGXPATT border rgb 'black' t 'SGX' lc rgb 'gray50', \
+        NaN w boxerror fill pattern NTVPATT border rgb 'black' t 'Native' lc rgb 'gray50'
 
 !epstopdf microbenchmark_luasgx.eps

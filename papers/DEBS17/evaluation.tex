@@ -32,17 +32,14 @@ We use the 4 last years of the available dataset (from 2005 to 2008), for a tota
 
 
 \subsection{Micro-Benchmark: Lua in SGX.}
-\vs{NEW: here we show the overhead of executing Lua code inside/outside SGX enclaves. We should use well-known Lua benchmarks (maybe there are few in Lua's own test suite or come up with something that shows the trade-offs.)}
-\vs{we should explore a bit the design space: how much data should be sent at once into the enclave before side-effects kick-in ? upon these results, we choose the proper parameter for the follow-up experiments.}
-
 To estimate the cost of enclaved function calls we averaged the time it took to do one milion calls with no data transfers.
 While normal function calls took 23.6 $ns$, enclaved calls took on average 2.35 $\mu s$, \textit{i.e}., two orders of magnitude worse.
 We then assessed the cost of copying data from the unshielded execution to the enclave and compared with the time it took to natively do the same.
 We initialized a buffer of 100 MB with random data and copied its content by chunks of increasing sizes, with one function call per chunk.
 Figure~\ref{fig:sgxmemcpy} shows the results.
 When using smaller chunks, the function call overhead plays an important role in the total time, which steadly drops until we send chunks of 64 KB (vertical line).
-We can also notice that copying data back to non-sgx execution impose an overhead of at most 20\%.
-Each point in the plot correspond to the average of 20 runs. Correctness of the copies was verified by SHA256 digest comparison between reproduced memory areas.
+We can also notice that copying data back to non-sgx execution impose an overhead of at most 20\% when compared to the one-way copy.
+Each point in the plot corresponds to the average of 20 runs. Correctness of the copies was verified by SHA256 digest comparison between reproduced memory areas.
 
 \begin{figure}[t!]
   \centering
@@ -51,6 +48,16 @@ Each point in the plot correspond to the average of 20 runs. Correctness of the 
   \label{fig:sgxmemcpy}
 \end{figure}
 
+Then we moved to the assessment of Lua benchmarks. 
+We chose six out of the eleven available in a standard set of benchmarks \cite{bolz2015} based on their dependency on input/output instructions.
+We ran each benchmark twenty times with the same pair of parameters as originally published, both in our SGX Lua interpreter and natively at the same machine. 
+Results are shown in Figure~\ref{fig:luabenchs}.
+Since the whole memory area has to be previously allocated in the current version of SGX and our biggest test used more than 600~MB of memory, wall clock time comparison would not be equitative for smaller tests. 
+In such cases, almost the whole execution time is dedicated to memory allocation. 
+Because of that, we subtracted the allocation time from the measurements of enclave executions, based on the average for the 20 runs.
+Fluctuations on this measurement caused the apparent effect of SGX executions being faster than native ones (by at most 3\%), which is obviously non realistic. 
+Table~\ref{tab:luabmarks} lists the parameters along with the maximum used amount of memory and the ratio between runtimes of sgx and native executions.
+Whenever the memory usage is kept low, the performance overhead is not high (less than 15\% in our experiments). When the amount of memory usage rises, however, performance drops to almost 5 times worse, as for the \emph{binarytrees} experiment.
 
 \begin{figure}[b!]
   \centering
@@ -59,38 +66,48 @@ Each point in the plot correspond to the average of 20 runs. Correctness of the 
   \label{fig:luabenchs}
 \end{figure}
 
+\newcommand{\lowparamcolor}{\rowcolor[rgb]{0.99,0.79,0.64}\cellcolor{white}}
+\newcommand{\higparamcolor}{\rowcolor[rgb]{0.75,0.84,0.91}\cellcolor{white}}
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
     \hline
-               &parameter  &memory peak  \\
+               &parameter  &memory      &ratio \\
+               &           &peak        &sgx/native \\
     \hline
-dhrystone      &50K        &275KB        \\
-               &5M         &275KB        \\
+\lowparamcolor
+dhrystone      &50K        &275KB       & 1.14 \\
+\higparamcolor
+               &5M         &275KB       & 1.04 \\
     \hline
-fannkuchredux  &10         &28KB         \\
-               &11         &28KB         \\
+\lowparamcolor
+fannkuchredux  &10         &28KB        & 0.99 \\
+\higparamcolor
+               &11         &28KB        & 1.04 \\
     \hline
-nbody          &2.5M       &38KB         \\
-               &25M        &38KB         \\
+\lowparamcolor
+nbody          &2.5M       &38KB        & 0.99 \\
+\higparamcolor
+               &25M        &38KB        & 1.00 \\
     \hline
-richards       &10         &106KB        \\
-               &100        &191KB        \\
+\lowparamcolor
+richards       &10         &106KB       & 1.02 \\
+\higparamcolor
+               &100        &191KB       & 0.97 \\
     \hline
-spectralnorm   &500        &52KB         \\
-               &5K         &404KB        \\
+\lowparamcolor
+spectralnorm   &500        &52KB        & 1.00 \\
+\higparamcolor
+               &5K         &404KB       & 0.99 \\
     \hline
-binarytrees    &14         &25MB         \\
-               &19         &664MB        \\
+\lowparamcolor
+binarytrees    &14         &25MB        & 1.18 \\
+\higparamcolor
+               &19         &664MB       & 4.76 \\
     \hline
     \end{tabular}
-    \caption{\label{tab:codesize}Parameters and memory usage for Lua benchmarks}
+    \caption{\label{tab:luabmarks}Parameters and memory usage for Lua benchmarks}
 \end{table}
-
-Planned benchmarks:
-\begin{itemize}
-	\item overhead of the Lua benchmarks from \url{https://github.com/ltratt/vms_experiment/tree/master/benchmarks}. From that set of benchmarks, we did not run fasta, knucleotide, mandelbrot, regexdna and revcomp due to depencies on input files.
-\end{itemize}
 
 \subsection{Benchmark: throughput.}
 This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
