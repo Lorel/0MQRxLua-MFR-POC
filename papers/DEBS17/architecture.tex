@@ -25,18 +25,20 @@ Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of this
 %Datas in \textsc{SecureStreams} are streamed accross the process pipeline as shown in figure \ref{fig:architecture_pipeline}.
 
 \SYS is designed to allow processing of sensible data inside SGX enclaves.
-As explained in the previous section, the \emph{Enclave Page Cache} (EPC) is currently limited at 128\,MB.\footnote{Note that future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
-To overcome these limitations, we settled on a lightweight yet efficient embeddable runtime based on the Lua Virtual Machine~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
-Note that the Lua runtime requires only few kilobytes of memory, and thus representing an ideal candidate to execute in the limited space allowed by the EPC.
+As explained in the previous section, the \emph{Enclave Page Cache} (EPC) is currently limited at 128\,MB.\footnote{Future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
+To overcome these limitations, we settled on a lightweight yet efficient embeddable runtime, based on the Lua Virtual Machine~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
+The Lua runtime requires only few kilobytes of memory, and as such it represents an ideal candidate to execute in the limited space allowed by the EPC.
 Moreover, the application-specific functions can be quickly prototyped in Lua, and even complex algorithms can be implemented with an almost 1:1 mapping from pseudo-code~\cite{leonini2009splay}.
+We provide further implementation details of the embedding of the LuaVM inside an SGX enclave in Section~\ref{sec:implementation}.
+
 %If a process exceeds the available memory, an encrypted pagination mechanism leads to performance leaks.
 %Thus \textsc{SecureStreams} has been designed to use a Lua runtime.
 %Lua is a lightweight multi-paradigm programming language designed primarily for embedded systems and clients\cite{ierusalimschy_luaextensible_1996}.
 %Its runtime requires only few KB of memory, and thus fits easily in EPC.
 
-Each component is wrapped inside a lightweight Linux container (in our case, Docker).
-This choice facilitate the embedding of all required dependencies, as well as the correctness of their configuration, within an isolated and reproducible execution environment.
-By doing so, a \SYS processing pipeline can be easily deployed without changing the source code on different infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
+Each component is wrapped inside a lightweight Linux container (in our case, the defacto industrial standard Docker~\cite{docker}).
+Each container embeds all the required dependencies, while guaranteeing the correctness of their configuration, within an isolated and reproducible execution environment.
+By doing so, a \SYS processing pipeline can be easily deployed without changing the source code on different public or private infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
 Each router component hosts inbound and outbound queues. %\vs{how much?}\ah{We don't know, so we should not talk about queue size. BTW, I don't understand your sentence. Do you missed a verb?}.
@@ -53,6 +55,40 @@ Finally, \zmq guarantees that the messages are delivered across each stage via r
 %This fire-and-forget messaging is a messsaging pattern in which we do not expect a direct response to the message, as opposed to request-response protocols\cite{voelter_patterns_2003}.
 % The absence of response to a message provides some relevant performances.
 
-\vs{Add some paragraphs to  detail how  the interaction with the SGX enclaves work in the context of \SYS}
+We define the processing pipeline components by means of the Docker Compose description language~\cite{docker:compose}.
+Listing~\ref{pipeline-desc} shows a snippet of the description used to deploy the architecture in Figure~\ref{fig:architecture_pipeline}. 
+Once the processing pipeline is defined, the containers must be deployed on the computing infrastructure.
+We exploit the \texttt{constraint} mechanism to enforce the Docker Swarm's scheduler to deploy workers requiring SGX capabilities into appropriate hosts.
 
-\vs{It should be useful to describe how the dataflow pipeline is mapped to the underlying cluster.}
+\begin{lstlisting}[language=YAML,caption={\SYS pipeline description. Few attributes omitted (volume, networks, env\_file.)},label=pipeline-desc][!t]
+sgx_mapper:
+  image: "${IMAGE_SGX}"
+  entrypoint: ./start.sh sgx-map-csv-to-event.lua
+  environment:
+    - TO=tcp://routermapperfilter:5557
+    - FROM=tcp://routerdatamapper:5556
+    - "constraint:type==sgx"
+  devices:
+    - "/dev/isgx"
+
+router_data_mapper:
+  image: "${IMAGE}"
+  hostname: routerdatamapper
+  entrypoint: lua router.lua
+  environment:
+    - TO=tcp://*:5556
+    - FROM=tcp://*:5555
+    - "constraint:type==sgx"
+
+data_stream:
+  image: "${IMAGE}"
+  entrypoint: lua data-stream.lua
+  environment:
+    - TO=tcp://routerdatamapper:5555
+    - "constraint:type==sgx"
+    - DATA_FILE=data/sample.csv
+\end{lstlisting}
+
+
+%\vs{Add some paragraphs to  detail how  the interaction with the SGX enclaves work in the context of \SYS}
+%\vs{It should be useful to describe how the dataflow pipeline is mapped to the underlying cluster.}
