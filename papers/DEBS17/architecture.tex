@@ -63,17 +63,17 @@ We exploit the \texttt{constraint} mechanism to enforce the Docker Swarm's sched
 \begin{lstlisting}[language=YAML,caption={\SYS pipeline description. Few attributes (\texttt{volume}, \texttt{networks}, \texttt{env\_file}) omitted.},label=pipeline-desc][!t]
 sgx_mapper:
   image: "${IMAGE_SGX}"
-  entrypoint: ./start.sh sgx-map-csv-to-event.lua
+  entrypoint: ./start.sh sgx-mapper.lua
   environment:
-    - TO=tcp://routermapperfilter:5557
-    - FROM=tcp://routerdatamapper:5556
+    - TO=tcp://router_mapper_filter:5557
+    - FROM=tcp://router_data_mapper:5556
     - "constraint:type==sgx"
   devices:
     - "/dev/isgx"
 
 router_data_mapper:
   image: "${IMAGE}"
-  hostname: routerdatamapper
+  hostname: router_data_mapper
   entrypoint: lua router.lua
   environment:
     - TO=tcp://*:5556
