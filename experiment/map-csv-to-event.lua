@@ -1,4 +1,4 @@
-local ZmqRx = require 'zmq-rx'
+local ZmqRx = require 'sgx-rx'
 local csv = require 'csv'
 
 local from_socket = os.getenv('FROM') or 'tcp://localhost:5555'

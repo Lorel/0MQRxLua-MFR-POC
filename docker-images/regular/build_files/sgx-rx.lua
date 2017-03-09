@@ -32,6 +32,86 @@ Rx.util.decompile = function (func)
   return source_code
 end
 
+--- ----------------------------------------------------------
+
+function Rx.Observable:map(callback)
+  return Rx.Observable.create(function(observer)
+    callback = callback or util.identity
+
+    local function onNext(data)
+      return Rx.util.tryWithObserver(observer, function(data)
+        return observer:onNext(SGX.encrypt(SGX.cjson.encode(callback(SGX.cjson.decode(SGX.decrypt(data))))))
+      end, data)
+    end
+
+    local function onError(e)
+      return observer:onError(e)
+    end
+
+    local function onCompleted()
+      return observer:onCompleted()
+    end
+
+    return self:subscribe(onNext, onError, onCompleted)
+  end)
+end
+
+
+function Rx.Observable:filter(predicate)
+  predicate = predicate or util.identity
+
+  return Rx.Observable.create(function(observer)
+    local function onNext(data)
+      Rx.util.tryWithObserver(observer, function(data)
+        if predicate(SGX.cjson.decode(SGX.decrypt(data))) then
+          return observer:onNext(data)
+        end
+      end, data)
+    end
+
+    local function onError(e)
+      return observer:onError(e)
+    end
+
+    local function onCompleted()
+      return observer:onCompleted()
+    end
+
+    return self:subscribe(onNext, onError, onCompleted)
+  end)
+end
+
+
+function Rx.Observable:reduce(accumulator, seed)
+  return Rx.Observable.create(function(observer)
+    local result = seed
+    local first = true
+
+    local function onNext(data)
+      if first and seed == nil then
+        result = data
+        first = false
+      else
+        return Rx.util.tryWithObserver(observer, function(data)
+          result = accumulator(result, SGX.cjson.decode(SGX.decrypt(data)))
+        end, data)
+      end
+    end
+
+    local function onError(e)
+      return observer:onError(e)
+    end
+
+    local function onCompleted()
+      observer:onNext(SGX.encrypt(SGX.cjson.encode(result)))
+      return observer:onCompleted()
+    end
+
+    return self:subscribe(onNext, onError, onCompleted)
+  end)
+end
+
+--- ----------------------------------------------------------
 
 function Rx.Observable:mapSGX(callback)
   log.info('Rx.Observable:mapSGX', callback)
