@@ -10,13 +10,13 @@ set bmargin 3.5
 set tmargin 2
 set lmargin
 set rmargin 3
-set yrange [0:]
-set xrange [:]
 
 set key outside horizontal right samplen 2
 
 
 set output 'tput_tx_percentiles_1-workers.eps'
+set yrange [0:25]
+set xrange [0:420]
 set ytics 5
 
 plot \
@@ -31,6 +31,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_1-workers-fullsgx.eps'
+set yrange [0:]
+set xrange [:]
 set ytics 1
 
 plot \
@@ -45,6 +47,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers.eps'
+set yrange [0:25]
+set xrange [0:420]
 set ytics 5
 
 plot \
@@ -59,6 +63,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers-fullsgx.eps'
+set yrange [0:]
+set xrange [:]
 set ytics 1
 
 plot \
@@ -73,6 +79,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers.eps'
+set yrange [0:25]
+set xrange [0:420]
 set ytics 5
 
 plot \
@@ -87,6 +95,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers-fullsgx.eps'
+set yrange [0:]
+set xrange [:]
 set ytics 1
 
 plot \
@@ -101,6 +111,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_1-workers-encrypted-nosgx.eps'
+set yrange [0:25]
+set xrange [0:800]
 set ytics 5
 
 plot \
@@ -115,7 +127,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_1-workers-encrypted-fullsgx.eps'
-set ytics 1
+set yrange [0:10]
+set xrange [0:2150]
+set ytics 2
 
 plot \
   'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -129,6 +143,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers-encrypted-nosgx.eps'
+set yrange [0:25]
+set xrange [0:800]
 set ytics 5
 
 plot \
@@ -143,7 +159,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers-encrypted-fullsgx.eps'
-set ytics 1
+set yrange [0:10]
+set xrange [0:2150]
+set ytics 2
 
 plot \
   'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -157,6 +175,8 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers-encrypted-nosgx.eps'
+set yrange [0:25]
+set xrange [0:800]
 set ytics 5
 
 plot \
@@ -171,7 +191,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers-encrypted-fullsgx.eps'
-set ytics 1
+set yrange [0:10]
+set xrange [0:2150]
+set ytics 2
 
 plot \
   'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
