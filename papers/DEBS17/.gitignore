@@ -10,3 +10,4 @@ paper.synctex.gz
 *fls
 implementation.log
 *fdb_latexmk
+*.DS_Store
