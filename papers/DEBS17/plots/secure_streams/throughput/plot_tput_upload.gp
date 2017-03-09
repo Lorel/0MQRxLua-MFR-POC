@@ -99,4 +99,88 @@ plot \
 !epstopdf tput_tx_percentiles_4-workers-fullsgx.eps
 !rm tput_tx_percentiles_4-workers-fullsgx.eps
 
+
+set output 'tput_tx_percentiles_1-workers-encrypted-nosgx.eps'
+set ytics 5
+
+plot \
+  'data/tput_tx_percentiles_1-workers-encrypted-nosgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_1-workers-encrypted-nosgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-nosgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-nosgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-nosgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf 'tput_tx_percentiles_1-workers-encrypted-nosgx.eps'
+!rm 'tput_tx_percentiles_1-workers-encrypted-nosgx.eps'
+
+
+set output 'tput_tx_percentiles_1-workers-encrypted-fullsgx.eps'
+set ytics 1
+
+plot \
+  'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf tput_tx_percentiles_1-workers-encrypted-fullsgx.eps
+!rm tput_tx_percentiles_1-workers-encrypted-fullsgx.eps
+
+
+set output 'tput_tx_percentiles_2-workers-encrypted-nosgx.eps'
+set ytics 5
+
+plot \
+  'data/tput_tx_percentiles_2-workers-encrypted-nosgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_2-workers-encrypted-nosgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-nosgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-nosgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-nosgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf tput_tx_percentiles_2-workers-encrypted-nosgx.eps
+!rm tput_tx_percentiles_2-workers-encrypted-nosgx.eps
+
+
+set output 'tput_tx_percentiles_2-workers-encrypted-fullsgx.eps'
+set ytics 1
+
+plot \
+  'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf tput_tx_percentiles_2-workers-encrypted-fullsgx.eps
+!rm tput_tx_percentiles_2-workers-encrypted-fullsgx.eps
+
+
+set output 'tput_tx_percentiles_4-workers-encrypted-nosgx.eps'
+set ytics 5
+
+plot \
+  'data/tput_tx_percentiles_4-workers-encrypted-nosgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_4-workers-encrypted-nosgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-nosgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-nosgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-nosgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf tput_tx_percentiles_4-workers-encrypted-nosgx.eps
+!rm tput_tx_percentiles_4-workers-encrypted-nosgx.eps
+
+
+set output 'tput_tx_percentiles_4-workers-encrypted-fullsgx.eps'
+set ytics 1
+
+plot \
+  'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+
+!epstopdf tput_tx_percentiles_4-workers-encrypted-fullsgx.eps
+!rm tput_tx_percentiles_4-workers-encrypted-fullsgx.eps
+
 quit
