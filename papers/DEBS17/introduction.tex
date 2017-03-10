@@ -1,5 +1,5 @@
 \section{Introduction}\label{sec:introduction}
-\vs{recheck the storyline and reframe where needed. Maybe stress more the security aspect and how TEE can help}
+%\vs{recheck the storyline and reframe where needed. Maybe stress more the security aspect and how TEE can help}
 
 The data deluge imposed by a world of ever-connected devices, like the \emph{Internet of Things} (IoT), has fostered the emergence of novel data analytics and processing technologies to cope with the typical \emph{volume}, \emph{velocity} and \emph{variety} properties that characterize the big data era.
 In particular, to support the continuous flow of information gathered by millions of IoT devices, data streams have emerged as a suitable paradigm to process data at scale.
@@ -22,7 +22,7 @@ The framework integrates an abstraction of the required deployment infrastructur
 \SYS{} smoothly integrates with industrial-grade lightweight virtualization technologies (\emph{e.g.}, Docker~\cite{docker}).
 %by deployment automation based on the Docker ecosystem
 It aims to be secure: communication channels use the SSL protocol~\cite{freier2011secure} for data communication.
-Finally, our design exploits the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowadays widely available into mass-market thanks to the introduction of Intel's \emph{Software Guard eXtensions} (SGX)~\cite{costan_intel} in the SkyLake processors~\cite{intel:skylake}, therefore offering end-to-end security to the processed streams.
+Finally, our design exploits the secure processing capabilities offered by trusted hardware \emph{enclaves}, nowadays widely available into mass-market thanks to the introduction of Intel's \emph{Software Guard Extensions} (SGX)~\cite{costan_intel} in the SkyLake processors~\cite{intel:skylake}, therefore offering end-to-end security to the processed streams.
 % and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
 
 A few mainstream solutions exist today for distributed stream processing.
@@ -31,16 +31,16 @@ More recently, few open-source solutions (\emph{e.g.}, Apache \textsc{Spark Stre
 These systems rely on the \emph{Java Virtual Machine} (JVM)~\cite{lindholm2014java}.
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code and data, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{pires_scbr:2016,brenner_securekeeper:_2016} when this limit is crossed.
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
-\SYS{} therefore proposes a lightweight and low-memory footprint framework that can fully execute within SGX enclaves.
+\SYS proposes a lightweight and low-memory footprint framework that can fully execute within SGX enclaves.
 We detail our implementation choices in Section~\ref{sec:implementation}.
 
 %But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
 %If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
-To recap, our \textbf{contributions} are the followings: (i) the design of \SYS{}, (ii) details of our reference implementation, and (iii) the results of our evaluation based on a real-world dataset.
+To recap, our \textbf{contributions} are the followings: (i) we describe the design of \SYS, (ii) we provide details of our reference implementation, in particular on how to smoothly integrate our runtime inside an SGX enclave, and (iii) an extensive evaluation with micro-benchmarks as well as real-world dataset.
 
 The remainder of this paper is organized as follows.
 To better understand the design of \SYS, Section~\ref{sec:background} gives a brief introduction to today's SGX operating mechanisms.
 The architecture of \SYS{} is described in Section~\ref{sec:architecture}.
 Our implementation choices and an example of \SYS{} program are reported in Section~\ref{sec:implementation}.
-Section~\ref{sec:eval} discusses our extensive evaluation, presenting a detailed analysis of micro-benchmark performances, as well as more comprehensive macro-benchmarks with respect to throughput and scalability results.
-Before concluding, Section~\ref{sec:future} briefly describes our future work.
+Section~\ref{sec:eval} discusses our extensive evaluation, presenting a detailed analysis of micro-benchmark performances, as well as more comprehensive macro-benchmarks with real-world datasets.%, focusing on with respect to throughput and scalability results.
+Before presenting our conclusions, Section~\ref{sec:future} briefly describes our future work.
