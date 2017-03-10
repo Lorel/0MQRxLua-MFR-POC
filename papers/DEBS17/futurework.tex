@@ -12,7 +12,7 @@ First, the communication between the processing components will rely on secure c
 %At the moment \SYS is not yet secured.
 %To do this, we have to secure both the communication and the processing.
 To this end, we plan to integrate \textsc{CurveZMQ}~\cite{zmq:curvezmq}, an open-source authentication and encryption protocol for \zmq.
-\textsc{CurveZMQ} is based on a fast, secure elliptic-curve cryptographic primitive provided by the libraries \textsc{CurveCP}\cite{zmq:curvecp} and \textsc{NaCl}\cite{zmq:nacl}.
+\textsc{CurveZMQ} is based on a fast, secure elliptic-curve cryptographic primitive provided by the libraries \textsc{CurveCP}\cite{zmq:curvecp} and \textsc{NaCl}\cite{zmq:nacl}. \rp{I have some doubts about the necessity of encryption at network level, since we have it in the application level. After attestation and key establishment (that has do be done anyway), we have a key inside the enclave, and code/data can be exchanged with that. So what is the gain of having an extra crypto layer? Is it worth considering the extra overhead?}
 Moreover, \SYS will generate the authentication certificates in use by the containers on-the-fly at the moment of their deployment.
 
 Secondly, the \SYS will exploit the SGX enclaves to both process and route data.
@@ -23,6 +23,6 @@ We intend to evaluate the impact of these modifications on the performance of th
 The current implementation of \SYS does not provide full automation of container deployments yet.
 In particular, we will supersede the current approach based on Docker Compose and instead will rely on the more portable Docker APIs.
 
-Finally, \SYS will allow to embed Lua scripts or native (\emph{e.g.}, C/C++) components inside a node of the processing pipeline.
+Finally, \SYS will allow to embed Lua scripts or native (\emph{e.g.}, C/C++) components inside a node of the processing pipeline. \rp{It is already possible to load Lua scripts: there is an ecall for that, just not externalized to the out-enclave Lua interface by now. Besides, there is a clear tradeoff between security and usability if we allow the automatic plugin of native code. While scripts are kind of 'sandboxed' because they cannot use syscalls, pluggable native code could potentially do some harm (e.g., stack overflows, illegal instructions, disclose keys through ocalls). The 'Secure'streams would no longer be that secure.}
 This feature will improve the usability of the framework.
 %Thus, those libraries or components will be callable directly from the code given in an element of the pipeline.
