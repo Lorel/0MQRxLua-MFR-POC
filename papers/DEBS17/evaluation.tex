@@ -48,14 +48,14 @@ Each point in the plot corresponds to the average of 20 runs. Correctness of the
   \label{fig:sgxmemcpy}
 \end{figure}
 
-Then we moved to the assessment of Lua benchmarks. 
+Then we moved to the assessment of Lua benchmarks.
 We chose six out of the eleven available in a standard set of benchmarks \cite{bolz2015} based on their dependency on input/output instructions.
-We ran each benchmark twenty times with the same pair of parameters as originally published, both in our SGX Lua interpreter and natively at the same machine. 
+We ran each benchmark twenty times with the same pair of parameters as originally published, both in our SGX Lua interpreter and natively at the same machine.
 Results are shown in Figure~\ref{fig:luabenchs}.
-Since the whole memory area has to be previously allocated in the current version of SGX and our biggest test used more than 600~MB of memory, wall clock time comparison would not be equitative for smaller tests. 
-In such cases, almost the whole execution time is dedicated to memory allocation. 
+Since the whole memory area has to be previously allocated in the current version of SGX and our biggest test used more than 600~MB of memory, wall clock time comparison would not be equitative for smaller tests.
+In such cases, almost the whole execution time is dedicated to memory allocation.
 Because of that, we subtracted the allocation time from the measurements of enclave executions, based on the average for the 20 runs.
-Fluctuations on this measurement caused the apparent effect of SGX executions being faster than native ones (by at most 3\%), which is obviously non realistic. 
+Fluctuations on this measurement caused the apparent effect of SGX executions being faster than native ones (by at most 3\%), which is obviously non realistic.
 Table~\ref{tab:luabmarks} lists the parameters along with the maximum used amount of memory and the ratio between runtimes of sgx and native executions.
 Whenever the memory usage is kept low, the performance overhead is not high (less than 15\% in our experiments). When the amount of memory usage rises, however, performance drops to almost 5 times worse, as for the \emph{binarytrees} experiment.
 
@@ -128,13 +128,6 @@ With the current implementation, we observe a peak of 10\,MB/s upload throughput
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
 
-\begin{figure}[t!]
-  \centering
-  \includegraphics[scale=0.7]{images/tput_upload_4-datas-1-worker.pdf}
-  \caption{Upload Throughput, single source. The middleware framework completes the processing of the dataset in 1,200\,seconds, with a peak of 4\,MB/s and an overall average throughput of 2.3\,MB/s}
-  \label{fig:throughput}
-\end{figure}
-
 \vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
 
@@ -152,7 +145,7 @@ Conversely, we do not observe similar improvements when using 4\,workers.
 \begin{figure}[t!]
   \centering
   \includegraphics[scale=0.5]{plots/secure_streams/scalability/sgxmapper_scalability.pdf}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers do not use SGX.}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers - 1 filter worker and 1 reduce worker - do not use SGX.}
   \label{fig:scalability}
 \end{figure}
 
@@ -162,17 +155,6 @@ We observe the following facts.
 First, the system is far from saturating the network's available bandwidth, hitting a peak of 10\,MB/s.
 Second, a small percentage of nodes consumes much more bandwidth than the other components.
 We intend to further investigate these effects as part of our future work, as we are going to elaborate in the following section.
-
-\begin{figure}[t!]
-  \centering
-  \includegraphics[scale=0.7]{images/tput_upload_4-datas-2-workers.pdf}
-  \caption{Upload throughput, 2 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
-  \label{fig:throughput2}
-  \vspace{0.5cm}
-  \includegraphics[scale=0.7]{images/tput_upload_4-datas-4-workers.pdf}
-  \caption{Upload throughput, 4 concurrent processing workers by pipeline stage. Peak throughput at 10MB/s.}
-  \label{fig:throughput4}
-\end{figure}
 
 
 \input{throughput_xp_results}
