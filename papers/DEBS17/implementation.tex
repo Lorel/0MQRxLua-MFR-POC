@@ -118,13 +118,13 @@ Wrapper functions are nevertheless installed in the SGX-enabled LuaVM to prevent
 
 Another constraint that comes with secure SGX enclaves is the impossibility of linking code dynamically. 
 The reason is that the assurance that a given code is running inside a SGX-enabled processor is made through the measurement\vs{what kind of measurement is this? size?}\rp{measurement' is the word Intel uses for the result of EREPORT instruction, a cryptographic report. It is not clear what it does, but I assume it is a hash of code, data and a few data structures that describe the enclave (concerning threads, memory heap size etc.) and the processor (security version numbers, keys etc.)} of its content when the enclave is created.
-\rp{Based on that measurement, further attestation mechanisms which ultimately allows them to receive sensitive information, such as the keys with which sensitive data will be thereafter exchanged.}\vs{i don't understand this. to rephrase}\rp{Attestation allows enclaves to receive secrets. Attestation is based on the 'measurement' of EREPORT. Clearer? $:)$} 
+\rp{Based on that measurement, further attestation mechanisms which ultimately allows them to receive sensitive information, such as the keys with which sensitive data will be thereafter exchanged.}\vs{i don't understand this. to rephrase}\rp{Attestation allows enclaves to receive secrets (like keys). Attestation is based on the 'measurement' of EREPORT. Clearer? $:)$} 
 Allowing more code to be linked dynamically at runtime would break the assurance given by the attestation mechanism on the integrity of the code being executed, allowing for example an attacker to load a malicious library inside the enclave.
 %If additional code were allowed, that assurance would no longer hold, which would render the system exploitable by malicious attackers.
 In the case of Lua, a direct consequence is the unfeasibility of plugging Lua extensions using the traditional dynamic linking technique. 
 Every extension has to be statically compiled and packed with the enclave code. 
 To ease the development of \SYS applications, we statically compiled \emph{json} \cite{rfc7159} and \emph{csv}\cite{rfc4180} parsers within our enclaved Lua interpreter.
-With these two library, the size of the VM remains reasonably small, approximately 200KB(8.8\% bigger than the original).
+With these two library, the size of the VM remains reasonably small, approximately 220~KB (19\% bigger than the original).
 
 \begin{figure}[t!]
   \centering
