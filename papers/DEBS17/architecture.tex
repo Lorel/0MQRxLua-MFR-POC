@@ -23,7 +23,7 @@ The Lua runtime requires only few kilobytes of memory, and as such it represents
 Moreover, the application-specific functions can be quickly prototyped in Lua, and even complex algorithms can be implemented with an almost 1:1 mapping from pseudo-code~\cite{leonini2009splay}.
 We provide further implementation details of the embedding of the LuaVM inside an SGX enclave in Section~\ref{sec:implementation}.
 
-\rp{I would argue that the choice of Lua is not actually to overcome the memory limitation. I guess the majority of script interpreters would fit easily inside the the 90MB. Besides, *ideal* is a quite strong claim. Of course we do need a script language since we cannot link code dinamically, but I would rather go with the programability arguments, the availability of RxLua, besides of course being easily embeddable and tiny.}
+\rp{I would argue that the choice of Lua is not actually to overcome the memory limitation. I guess the majority of script interpreters would fit easily inside the 90MB. Besides, *ideal* is a quite strong claim. Of course we do need a script language since we cannot link code dinamically, but I would rather go with the programability arguments, the availability of RxLua, besides of course being easily embeddable and tiny.}
 
 %If a process exceeds the available memory, an encrypted pagination mechanism leads to performance leaks.
 %Thus \textsc{SecureStreams} has been designed to use a Lua runtime.
@@ -33,12 +33,12 @@ We provide further implementation details of the embedding of the LuaVM inside a
 Each component is wrapped inside a lightweight Linux container (in our case, the defacto industrial standard Docker~\cite{docker}).
 Each container embeds all the required dependencies, while guaranteeing the correctness of their configuration, within an isolated and reproducible execution environment.
 By doing so, a \SYS processing pipeline can be easily deployed without changing the source code on different public or private infrastructures, such as the Amazon EC2 Container Service~\cite{awsec2container}, either on a single machine or a cluster, using a Docker network and the Docker Swarm\cite{docker:swarm_2016} scheduler.
-\rp{Does Amazon offers machines with Skylake processors with EPC enabled?}
+\rp{Does Amazon offer machines with Skylake processors with EPC enabled?}
 \ah{It's planned: https://aws.amazon.com/fr/about-aws/whats-new/2016/11/coming-soon-amazon-ec2-c5-instances-the-next-generation-of-compute-optimized-instances/ but we don't know if SGX will be enabled. Google intends also: http://fortune.com/2017/02/24/google-intel-cloud-chip/. Do we have to cite there references?}
 
 The communication between workers and routers leverages \zmq, a high-performance asynchronous messaging library~\cite{zero_mq}.
 Each router component hosts inbound and outbound queues.
-In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}. \rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}\ah{It is, this is one of the different protocols of communication implemented in ZMQ, like explained in the target of the given pointer}
+In particular, we use the \zmq's pipeline pattern with the \textsc{Push}-\textsc{Pull} protocol~\cite{zero_mq:pipeline}. \rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}\ah{It is, this is one of the different protocols of communication implemented in ZMQ, like explained in the target of the given pointer}\rp{The pointer does not mention protocol to refer to that. push/pull refers to the role of socket endpoints. It is not an agreement on format and content of exchanged messages, as a 'protocol' would be best understood by a common reader.}
 The inbound queue is a \textsc{Pull} socket.
 The messages are streamed from a set of anonymous\footnote{\emph{Anonymous} is said about a peer without any identity: the server socket ignore which worker sent the message.} \textsc{Push} peers (\emph{e.g.}, the upstream workers in the pipeline).
 The inbound queue uses a fair-queuing scheduling to deliver the message to the upper layer.

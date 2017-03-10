@@ -57,7 +57,7 @@ The framework partially extends \rxl~\cite{github:rxlua}, a library for reactive
 \rxl provides to the developer the required API to design a data stream processing pipeline following a dataflow programming pattern~\cite{uustalu_essence_2005}.
 Listing~\ref{pipeline-example} shows an example of a \rxl program (and consequently, a \SYS{} program) to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter} and \texttt{:reduce} functions.
 The \texttt{:subscribe} function performs the subscription of 3 functions to the data stream.
-Following the observer design pattern~\cite{szallies_using_1997}, hese functions are observers, and the stream is an observable.
+Following the observer design pattern~\cite{szallies_using_1997}, these functions are observers, and the stream is an observable.
 %These functions are observers, and the stream is an observable: this is precisely an implementation of the \textit{Observer Design Pattern}~\cite{szallies_using_1997}.
 %A simple program example, computing from a source of \textit{people} the average age of the adult ones, throw a map/filter/reduce pipeline, is presented in listing \ref{pipeline-example}.
 
@@ -107,24 +107,24 @@ Rx.Observable.fromTable(people)
 By consequence, porting legacy applications or runtime, such as the Lua interpreter, is challenging.
 %That makes porting legacy applications, like the Lua interpreter, more effortful.
 To achieve it, we traced, all system calls made by the interpreter to the standard C library and replaced them by mock implementations that either mimic the real behavior or just do nothing.
-Our changes to the vanilla Lua source code consist in \vs{FIX} lines of code.
+Our changes to the vanilla Lua source code consist in the addition of about 600 lines of code, or 2.5\% of its total size.
 By doing so, Lua programs operating on files, network sockets or any other input/output device do not execute as they normally do outside the enclaves. %That means that pieces of script code that is meant to run inside enclaves will not perform as they were supposed to if they work on files, network sockets or use any other input/output instruction.
 This inherent SGX limitation also reinforces the system security guarantees offered to the application developers.
 %Despite being a limitation, this approach also reinforces security. 
 The \SYS framework safely ships the data and code to enclaves.
 Hence, the Lua scripts executed within the SGX enclave do not use (read/write) files or sockets.
-A wrapper function is nevertheless installed in the SGX-enabled LuaVM to prevent any of such attempts.
+Wrapper functions are nevertheless installed in the SGX-enabled LuaVM to prevent any of such attempts.
 %Even if it does, that will be caught by the inocuous mock functions and make the attempt harmless.
 
 Another constraint that comes with secure SGX enclaves is the impossibility of linking code dynamically. 
-The reason is that the assurance that a given code is running inside a SGX-enabled processor is made through the measurement\vs{what kind of measurement is this? size?} of its content when the enclave is created.
-%Based on that, further attestation mechanisms guarantee the enclave integrity, which ultimately allows them to receive sensitive information, such as the keys with which sensitive data will be thereafter exchanged.\vs{i don't understand this. to rephrase} 
+The reason is that the assurance that a given code is running inside a SGX-enabled processor is made through the measurement\vs{what kind of measurement is this? size?}\rp{measurement' is the word Intel uses for the result of EREPORT instruction, a cryptographic report. It is not clear what it does, but I assume it is a hash of code, data and a few data structures that describe the enclave (concerning threads, memory heap size etc.) and the processor (security version numbers, keys etc.)} of its content when the enclave is created.
+\rp{Based on that measurement, further attestation mechanisms which ultimately allows them to receive sensitive information, such as the keys with which sensitive data will be thereafter exchanged.}\vs{i don't understand this. to rephrase}\rp{Attestation allows enclaves to receive secrets. Attestation is based on the 'measurement' of EREPORT. Clearer? $:)$} 
 Allowing more code to be linked dynamically at runtime would break the assurance given by the attestation mechanism on the integrity of the code being executed, allowing for example an attacker to load a malicious library inside the enclave.
 %If additional code were allowed, that assurance would no longer hold, which would render the system exploitable by malicious attackers.
 In the case of Lua, a direct consequence is the unfeasibility of plugging Lua extensions using the traditional dynamic linking technique. 
 Every extension has to be statically compiled and packed with the enclave code. 
-To ease the development of \SYS applications, we statically compiled \emph{json}\vs{ref?} and \emph{csv}\vs{ref?} parsers within our enclaved Lua interpreter.
-With these two library, the size of the VM remains reasonably small, approximately \vs{FIX}kb.
+To ease the development of \SYS applications, we statically compiled \emph{json} \cite{rfc7159} and \emph{csv}\cite{rfc4180} parsers within our enclaved Lua interpreter.
+With these two library, the size of the VM remains reasonably small, approximately 200KB(8.8\% bigger than the original).
 
 \begin{figure}[t!]
   \centering
