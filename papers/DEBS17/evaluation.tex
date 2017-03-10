@@ -2,23 +2,26 @@
 \label{sec:eval}
 
 
-This section reports on our evaluation of \SYS.
+This section reports on our extensive evaluation of \SYS.
 First, we present our evaluation settings.
-Secondly, we detail the real-world dataset used in our experiments.
-Finally, we analyze some preliminary benchmarks, namely throughput and scalability.
+Then, we describe the real-world dataset used in our macrobenchmark experiments.
+We then dig into a set of microbenchmarks that show the overhead of running the LuaVM inside the SGX enclaves.
+Finally, we deploy a full \SYS pipeline, scaling the number of workers per stage, to study the limits of the system in terms of throughput and scalability.
 
 
 \subsection{Evaluation settings.}
 We have experimented on machines using a processor Intel$^{\tiny{\textregistered}}$~Core\texttrademark~i7-6700~\cite{intel:i7_6700} and 8GB RAM.
-We use a cluster of 2 machines based on Ubuntu 14.04.1 LTS (kernel 4.2.0-42-generic) and running a daemon Docker (v.1.13.0).
-Machines are interconnected using a switched 1~Gbps network.
-Nodes join a Docker Swarm cluster~\cite{docker:swarm_2016} (v1.2.5), using Consul~\cite{consul} (v0.5.2) as discovery service.
-The Swarm manager and its discovery service are deployed on another machine.
+We use a cluster of 2 machines based on Ubuntu 14.04.1 LTS (kernel 4.2.0-42-generic).
+The choice of the Linux distribution is driven by compatibility reasons with the latest Intel SGX SDK. 
+The machines run Docker (v.1.13.0).
+Nodes join a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5) using the Consul~\cite{consul} (v0.5.2) discovery service.
+The Swarm manager and the discovery service are deployed on a distinct machine.
 Containers leverage the Docker overlay network to communicate to each other.
+Machines are interconnected using a switched 1~Gbps network.
 
-\vs{add SGX things}
-\ah{in SGX things, explain the choice of Ubuntu 14.04.1}
-\ah{should we reference public repositories and specific version (commit hashes) of used stuff (driver, platform) for SGX?}
+%\vs{add SGX things}
+%\ah{in SGX things, explain the choice of Ubuntu 14.04.1}
+%\ah{should we reference public repositories and specific version (commit hashes) of used stuff (driver, platform) for SGX?}
 
 
 \subsection{Dataset.}
@@ -27,10 +30,10 @@ The dataset reports on the flight departures and arrivals of 20 air carriers~\ci
 We implement a benchmark application atop of \SYS to compute average delays and the total of delayed flights for each air carrier.
 We design and implement the full processing pipeline, that (i) parses the input datasets (in a comma-separated-value format) to data structure (\textsf{map}), (ii) filters data by relevancy (\emph{i.e.}, if the data concerns a delayed flight), and (iii) finally reduces it to compute the wanted informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{Diving into Akka Streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
 We use the 4 last years of the available dataset (from 2005 to 2008), for a total of 28 millions of entries to process and 2.73 GB of data.
-\vs{Update with the details of other datasets if any}
-\ah{wouldn't it be more logical to puts Dataset section after Micro-Benchmark one?}
+%\vs{Update with the details of other datasets if any}
+%\ah{wouldn't it be more logical to puts Dataset section after Micro-Benchmark one?}
 
-
+\vs{stopped here}
 \subsection{Micro-Benchmark: Lua in SGX.}
 To estimate the cost of enclaved function calls we averaged the time it took to do one milion calls with no data transfers.
 While normal function calls took 23.6 $ns$, enclaved calls took on average 2.35 $\mu s$, \textit{i.e}., two orders of magnitude worse.
