@@ -12,7 +12,7 @@ set style fill pattern
 NTVPATT=2
 SGXPATT=6
 
-plot [0.6:24] [0:] 'data/avg_stdev_mappersgx_variation.dat' using 1:2:3:xtic(1) with boxerror fill pattern 6 border rgb 'black' lc rgb '#4dabf3' notitle
+plot [0.6:24] [0:] 'data/avg_stdev_mappersgx_variation.dat' using 1:2:3:xtic(1) with boxerror fill pattern 6 border rgb 'black' lc rgb '#5ab4ac' notitle
 
 
 !epstopdf sgxmapper_scalability.eps
