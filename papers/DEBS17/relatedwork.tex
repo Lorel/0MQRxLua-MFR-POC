@@ -1,3 +1,10 @@
-\section{Related work}
-\label{sec:rw}
+\section{Related work}\label{sec:rw}
 \vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
+
+A few mainstream solutions exist today for distributed stream processing.
+\textsc{Reactive Kafka}~\cite{reactivekafka} allows stream processing atop of Apache \textsc{Kafka}~\cite{apachekafka}.
+More recently, few open-source solutions (\emph{e.g.}, Apache \textsc{Spark Streaming}~\cite{apachesparkstreaming}, Apache \textsc{Storm}~\cite{apachestorm}, \textsc{Infinispan}~\cite{infinispan}) introduced APIs to allow developers to quickly setup and deploy stream processing infrastructures.
+These systems rely on the \emph{Java Virtual Machine} (JVM)~\cite{lindholm2014java}.
+However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code and data, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{pires_scbr:2016,brenner_securekeeper:_2016} when this limit is crossed.
+Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
+\SYS{} proposes a lightweight and low-memory footprint framework that can fully execute within SGX enclaves.
