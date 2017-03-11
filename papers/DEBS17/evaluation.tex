@@ -56,15 +56,14 @@ These initial results can be used as guidelines to drive the configuration of th
 \end{figure}
 
 Once the data and the code are copied inside the enclave, the Lua VM must indeed executes the code before returning the control. 
-Hence, we evaluate here the raw performances of the enclaved SGX Lua VM, compared 
-%Then we moved to the assessment of Lua benchmarks.
+Hence, we evaluate here the raw performances of the enclaved SGX Lua VM.
 We select $6$ available benchmarks from a standard suite of tests~\cite{bolz2015}.
 We based this choice on their library dependencies (by selecting the most standalone ones) and the number of input/output instructions they execute (selecting those with the fewest I/O).
 Each benchmark runs $20$ times with the same pair of parameters of the original paper, shown in the even and odd lines of Table~\ref{tab:luabmarks}.
 %Again, we compare the results of the vanilla VM against the our SGX Lua interpreter.
 Figure~\ref{fig:luabenchs} depicts the total time (average and standard deviation) required to complete the execution of the 6 benchmarks.
 We use a bar chart plot, where we compare the results of the \emph{Native} and \emph{SGX} modes. 
-For each of the $6$ benchmarks, we present two bars per mode to indicate the different configuration parameters used.
+For each of the $6$ benchmarks, we present two bars next to each other (one per executing mode) to indicate the different configuration parameters used.
 Finally, for the sake of readability, we use a different y-axis scale for the \textsf{binarytrees} case (from $0$ to $400$\,seconds), on the right-side of the figure.
 
 \newcommand{\higparamcolor}{\rowcolor[rgb]{0.79,0.91,0.90}\cellcolor{white}}
