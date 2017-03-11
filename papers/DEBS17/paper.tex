@@ -1,9 +1,9 @@
-\documentclass{sig-alternate}
+\documentclass[sigconf]{acmart}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{subfig}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \usepackage{ifthen}
 \usepackage{xspace}
@@ -17,7 +17,8 @@
 \usepackage{pifont}
 \usepackage{multirow}
 \usepackage{url}
-\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false,draft]{hyperref}
+\usepackage{natbib}
+%\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false,draft]{hyperref}
 \renewcommand*{\UrlFont}{\ttfamily\rm}
 
 \usepackage{listings}
@@ -38,7 +39,7 @@
 }
 
 
-\newcommand{\comment}[1]{}
+%\newcommand{\comment}[1]{}
 
 % \usepackage{array}
 % \usepackage{multirow}
@@ -172,7 +173,7 @@ The experimental results of \SYS are promising: while offering a fluent scriptin
 %
 {
 %\footnotesize
-\bibliographystyle{acm}
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{biblio}
 % \balancing
 }
