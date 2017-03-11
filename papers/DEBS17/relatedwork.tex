@@ -7,4 +7,4 @@ More recently, few open-source solutions (\emph{e.g.}, Apache \textsc{Spark Stre
 These systems rely on the \emph{Java Virtual Machine} (JVM)~\cite{lindholm2014java}.
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code and data, at the cost of expensive encrypted memory paging mechanisms and serious performance leaks~\cite{pires_scbr:2016,brenner_securekeeper:_2016} when this limit is crossed.
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
-\SYS{} proposes a lightweight and low-memory footprint framework that can fully execute within SGX enclaves.
+To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
