@@ -119,11 +119,35 @@
   escapeinside={(*@}{@*)}
 }
 
+% Copyright
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+% \setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+\acmDOI{10.475/123_4}
+
+% ISBN
+\acmISBN{123-4567-24-567/08/06}
+
+%Conference
+\acmConference[DEBS'17]{ACM International Conference on Distributed and Event-Based Systems}{June 2017}{Barcelona, Spain} 
+\acmYear{2017}
+\copyrightyear{2017}
+
+\acmPrice{15.00}
+
 \begin{document}
 
 % \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
 % \title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
-\title{SecureStreams: Reactive Middleware for\\Secure Data Stream Processing}
+\title{\SYS: A Reactive Middleware Framework for Secure~Data~Stream~Processing}
 \date{}
 
 \author{
@@ -131,10 +155,7 @@
 %\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
 %%\IEEEauthorblockA{\IEEEauthorrefmark{2}Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
 }
-\sloppy
-\maketitle
-
-%\thispagestyle{empty}
+% \sloppy
 
 \begin{abstract}
 The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
@@ -143,6 +164,12 @@ This paper therefore introduces \SYS{}, a reactive middleware framework to deplo
 Its design combines the high-level reactive dataflow programming paradigm with low-level Intel's \emph{Software Guard eXtensions} (SGX) in order to guarantee privacy and integrity of the processed data.
 The experimental results of \SYS{} are promising: while offering a fluent scripting language based on \textsc{Lua}, our middleware delivers high processing throughput, thus enabling developers to implement secure processing pipelines in a few lines of code.
 \end{abstract}
+
+\keywords{Middleware, security, SGX, stream processing}
+
+\maketitle
+
+%\thispagestyle{empty}
 
 %\begin{IEEEkeywords}
 %streaming; reactive programming; Lua; SGX
