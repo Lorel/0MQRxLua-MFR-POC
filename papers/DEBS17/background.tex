@@ -1,34 +1,34 @@
-\begin{figure}[!t]
-  \centering
-  \includegraphics[scale=0.8]{images/sgx.pdf}
-  \caption{SGX operating principles.}
-  \label{fig:sgx}
-\end{figure}
-
-\section{SGX Lightning Tour}
-\label{sec:background}
-The design of \SYS revolves around the availability of SGX features in the host machines. 
-It consists in a form of Trusted Execution Environment (TEE) recently introduced into Intel SkyLake, similar in the spirit to ARM TrustZone~\cite{arm2009security}. 
-Applications create secure enclaves to protect the integrity and the confidentiality of the data and the interpreted code being executed. 
+\section{SGX Lightning Tour}\label{sec:background}
+The design of \SYS{} revolves around the availability of SGX features in the host machines.
+It consists in a form of \emph{Trusted Execution Environment} (TEE) recently introduced into Intel SkyLake, similar in the spirit to ARM \textsc{TrustZone}~\cite{arm2009security}. 
+Applications create secure \emph{enclaves} to protect the integrity and the confidentiality of the data and the interpreted code being executed. 
 %\rp{There is no confidentiality on the binary code than runs in the enclave. On the other hand, we encrypt interpreted code, in which case the claim holds true.}
 The SGX mechanism, as depicted in Figure~\ref{fig:sgx}, allows applications to access confidential data from inside the enclave. 
 The architecture guarantees that an attacker with physical access to a machine will not be able to tamper with the application data without being noticed. 
 The CPU package represents the security boundary. 
-Moreover, data belonging to an enclave is encrypted and authenticated when stored in main memory. 
+Moreover, data belonging to an enclave is automatically encrypted and authenticated when stored in main memory. 
 A memory dump on a victim’s machine will produce encrypted data. 
-A remote attestation protocol allows to verify that an enclave run on a genuine Intel processor with SGX. 
+A \emph{remote attestation protocol} allows one to verify that an enclave runs on a genuine Intel processor with SGX.
 An application using enclaves must ship a signed (not encrypted) shared library (a shared object file in Linux) that can possibly be inspected by malicious attackers. 
-The Enclave Page Cache (EPC) is a 128 MB area of memory predefined at boot to store enclaved code and data. 
-At most around 90 MB can be used by application’s memory pages, while the remaining area is used to maintain SGX metadata. 
-Any access to an enclave page that does not reside in the EPC triggers a page fault. 
+In SGX, the \emph{Enclave Page Cache} (EPC) is a $128\,MB$ area of memory predefined at boot to store enclaved code and data. 
+At most around $90\,MB$ can be used by application’s memory pages, while the remaining area is used to maintain SGX metadata. 
+Any access to an enclave page that does not reside in the EPC triggers a page fault.
 The SGX driver interacts with the CPU to choose which pages to evict. 
-The traffic between the CPU and the system memory is kept confidential by the memory encryption engine (MEE)~\cite{gueron2016memory}, also in charge of tamper resistance and replay protection. 
+The traffic between the CPU and the system memory is kept confidential by the \emph{Memory Encryption Engine} (MEE)~\cite{gueron2016memory}, also in charge of tamper resistance and replay protection. 
 If a cache miss hits a protected region, the MEE encrypts or decrypts data before sending to, respectively fetching from, the system memory and performs integrity checks. 
 Data can also be persisted on stable storage protected by a seal key. 
 This allows the storage of certificates, waiving the need of a new remote attestation every time an enclave application restarts.
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{images/sgx}
+  \caption{SGX core operating principles.}
+  \label{fig:sgx}
+\end{figure}
+
+
 The execution flow of a program using SGX enclaves is like the following.
-First, an enclave is created (Figure~\ref{fig:sgx}-\ding{202}).
-As soon as a program needs to execute a trusted function (Figure~\ref{fig:sgx}-\ding{203}), it executes SGX's \texttt{ecall} (Figure~\ref{fig:sgx}-\ding{204}).
-The call goes through the SGX call gate to bring the execution flow inside the enclave (Figure~\ref{fig:sgx}-\ding{205}).
-Once the trusted function is executed by one of the enclave's threads (Figure~\ref{fig:sgx}-\ding{206}), its result is encrypted and sent back (Figure~\ref{fig:sgx}-\ding{207}) before giving back the control to the main processing thread (Figure~\ref{fig:sgx}-\ding{208}).
+First, an enclave is created (cf. Figure~\ref{fig:sgx}-\ding{202}).
+As soon as a program needs to execute a trusted function (cf. Figure~\ref{fig:sgx}-\ding{203}), it executes SGX's primitive \texttt{ecall} (cf. Figure~\ref{fig:sgx}-\ding{204}).
+The call goes through the SGX call gate to bring the execution flow inside the enclave (cf. Figure~\ref{fig:sgx}-\ding{205}).
+Once the trusted function is executed by one of the enclave's threads (cf. Figure~\ref{fig:sgx}-\ding{206}), its result is encrypted and sent back (cf. Figure~\ref{fig:sgx}-\ding{207}) before giving back the control to the main processing thread (cf. Figure~\ref{fig:sgx}-\ding{208}).
