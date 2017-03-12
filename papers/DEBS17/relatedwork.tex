@@ -2,6 +2,9 @@
 
 %\vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
 
+Spark~\cite{Zaharia:2013:DSF:2517349.2522737} has recently gained a lot of traction as prominent solution to implement efficient stream processing. 
+It leverages Resilient Distributed Datasets (RDD) to provide a uniform view on the data to process. 
+
 A few dedicated solutions exist today for distributed stream processing using reactive programming.
 For instance, \textsc{Reactive Kafka}~\cite{reactivekafka} allows stream processing atop of Apache \textsc{Kafka}~\cite{apachekafka}.
 These solutions do not, however, support secure execution in a trusted execution environment.
