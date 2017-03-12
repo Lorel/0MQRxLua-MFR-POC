@@ -2761,7 +2761,7 @@ FUNCTION { misc }
   output.bibitem
   format.authors output
   author format.key output            % added
-  output.year.check                   % added
+%  output.year.check                   % added
   title howpublished new.block.checkb
   format.title output
   new.block
@@ -2770,7 +2770,7 @@ FUNCTION { misc }
     { "\bibinfo{howpublished}{" howpublished "}" * * output }
   if$
   "" output.nonnull.dot.space
-  output.day.month.year      
+%  output.day.month.year      
   fin.block
   output.issue.doi.coden.isxn.lccn.url.eprint.note
   fin.entry
