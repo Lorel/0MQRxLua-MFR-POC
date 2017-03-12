@@ -1,3 +1,5 @@
+#!/usr/bin/env gnuplot
+
 set term postscript color eps enhanced 22
 set output "microbenchmark_luasgx.eps"
 load "../styles.inc"
@@ -11,7 +13,7 @@ WIDTH_BETWEEN_Y=-0.05
 NTVPATT=2
 SGXPATT=6
 
-set size 1.0,0.8
+set size 1.0,0.93
 
 set bmargin 2
 set tmargin 2
@@ -53,7 +55,7 @@ set label "{/Helvetica=15 nbody}" at 11.8,-5
 set label "{/Helvetica=15 richards}" at 16,-5
 set label "{/Helvetica=15 spectralnorm}" at 20.5,-5
 set origin 0.072, Y_MARGIN+(Y_POS*(HEIGHT_IND+WIDTH_BETWEEN_Y))
-set size 0.8,0.7
+set size 0.8,0.84
 
 set style fill pattern
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
@@ -74,7 +76,7 @@ set grid y2
 set label "{/Helvetica=15 binarytrees}" at 0.9,-20
 #set title "tidi" offset 0,-0.8
 set origin 0.75, Y_MARGIN+(Y_POS*(HEIGHT_IND+WIDTH_BETWEEN_Y))
-set size 0.26,0.7
+set size 0.26,0.84
 
 rgb(r,g,b) = 65536 * int(r) + 256 * int(g) + int(b)
 plot  \
@@ -85,10 +87,11 @@ set key top left horizontal reverse Left samplen 1.5 width -20
 unset border
 unset tics
 set origin 0.3, 0.15
-set size 0.6,0.7
+set size 0.6,0.84
 plot \
         [0:1] [0:1] \
         NaN w boxerror fill pattern SGXPATT border rgb 'black' t 'SGX' lc rgb 'gray50', \
         NaN w boxerror fill pattern NTVPATT border rgb 'black' t 'Native' lc rgb 'gray50'
 
 !epstopdf microbenchmark_luasgx.eps
+!rm microbenchmark_luasgx.eps
