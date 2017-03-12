@@ -204,6 +204,18 @@ Nevertheless, one can observe that the more workers the less penalty is imposed 
 %With the current implementation, we observe a peak of $10\,MB/s$ upload throughput into the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
+
+\begin{figure}[t!]
+  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of workers for each stage, each worker using SGX.}
+  \label{fig:scalability:sgxfull}
+\end{figure}
+\begin{figure}[t!]
+  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxmapper_scalability}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers---1 filter worker and 1 reduce worker---do not use SGX.}
+  \label{fig:scalability:sgxmapper}
+\end{figure}
+
 \input{throughput_xp_results}
 
 %\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
@@ -221,13 +233,6 @@ As expected, we observe ideal speed-up from a configuration using $1$ worker to 
 However, in the configuration using $4$ workers by stage, we do not reach the same acceleration.
 We explain this because, in this latter case, the number of deployed containers (which equals the sum of input data streams, workers, and routers, hence $20$ containers) is greater than the number of physical cores of the hosts ($8$ for each of the $2$ hosts used in our deployment---\emph{i.e.}, $16$ cores on our evaluation cluster).
 
-\begin{figure}[t!]
-  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of workers for each stage, each worker using SGX.}
-  \label{fig:scalability:sgxfull}
-\end{figure}
-
-
 We also study the total completion time while increasing only the number of mapper workers in the first stage of the pipeline (which we identified as the one consuming most resources) from $1$ to $16$ and maintaining the numbers of filters and reducers in the following stages constant.
 As in the previous benchmark, the experiment is repeated $5$ times for each configuration and we measure the average and standard deviation of the total completion time.
 Figure~\ref{fig:scalability:sgxmapper} presents the results.
@@ -235,11 +240,6 @@ Here again, we observe ideal speed-up until the number of deployed containers re
 Beyond this number, we do not observe further improvements.
 These two experiments clearly show that the scalability of \SYS{} according the number of deployed workers across the cluster is primarily limited by the total number of physical cores available.
 
-\begin{figure}[t!]
-  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxmapper_scalability}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers---1 filter worker and 1 reduce worker---do not use SGX.}
-  \label{fig:scalability:sgxmapper}
-\end{figure}
 
 %We observe that by doubling the number of workers from the initial configuration achieves a 2$\times$ speed-up of the overall processing time, that is from 20\,minutes to less than 10\,minutes.
 %Conversely, we do not observe similar improvements when using 4\,workers.
