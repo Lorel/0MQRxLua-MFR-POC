@@ -1,6 +1,6 @@
 \section{Related Work}\label{sec:rw}
 
-\vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
+%\vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
 
 A few dedicated solutions exist today for distributed stream processing using reactive programming.
 For instance, \textsc{Reactive Kafka}~\cite{reactivekafka} allows stream processing atop of Apache \textsc{Kafka}~\cite{apachekafka}.
@@ -10,5 +10,7 @@ More recently, some open-source middleware frameworks (\emph{e.g.}, Apache \text
 These systems rely on the \emph{Java} virtual machine (JVM)~\cite{lindholm2014java}.
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code and data, at the cost of expensive encrypted memory paging mechanisms and serious performance overheads~\cite{pires_scbr:2016,brenner_securekeeper:_2016} when this limit is crossed.
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
+
+\vs{to cite: Airavat~\cite{Roy:2010:ASP:1855711.1855731}, GUPT~\cite{Mohan:2012:GPP:2213836.2213876}}
 
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
