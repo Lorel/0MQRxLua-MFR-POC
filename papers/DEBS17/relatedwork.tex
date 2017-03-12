@@ -2,12 +2,12 @@
 
 %\vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
 
-Spark~\cite{Zaharia:2013:DSF:2517349.2522737} has recently gained a lot of traction as prominent solution to implement efficient stream processing. 
+Spark~\cite{Zaharia:2013:DSF:2517349.2522737} has recently gained a lot of traction as prominent solution to implement efficient stream processing.
 It leverages Resilient Distributed Datasets (RDD) to provide a uniform view on the data to process.
-Despite its popularity, Spark only handles unencrypted data and hence does not offer security guarantees. 
-Recent proposals~\cite{7840754} study possible software solutions to overcome this limitation. 
+Despite its popularity, Spark only handles unencrypted data and hence does not offer security guarantees.
+Recent proposals~\cite{7840754} study possible software solutions to overcome this limitation.
 
-Several big players introduced their own stream processing solutions, mainly used to ingest massive ammounts of data and efficiently perform analytics. 
+Several big players introduced their own stream processing solutions, mainly used to ingest massive ammounts of data and efficiently perform analytics.
 Twitter's Heron~\cite{Kulkarni:2015:THS:2723372.2742788}, and Google's Cloud DataFlow~\cite{Akidau:2015:DMP:2824032.2824076} are prominent examples.
 
 A few dedicated solutions exist today for distributed stream processing using reactive programming.
@@ -22,7 +22,7 @@ Moreover, executing a fully-functional JVM inside an SGX enclave would currently
 Few recent contributions tackle privacy-preserving data processing, particularly in a MapReduce scenario.
 This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} or GUPT~\cite{Mohan:2012:GPP:2213836.2213876}.
 These systems leverage differential-privacy techniques~\cite{dwork2006calibrating} and can face a different threat model than the one supported by SGX and hence by \SYS.
-In particular, when deploying such systems on a public infrastructure, one needs to trust the cloud provider. 
+In particular, when deploying such systems on a public infrastructure, one needs to trust the cloud provider.
 Our system greatly reduces the trust boundaries, and only require to trust Intel.
 
 Many authors convene that public clouds may be secure enough some parts of an application.
@@ -33,7 +33,7 @@ Sedic \cite{zhang2011sedic} does not offer the same tagging granularity, but pro
 These solutions require splitting application and data in two parts (sensitive and not) and impose higher latencies due to data transfers between two different clouds.
 Yet, they cannot offer better security guarantees that the software stack itself offers, be it public or private.
 
-MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements.
+MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements.
 Through static code analysis, it pinpoints different homomorphic encryption schemes for every data column.
 Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution.
 \SYS{} avoids of complex encryption schemes, decrypts data entering enclaves and processes in plaintext.
