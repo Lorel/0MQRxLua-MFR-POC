@@ -49,12 +49,14 @@
 %By the way, it is embedded in many application programs, such as Adobe Lighroom, Nmap, World of Warcraft or Nginx.
 
 \SYS{} is implemented in \textsc{Lua} (v5.3).
-Our implementation is compact, as it consists of only $120$ lines of code (without counting the dependencies).
-\pf{I would change the wording here. If we say that our implementation is only 120 LOC it gives the feeling that we are showing something trivial here not worth publishing. We can say that the implementation of a use case is compact, but the middleware itself is complex and requires a lot of smart engineering...}
+The implementation of the middleware itselfs requires careful engineering, especially with respect to the integration in the SGX enclaves (explained later).
+However, a \SYS{} use-case can be implemented in remarkably few lines of code. 
+For instance, the implementation of the map/filter/reduce accounts for only $120$ lines of code (without counting the dependencies).
+%\pf{I would change the wording here. If we say that our implementation is only 120 LOC it gives the feeling that we are showing something trivial here not worth publishing. We can say that the implementation of a use case is compact, but the middleware itself is complex and requires a lot of smart engineering...}
 The framework partially extends \rxl~\cite{github:rxlua}, a library for reactive programming in \textsc{Lua}.
 \rxl provides to the developer the required API to design a data stream processing pipeline following a dataflow programming pattern~\cite{uustalu_essence_2005}.
 
-Listing~\ref{pipeline-example} provides an example of a \rxl program (and consequently a \SYS{} program) to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter}, and \texttt{:reduce} functions.
+Listing~\ref{pipeline-example} provides an example of a \rxl program (and consequently a \SYS{} program) to compute the average age of a population by chaining \texttt{:map}, \texttt{:filter}, and \texttt{:reduce} functions.\footnote{Note that in our evaluation the code executed by each worker is confined into its own \textsc{Lua} file.}
 The \texttt{:subscribe} function performs the subscription of 3 functions to the data stream.
 Following the \emph{observer} design pattern~\cite{szallies_using_1997}, these functions are observers, while the data stream is an observable.
 %These functions are observers, and the stream is an observable: this is precisely an implementation of the \textit{Observer Design Pattern}~\cite{szallies_using_1997}.
