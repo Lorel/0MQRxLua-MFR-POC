@@ -1,34 +1,34 @@
 \begin{figure*}[!t]
 \centering
 \begin{tabular}{cccc}
-\subfloat[Throughput without encoding]{
+\subfloat[Streaming throughput. Data in clear text, no SGX, 1 worker per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers}
 } &
-\subfloat[Throughput without SGX]{
+\subfloat[Streaming throughput. Encrypted data, no SGX, 1 worker per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers-encrypted-nosgx}
 } &
-\subfloat[Throughput with SGX]{
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 1 worker per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers-encrypted-fullsgx}
 }\cr
-\subfloat[Throughput without encoding]{
+\subfloat[Streaming throughput. Data in clear text, no SGX, 2 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers}
 } &
-\subfloat[Throughput without SGX]{
+\subfloat[Streaming throughput. Encrypted data, no SGX, 2 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers-encrypted-nosgx}
 } &
-\subfloat[Throughput with SGX]{
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 2 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers-encrypted-fullsgx}
 }\cr
-\subfloat[Throughput without encoding]{
+\subfloat[Streaming throughput. Data in clear text, no SGX, 4 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers}
 } &
-\subfloat[Throughput without SGX]{
+\subfloat[Streaming throughput. Encrypted data, no SGX, 4 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers-encrypted-nosgx}
 } &
-\subfloat[Throughput with SGX]{
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 4 workers per stage.]{
   \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers-encrypted-fullsgx}
 }
 \end{tabular}
-\caption{Throughput comparison between normal processing and SGX processing}
+\caption{Throughput comparison between normal processing (with clear text data and no encryption), encrypted data but without enclaves, and with encrypted data and SGX processing. We scale the number of worker nodes per stage from one (left-most column), two (center colum) and four (right-most column).}
 \label{fig:throughput}
 \end{figure*}
