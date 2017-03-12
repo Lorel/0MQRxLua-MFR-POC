@@ -60,7 +60,7 @@ Listing~\ref{pipeline-desc} reports on a snippet of the description used to depl
 Once the processing pipeline is defined, the containers must be deployed on the computing infrastructure.
 We exploit the \texttt{constraint} placement mechanisms to enforce the Docker Swarm's scheduler in order to deploy workers requiring SGX capabilities into appropriate hosts.
 In the example, an \texttt{sgx\_mapper} nodes is deployed on an SGX host by specifying \texttt{"constraint:type==sgx"} in the Compose description.
-\begin{minipage}{\linewidth} %avoid splitting
+%\begin{minipage}{\linewidth} %avoid splitting
 \vspace{5pt}
 \begin{lstlisting}[language=YAML,caption={\SYS pipeline examples. Some attributes (\texttt{volume}, \texttt{networks}, \texttt{env\_file}) are omitted.},label=pipeline-desc][!t]
 sgx_mapper:
@@ -90,6 +90,6 @@ data_stream:
     - "constraint:type==sgx"
     - DATA_FILE=the_stream.csv
 \end{lstlisting}
-\end{minipage}
+%\end{minipage}
 %\vs{Add some paragraphs to  detail how  the interaction with the SGX enclaves work in the context of \SYS}
 %\vs{It should be useful to describe how the dataflow pipeline is mapped to the underlying cluster.}
