@@ -126,7 +126,7 @@ Table~\ref{tab:luabmarks} lists the parameters along with the maximum amount of 
 When the memory usage is low, the ratio between the Native and SGX versions is small---\emph{e.g.}, less than $15\,\%$ in our experiments. 
 However, when the amount of memory usage increases, performance drops to almost 5$\times$ worse, as reflected in the case of the \emph{binarytrees} experiment.
 
-\subsection{Benchmark: Upload Throughput}
+\subsection{Benchmark: Streaming Throughput}
 The previous set of experiments allowed us to verify that our design, implementation, and the integration of the \textsc{LuaVM} into the SGX enclaves is sound.
 Next, we deploy a \SYS{} pipeline which includes mappers, filters and reducers.
 To measure the achievable throughput of our system, as well the network overhead of our architecture, 
@@ -137,28 +137,42 @@ This mode operates as the baseline, yet completely \emph{unsafe}, processing pip
 The second mode encrypts the dataset but let the encrypted packets skip the SGX enclaves.
 This configuration requires the deployers to trust the infrastructure operator.
 Finally, we deploy third, fully secure pipeline, where the input dataset is encrypted and the data processing is operated inside the enclaves.
+The data nodes inject the dataset, split into 4 equally-sized parts, as fast as possible.
+We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
 The results of these deployments are presented in Figure~\ref{fig:throughput}.
 For each of the mentioned configurations, we also vary the number of workers per stage, from one (Figure~\ref{fig:throughput}-a,d,g), two (Figure~\ref{fig:throughput}-b,e,h), or four (the remaining ones.)
-\vs{stopped here}
-This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
-We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
-%Throughput accross containers wrapping each node of the processing pipeline are measured from Docker stats.
-The statistics are gathered at runtime while the experiment is executing.
-%During the experiment, we retrieve all the data stats for each container.
-%In particular, \texttt{txbytes} stats are extracted to measure containers output throughput.
-We report on our results in Figure~\ref{fig:throughput}.
-In this scenario, 4 nodes concurrently inject the input dataset into the processing pipeline, each one using a subset of the full dataset.
-However, only one worker process is used for each step of the processing pipeline.
 We use a representation based on stacked percentiles.
 The white bar at the bottom represents the minimum value, the pale grey on top the maximal value.
 Intermediate shades of grey represent the 25th-, 50th–, median–, and 75th-percentiles.
-For instance, the median throughput at 200\,seconds into the experiment almost hits $2,500\,kB/s$, meaning that $50\,\%$ of the nodes in that moment are outputting data at $2,500\,kB/s$ or less.
+For instance, in Figure~\ref{fig:throughput}-a (our baseline) the median throughput at 200\,seconds into the experiment almost hits $7,5\,MB/s$, meaning that $50\,\%$ of the nodes in that moment are outputting data at $7,5\,MB/s$ or less.
+The baseline configuration, with only $1$ worker per stage, completes in $420$ seconds, with a peak of $12\,MB/s$.
+By doubling the number of workers reduces the processing time down to $250$ seconds (Figure~\ref{fig:throughput}-d), a speed-up of $41\,\%$.
+By scaling up the workers to 4 in the baseline configuration (Figure~\ref{fig:throughput}-g) did not produce a similar speed-up.
+
+As we start injecting encrypted datasets (Figure~\ref{fig:throughput}-b and follow-up configurations with 2 and 4 workers), the processing time almost doubles ($795$ seconds).
+The processing of the dataset is done after the messages are decrypted.
+We also pay a penalty in terms of overall throughput, \emph{i.e.} the median value rarely exceeds $5\,MB/s$.
+On the other hand, now we observe substantial speed-ups when increasing the workers per stage, down to $430$ seconds and $300$ seconds respectively with $2$ and $4$ workers. 
+
+The deployment of the most secure set of configurations (right-most column of plots in Figure~\ref{fig:throughput}) shows that when using encrypted datasets and executing the stream processing inside SGX enclaves one must expect longer processing times and lower throughputs.
+This is the (expected) price to pay for higher-security guarantees across the full processing pipeline.
+
+%This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
+%We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
+%Throughput accross containers wrapping each node of the processing pipeline are measured from Docker stats.
+%The statistics are gathered at runtime while the experiment is executing.
+%During the experiment, we retrieve all the data stats for each container.
+%In particular, \texttt{txbytes} stats are extracted to measure containers output throughput.
+%We report on our results in Figure~\ref{fig:throughput}.
+%In this scenario, 4 nodes concurrently inject the input dataset into the processing pipeline, each one using a subset of the full dataset.
+%However, only one worker process is used for each step of the processing pipeline.
 %These datas are computed to be plotted together by percentile, as shown on figure \ref{fig:throughput}.\ah{maybe it could be relevant to put three plots, corresponding to experiments 4-datas-1-worker, 4-datas-2-workers and 4-datas-4-workers}
-With the current implementation, we observe a peak of $10\,MB/s$ upload throughput into the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
+%With the current implementation, we observe a peak of $10\,MB/s$ upload throughput into the processing stages.%\vs{for the future, it'd be interesting to know which stage is the fastest one}
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
+\input{throughput_xp_results}
 
-\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
+%\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
 
 \subsection{Benchmark: Workers Scalability}
@@ -187,4 +201,4 @@ First, the system is far from saturating the network's available bandwidth, hitt
 Second, a small percentage of nodes consumes much more bandwidth than the other components.
 We intend to further investigate these effects as part of our future work, as we are going to elaborate in the following section.
 
-\input{throughput_xp_results}
+
