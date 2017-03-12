@@ -11,11 +11,10 @@ Finally, we deploy a full \SYS{} pipeline, scaling the number of workers per sta
 
 We have experimented on machines using a processor Intel Core\texttrademark~i7-6700~\cite{intel:i7_6700} and $8\,GB$ RAM.
 We use a cluster of 2 machines based on \textsc{Ubuntu} 14.04.1 LTS (kernel 4.2.0-42-generic).
-The choice of the Linux distribution is driven by compatibility reasons with the latest Intel SGX SDK.
-The machines run Docker (v.1.13.0) and each node joins a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5) using the Consul~\cite{consul} (v0.5.2) discovery service.
+The choice of the Linux distribution is driven by compatibility reasons with the Intel SGX SDK (v1.6).
+The machines run Docker (v1.13.0) and each node joins a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5) using the Consul~\cite{consul} (v0.5.2) discovery service.
 The Swarm manager and the discovery service are deployed on a distinct machine.
-Containers leverage the Docker overlay network to communicate to each other.
-Machines are interconnected using a switched $1$\,Gbps network.
+Containers building the pipeline leverage the Docker overlay network to communicate to each other, while machines are physically interconnected using a switched $1\,Gbps$ network.
 
 %\vs{add SGX things}
 %\ah{in SGX things, explain the choice of Ubuntu 14.04.1}
@@ -24,13 +23,34 @@ Machines are interconnected using a switched $1$\,Gbps network.
 
 \subsection{Input Dataset}
 
-In our experiments, we process a real dataset released by the \emph{American bureau of transportation statistic}~\cite{rita:bts}.
+In our experiments, we process a real-world dataset released by the \emph{American bureau of transportation statistic}~\cite{rita:bts}.
 The dataset reports on the flight departures and arrivals of $20$ air carriers~\cite{statistical_computing:data}.
-We implement a benchmark application atop of \SYS{} to compute average delays and the total of delayed flights for each air carrier.
+We implement a benchmark application atop of \SYS{} to compute average delays and the total of delayed flights for each air carrier (cf. Table~\ref{tab:appsize}).
 We design and implement the full processing pipeline, that (i)~parses the input datasets (in a comma-separated-value format) to data structure (\textsf{map}), (ii)~filters data by relevancy (\emph{i.e.}, if the data concerns a delayed flight), and (iii)~finally reduces it to compute the wanted informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{diving into Akka streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
-We use the $4$ last years of the available dataset (from 2005 to 2008), for a total of $28$ millions of entries to process and $2.73$\,GB of data.
+We use the $4$ last years of the available dataset (from 2005 to 2008), for a total of $28$ millions of entries to process and $2.73\,GB$ of data.
 %\vs{Update with the details of other datasets if any}
 %\ah{wouldn't it be more logical to puts Dataset section after Micro-Benchmark one?}
+
+
+\begin{table}[t!]
+    \centering
+    \begin{tabular}{l|r}
+   % \hline
+\textbf{System layer}          & \textbf{Size (LoC)} \\
+\hline
+\textsc{DelayedFlights} app    & $86$ \\
+% \hline
+\textsc{SecureStreams} library & $350$ \\
+% \hline
+\textsc{RxLua} runtime         & $1,481$ \\
+\hline
+\hline
+Total                          & $1,917$ \\
+  %  \hline
+    \end{tabular}
+    \caption{Benchmark app based on \SYS{}.}
+  \label{tab:appsize}
+\end{table}
 
 \subsection{Micro-Benchmark: \textsc{Lua} in SGX}
 
@@ -39,19 +59,20 @@ First, we estimate the cost of execution for functions inside the enclave.
 This test averages the execution time of 1 million function calls, without any data transfer.
 %  enclaved function calls we averaged the time it took to do one milion calls with no data transfers.
 We compare against the same result without SGX.
-While non-enclaved function calls took $23.6$\,ns, the performances inside enclave drop down to on average $2.35$\,$\mu$s---\textit{i.e}., approximately two orders of magnitude worse.
+While non-enclaved function calls took $23.6\,ns$, the performances inside enclave drop down to on average $2.35\,\mu{}s$---\textit{i.e.}, approximately two orders of magnitude worse.
 We then assess the cost of copying data from the unshielded execution to the enclave and we compare it with the time required to compute the same on the native system.
-We initialize a buffer of $100$\,MB with random data and copy its content inside the enclave.
+We initialize a buffer of $100\,MB$ with random data and copy its content inside the enclave.
 The data is split into chunks of increasing sizes.
 Our test executes one function call to transfer each chunk, until all data is transfered.
 Each point in the plot corresponds to the average of $20$ runs.
 Correctness of the copies was verified by \textsf{SHA256} digest comparison between reproduced memory areas.
 
-Figure~\ref{fig:sgxmemcpy} shows the results for 4 different variants, comparing the native and the SGX version to only copy the data inside the enclave (\emph{in}) or to copy it inside and copying it back (\emph{in/out}).
+Figure~\ref{fig:sgxmemcpy} shows the results for $4$ different variants, comparing the native and the SGX version to only copy the data inside the enclave (\emph{in}) or to copy it inside and copying it back (\emph{in/out}).
 When using smaller chunks, the function call overhead plays an important role in the total execution time.
-Moreover, we notice that the call overhead steadily drops until the chunk size reaches the size of $64$\,KB (vertical line).
-We can also notice that copying data back to non-SGX execution impose an overhead of at most $20$\,\% when compared to the one-way copy.
-These initial results can be used as guidelines to drive the configuration of the streaming pipeline, in particular with respect to the size of the chunks. %confirm that for the envisioned target scenarios of \SYS, our chosen runtime performs reasonably well compared to a native yet non-trusted framework.
+Moreover, we notice that the call overhead steadily drops until the chunk size reaches the size of $64\,KB$ (vertical line).
+We can also notice that copying data back to non-SGX execution impose an overhead of at most $20\,\%$ when compared to the one-way copy.
+These initial results are used as guidelines to drive the configuration of the streaming pipeline, in particular with respect to the size of the chunks exchanged between the processing stages. %confirm that for the envisioned target scenarios of \SYS, our chosen runtime performs reasonably well compared to a native yet non-trusted framework.
+The larger the chunks, the smaller the overhead induce by the transfer of data within the SGX enclave.
 
 \begin{figure}[t!]
   \centering
@@ -66,8 +87,8 @@ We select $6$ available benchmarks from a standard suite of tests~\cite{bolz2015
 We based this choice on their library dependencies (by selecting the most standalone ones) and the number of input/output instructions they execute (selecting those with the fewest I/O).
 Each benchmark runs $20$ times with the same pair of parameters of the original paper, shown in the even and odd lines of Table~\ref{tab:luabmarks}.
 %Again, we compare the results of the vanilla VM against the our SGX Lua interpreter.
-Figure~\ref{fig:luabenchs} depicts the total time (average and standard deviation) required to complete the execution of the 6 benchmarks.
-We use a bar chart plot, where we compare the results of the \emph{native} and \emph{SGX} modes.
+Figure~\ref{fig:luabenchs} depicts the total time (average and standard deviation) required to complete the execution of the $6$ benchmarks.
+We use a bar chart plot, where we compare the results of the \emph{Native} and \emph{SGX} modes.
 For each of the $6$ benchmarks, we present two bars next to each other (one per executing mode) to indicate the different configuration parameters used.
 Finally, for the sake of readability, we use a different y-axis scale for the \textsf{binarytrees} case (from $0$ to $400$\,s), on the right-side of the figure.
 
@@ -126,23 +147,28 @@ We note that, in the current version of SGX, it is required to pre-allocate all 
 The most memory-eager test (\textsf{binarytrees}) used more than $600$\,MB of memory, hence using the wall clock time comparison would not be fair for smaller tests.
 In such cases, almost the whole execution time is dedicated to memory allocation.
 Because of that, we subtracted the allocation time from the measurements of enclave executions, based on the average for the $20$ runs.
-Fluctuations on this measurement produced slight variations in the execution times, sometimes producing the unexpected result of having SGX executions faster than native ones (by at most $3$\,\%).
+Fluctuations on this measurement produced slight variations in the execution times, sometimes producing the unexpected result of having SGX executions faster than native ones (by at most $3\,\%$).
 Table~\ref{tab:luabmarks} lists the parameters along with the maximum amount of memory used and the ratio between runtimes of SGX and Native executions.
 When the memory usage is low, the ratio between the Native and SGX versions is small---\emph{e.g.}, less than $15$\,\% in our experiments.
 However, when the amount of memory usage increases, performance drops to almost 5$\times$ worse, as reflected in the case of the \emph{binarytrees} experiment.
+The smaller the memory usage, the better performance we can obtain from SGX enclaves.
+
+\vspace{10pt}\noindent\textbf{Synthesis.}
+To conclude this series of micro-benchmarks, taming the overhead of secured executions based on SGX requires to balance the size of the chunks transfered to the enclave with the memory usage within this enclave.
+In the context of stream processing systems, \SYS{} therefore uses reactive programming principles to balance the load within processing stages in order to minimize the execution overhead.
+
 
 \subsection{Benchmark: Streaming Throughput}
 
 The previous set of experiments allowed us to verify that our design, implementation, and the integration of the \textsc{LuaVM} into the SGX enclaves is sound.
 Next, we deploy a \SYS{} pipeline which includes mappers, filters and reducers.
-To measure the achievable throughput of our system, as well the network overhead of our architecture,
-we deploy the \SYS{} pipeline in 3 different configurations.
+To measure the achievable throughput of our system, as well the network overhead of our architecture, we deploy the \SYS{} pipeline in 3 different configurations.
 The first configuration allows the streaming framework to blindly bypass the SGX enclaves.
 Further, it does not encrypt the input dataset before injecting it into the pipeline.
 This mode operates as the baseline, yet completely \emph{unsafe}, processing pipeline.
 The second mode encrypts the dataset but lets the encrypted packets skip the SGX enclaves.
 This configuration requires the deployers to trust the infrastructure operator.
-Finally, we deploy third, fully secure pipeline, where the input dataset is encrypted and the data processing is operated inside the enclaves.
+Finally, we deploy a fully secure pipeline, where the input dataset is encrypted and the data processing is operated inside the enclaves.
 The data nodes inject the dataset, split into 4 equally-sized parts, as fast as possible.
 We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
 
@@ -158,11 +184,12 @@ By scaling up the workers to 4 in the baseline configuration (Figure~\ref{fig:th
 
 As we start injecting encrypted datasets (Figure~\ref{fig:throughput}-b and follow-up configurations with 2 and 4 workers), the processing time almost doubles ($795$\,s).
 The processing of the dataset is done after the messages are decrypted.
-We also pay a penalty in terms of overall throughput, \emph{i.e.} the median value rarely exceeds $5$\,MB/s.
-On the other hand, now we observe substantial speed-ups when increasing the workers per stage, down to $430$\,s and $300$\,s respectively with $2$ and $4$ workers.
+We also pay a penalty in terms of overall throughput---\emph{i.e.}, the median value rarely exceeds $5$\,MB/s.
+On the other hand, now we observe substantial speed-ups when increasing the workers per stage, down to $430$\,s and $300$\,s with $2$ and $4$ workers, respectively.
 
 The deployment of the most secure set of configurations (right-most column of plots in Figure~\ref{fig:throughput}) shows that when using encrypted datasets and executing the stream processing inside SGX enclaves one must expect longer processing times and lower throughputs.
 This is the (expected) price to pay for higher-security guarantees across the full processing pipeline.
+Nevertheless, one can observe that the more workers the less penalty is imposed by the end-to-end security guarantees provided by \SYS{}.
 
 %This benchmark shows the upload throughput observed across the whole cluster while streaming the dataset as fast as possible from the source nodes into the processing pipeline.
 %We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
@@ -181,17 +208,6 @@ This is the (expected) price to pay for higher-security guarantees across the fu
 
 %\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
-\begin{figure}[t!]
-  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of workers for each stage, each worker using SGX.}
-  \label{fig:scalability:sgxfull}
-\end{figure}
-
-\begin{figure}[t!]
-  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxmapper_scalability}
-  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers---1 filter worker and 1 reduce worker---do not use SGX.}
-  \label{fig:scalability:sgxmapper}
-\end{figure}
 
 \subsection{Benchmark: Workers Scalability}
 To conclude our evaluation, we study \SYS{} in terms of scalability.
@@ -200,10 +216,17 @@ We do so to better understand to which extent the underlying container schedulin
 
 First, we increase the number of workers for each stage of the pipeline, from $1$ to $4$.
 For each of the configurations, the experiment is repeated $5$ times.
-We present average and standard deviation of the total completion time to process the full dataset in figure~\ref{fig:scalability:sgxfull}.
+We present average and standard deviation of the total completion time to process the full dataset in Figure~\ref{fig:scalability:sgxfull}.
 As expected, we observe ideal speed-up from a configuration using $1$ worker to that using $2$ workers.
 However, in the configuration using $4$ workers by stage, we do not reach the same acceleration.
-We explain this because, in this latter case, the number of deployed containers (which equals the sum of input data streams, workers, and routers, hence $20$ containers) is greater than the number of physical cores of the hosts ($8$ for each of the $2$ hosts used in our deployment, \emph{i.e.}, $16$ cores on our evaluation cluster).
+We explain this because, in this latter case, the number of deployed containers (which equals the sum of input data streams, workers, and routers, hence $20$ containers) is greater than the number of physical cores of the hosts ($8$ for each of the $2$ hosts used in our deployment---\emph{i.e.}, $16$ cores on our evaluation cluster).
+
+\begin{figure}[t!]
+  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of workers for each stage, each worker using SGX.}
+  \label{fig:scalability:sgxfull}
+\end{figure}
+
 
 We also study the total completion time while increasing only the number of mapper workers in the first stage of the pipeline (which we identified as the one consuming most resources) from $1$ to $16$ and maintaining the numbers of filters and reducers in the following stages constant.
 As in the previous benchmark, the experiment is repeated $5$ times for each configuration and we measure the average and standard deviation of the total completion time.
@@ -212,6 +235,12 @@ Here again, we observe ideal speed-up until the number of deployed containers re
 Beyond this number, we do not observe further improvements.
 These two experiments clearly show that the scalability of \SYS{} according the number of deployed workers across the cluster is primarily limited by the total number of physical cores available.
 
+\begin{figure}[t!]
+  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxmapper_scalability}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers---1 filter worker and 1 reduce worker---do not use SGX.}
+  \label{fig:scalability:sgxmapper}
+\end{figure}
+
 %We observe that by doubling the number of workers from the initial configuration achieves a 2$\times$ speed-up of the overall processing time, that is from 20\,minutes to less than 10\,minutes.
 %Conversely, we do not observe similar improvements when using 4\,workers.
 %Results are represented on figure \ref{fig:scalability}, and show clearly better performances between the experiment using only one worker by task, and the one using 2 workers.
@@ -219,7 +248,11 @@ These two experiments clearly show that the scalability of \SYS{} according the 
 Apart from this scalability limitation, there are other factors that reduce the observed streaming throughput, with or without involving the SGX enclaves.
 For instance, our throughout experiments highlight that the system does not manage to saturate the available network bandwidth in all cases.
 We believe this behaviour can be explained by the lack of optimizations in the application logic as well as possible tuning options of the inner \zmq{} queues.
-We intend to further investigate these effects as part of our future work.
+% We intend to further investigate these effects as part of our future work.
+
+As part of our future work, we therefore plan to further investigate these effects and to build on this knowledge to only scale the appropriate workers in order to maximize the overall speed-up of the deployed application.
+In particular, we intend to leverage the elasticity of workers at runtime in order to cope with the memory constraints imposed by SGX and the configuration of the underlying hardware architecture, for each of the available nodes, in order to offer the best performances for secured execution of data stream processing applications built atop of \SYS{}.
+
 
 %We believe this behavior can be explained by existing bottlenecks in the pipelining infrastructure, the lack of optimization in the application logic as well as tuning options of the \zmq{} queues.
 %These hypotheses are confirmed by observing the throughput of the system when we increase the processing workers to 2 and 4 in Figure~\ref{fig:throughput2} and %Figure~\ref{fig:throughput4}, respectively.
