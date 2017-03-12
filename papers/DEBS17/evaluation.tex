@@ -175,23 +175,36 @@ This is the (expected) price to pay for higher-security guarantees across the fu
 %\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
 \begin{figure}[t!]
+  \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
+  \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5\,times, with a variation on the number of workers for each stage, each worker using SGX.}
+  \label{fig:scalability:sgxfull}
+\end{figure}
+
+\begin{figure}[t!]
   \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxmapper_scalability}
   \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5\,times, with a variation on the number of mappers SGX, other workers - 1 filter worker and 1 reduce worker - do not use SGX.}
-  \label{fig:scalability}
+  \label{fig:scalability:sgxmapper}
 \end{figure}
 
 \subsection{Benchmark: Workers Scalability}
 To conclude our evaluation, we study \SYS{} in terms of scalability.
-We consider a pipeline scenario similar to Figure~\ref{fig:architecture_pipeline}.
-We increase the number of mapper workers in the first stage of the pipeline, from $1$ to $16$, while maintaining constant the numbers of filters and reducers in the following stages.
+We consider a pipeline scenario similar to Figure~\ref{fig:architecture_pipeline} with some variations about the number of workers deployed for each stage.
 We do so to better understand to which extent the underlying container scheduling system can exploit the hardware resources at its disposal.
-%In particular, we scale up each stage of the processing pipeline, up to 4\,workers per stage.
-For each of the configurations, the experiment is repeated 20\,times.
-We present average and standard deviation of the total completion time to process the full dataset.
-Figure~\ref{fig:scalability} presents these results.
-%Scalability of \SYS is evaluated by processing these datas 20 times on 3 different pipeline topology: using 1, 2 or 4 workers for each step of the pipeline.
-As expected, we observe ideal speed-ups until we use a number of workers that equals the physical cores of the hosts ($8$ in our deployment).
+
+First, we increase the number of workers for each stage of the pipeline, from $1$ to $4$.
+For each of the configurations, the experiment is repeated $5$\,times.
+We present average and standard deviation of the total completion time to process the full dataset in figure~\ref{fig:scalability:sgxfull}.
+As expected, we observe ideal speed-ups from a configuration using $1$ worker by stage to the one using $2$ of them.
+But in the configuration using $4$ workers by stage, we do not reach the same acceleration.
+We explain this because in this last case, the number of deployed containers - which equals the sum of input data streams, workers and routers, so here $20$ containers - is greater than the number of physical cores of the hosts ($8$ for each of the $2$ hosts used in our deployment, so $16$ cores on our evaluation cluster).
+
+In an other hand, we study the total completion time while increasing only the number of mapper workers in the first stage of the pipeline - this stage is identified like the the most resource consumer -, from $1$ to $16$, and maintaining constant the numbers of filters and reducers in the following stages.
+Like in the previous benchmark, the experiment is $5$\,times for each configuration and we measure average and standard deviation of the total completion time
+Figure~\ref{fig:scalability:sgxmapper} presents these results.
+Here also we observe ideal speed-ups until the number of deployed containers reach the number of physical cores.
 Passed this number, we do not observe further improvements.
+
+Both of these results are showing well the scalibility of \SYS{} according the number of deployed workers accross the cluster, limited by the size of this latter.
 
 %We observe that by doubling the number of workers from the initial configuration achieves a 2$\times$ speed-up of the overall processing time, that is from 20\,minutes to less than 10\,minutes.
 %Conversely, we do not observe similar improvements when using 4\,workers.
