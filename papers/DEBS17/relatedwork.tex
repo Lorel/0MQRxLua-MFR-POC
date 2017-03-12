@@ -24,6 +24,6 @@ Sedic \cite{zhang2011sedic} does not offer the same tagging granularity, but pro
 These solutions require splitting application and data in two parts (sensitive and not) and impose higher latencies due to data transfers between two different clouds.
 Yet, they cannot offer better security guarantees that the software stack itself offers, be it public or private.
 
-MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements. Through static code analysis, it pinpoints different homomorphic encryption schemes for every data column. Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution. \SYS{} avoids of complex encryption schemes and works on plaintext data, decrypting only inside the enclaves.
+MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements. Through static code analysis, it pinpoints different homomorphic encryption schemes for every data column. Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution. \SYS{} avoids of complex encryption schemes, decrypts data entering enclaves and processes in plaintext.
 
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
