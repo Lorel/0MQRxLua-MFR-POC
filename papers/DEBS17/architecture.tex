@@ -61,7 +61,7 @@ Once the processing pipeline is defined, the containers must be deployed on the 
 We exploit the \texttt{constraint} placement mechanisms to enforce the Docker Swarm's scheduler in order to deploy workers requiring SGX capabilities into appropriate hosts.
 In the example, an \texttt{sgx\_mapper} nodes is deployed on an SGX host by specifying \texttt{"constraint:type==sgx"} in the Compose description.
 %\begin{minipage}{\linewidth} %avoid splitting
-\vspace{5pt}
+\vspace{10pt}
 \begin{lstlisting}[language=YAML,caption={\SYS pipeline examples. Some attributes (\texttt{volume}, \texttt{networks}, \texttt{env\_file}) are omitted.},label=pipeline-desc][!t]
 sgx_mapper:
   image: "${IMAGE_SGX}"
