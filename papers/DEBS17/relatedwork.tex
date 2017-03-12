@@ -40,4 +40,8 @@ Through static code analysis, it pinpoints different homomorphic encryption sche
 Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution.
 \SYS{} avoids of complex encryption schemes, decrypts data entering enclaves and processes in plaintext.
 
+The \textsc{Styx}~\cite{Stephen:2016:SSP:2987550.2987574} system uses partial homorphic encryption to allow for efficient stream processing in trusted cloud environments.
+Interestingly, the authors of that system mention Intel SGX as possible alternative to deploy stream processing systems on trusted hardware offered by untrusted/malicious cloud environments.
+\SYS{} offers insights on the performances of exactly this approach. 
+
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
