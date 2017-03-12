@@ -4,7 +4,7 @@
 set term postscript monochrome eps enhanced 22
 set ylabel "Upload Throughput\nMB/sec" offset 0.5,0
 set grid x y front
-set size 1.0,0.65
+set size 1.0,0.85
 
 set bmargin 3.5
 set tmargin 2
