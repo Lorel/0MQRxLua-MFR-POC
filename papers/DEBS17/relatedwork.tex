@@ -11,6 +11,10 @@ These systems rely on the \emph{Java} virtual machine (JVM)~\cite{lindholm2014ja
 However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved code and data, at the cost of expensive encrypted memory paging mechanisms and serious performance overheads~\cite{pires_scbr:2016,brenner_securekeeper:_2016} when this limit is crossed.
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
 
-\vs{to cite: Airavat~\cite{Roy:2010:ASP:1855711.1855731}, GUPT~\cite{Mohan:2012:GPP:2213836.2213876}}
+Few recent contributions tackle privacy-preserving data processing, particularly in a MapReduce scenario.
+This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} or GUPT~\cite{Mohan:2012:GPP:2213836.2213876}.
+These systems leverage differential-privacy techniques~\cite{dwork2006calibrating} and can face a different threat model than the one supported by SGX and hence by \SYS.
+In particular, one deploying such systems on a public infrastructure, one needs to trust the provider. 
+Our system greatly reduces the trust boundaries, and only require to trust Intel.  
 
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
