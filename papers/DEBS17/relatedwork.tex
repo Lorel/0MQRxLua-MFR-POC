@@ -7,8 +7,10 @@ It leverages Resilient Distributed Datasets (RDD) to provide a uniform view on t
 Despite its popularity, Spark only handles unencrypted data and hence does not offer security guarantees.
 Recent proposals~\cite{7840754} study possible software solutions to overcome this limitation.
 
-Several big players introduced their own stream processing solutions, mainly used to ingest massive ammounts of data and efficiently perform analytics.
-Twitter's Heron~\cite{Kulkarni:2015:THS:2723372.2742788}, and Google's Cloud DataFlow~\cite{Akidau:2015:DMP:2824032.2824076} are prominent examples.
+Several big industrial players introduced their own stream processing solutions.
+Thse systems are mainly used to ingest massive amounts of data and efficiently perform (real-time) analytics.
+Twitter's Heron~\cite{Kulkarni:2015:THS:2723372.2742788}, and Google's Cloud DataFlow~\cite{Akidau:2015:DMP:2824032.2824076} are two prominent examples.
+These systems are typically deployed on the provider's premises and are not offered \emph{as a service} to end-users.
 
 A few dedicated solutions exist today for distributed stream processing using reactive programming.
 For instance, \textsc{Reactive Kafka}~\cite{reactivekafka} allows stream processing atop of Apache \textsc{Kafka}~\cite{apachekafka}.
@@ -20,7 +22,7 @@ However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved co
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently consist in significant re-engineering efforts.
 
 Few recent contributions tackle privacy-preserving data processing, particularly in a MapReduce scenario.
-This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} or GUPT~\cite{Mohan:2012:GPP:2213836.2213876}.
+This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} and \textsc{Gupt}~\cite{Mohan:2012:GPP:2213836.2213876}.
 These systems leverage differential-privacy techniques~\cite{dwork2006calibrating} and can face a different threat model than the one supported by SGX and hence by \SYS.
 In particular, when deploying such systems on a public infrastructure, one needs to trust the cloud provider.
 Our system greatly reduces the trust boundaries, and only require to trust Intel.
