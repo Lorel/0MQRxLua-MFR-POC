@@ -3,7 +3,12 @@
 %\vs{to do from scratch, should cover: stream processing papers, event-based middlewares, middleware that exploits hardware features}
 
 Spark~\cite{Zaharia:2013:DSF:2517349.2522737} has recently gained a lot of traction as prominent solution to implement efficient stream processing. 
-It leverages Resilient Distributed Datasets (RDD) to provide a uniform view on the data to process. 
+It leverages Resilient Distributed Datasets (RDD) to provide a uniform view on the data to process.
+Despite its popularity, Spark only handles unencrypted data and hence does not offer security guarantees. 
+Recent proposals~\cite{7840754} study possible software solutions to overcome this limitation. 
+
+Several big players introduced their own stream processing solutions, mainly used to ingest massive ammounts of data and efficiently perform analytics. 
+Twitter's Heron  
 
 A few dedicated solutions exist today for distributed stream processing using reactive programming.
 For instance, \textsc{Reactive Kafka}~\cite{reactivekafka} allows stream processing atop of Apache \textsc{Kafka}~\cite{apachekafka}.
@@ -17,16 +22,20 @@ Moreover, executing a fully-functional JVM inside an SGX enclave would currently
 Few recent contributions tackle privacy-preserving data processing, particularly in a MapReduce scenario.
 This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} or GUPT~\cite{Mohan:2012:GPP:2213836.2213876}.
 These systems leverage differential-privacy techniques~\cite{dwork2006calibrating} and can face a different threat model than the one supported by SGX and hence by \SYS.
-In particular, one deploying such systems on a public infrastructure, one needs to trust the provider. 
-Our system greatly reduces the trust boundaries, and only require to trust on Intel.
+In particular, when deploying such systems on a public infrastructure, one needs to trust the cloud provider. 
+Our system greatly reduces the trust boundaries, and only require to trust Intel.
 
-Many authors convene that public clouds may be secure enough some parts of an application. They propose to split the jobs, running only the critical parts in private clouds.
+Many authors convene that public clouds may be secure enough some parts of an application.
+They propose to split the jobs, running only the critical parts in private clouds.
 A privacy-aware framework on hybrid clouds \cite{xu2015framework} has been proposed to work on tagged data, at different granularity levels.
 A MapReduce preprocessor splits data into private and public clouds according to their sensitivity.
 Sedic \cite{zhang2011sedic} does not offer the same tagging granularity, but proposes to automatically modify reducers to optimize the data transfers in a hybrid cloud.
 These solutions require splitting application and data in two parts (sensitive and not) and impose higher latencies due to data transfers between two different clouds.
 Yet, they cannot offer better security guarantees that the software stack itself offers, be it public or private.
 
-MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements. Through static code analysis, it pinpoints different homomorphic encryption schemes for every data column. Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution. \SYS{} avoids of complex encryption schemes, decrypts data entering enclaves and processes in plaintext.
+MrCrypt \cite{tetali2013mrcrypt} proposes using homomorphic encryption instead of trusted elements.
+Through static code analysis, it pinpoints different homomorphic encryption schemes for every data column.
+Still, some of the demonstrated benchmarks are ten times slower than the unecrypted execution.
+\SYS{} avoids of complex encryption schemes, decrypts data entering enclaves and processes in plaintext.
 
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
