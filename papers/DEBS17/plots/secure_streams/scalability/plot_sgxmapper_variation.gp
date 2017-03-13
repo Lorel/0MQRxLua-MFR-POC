@@ -2,6 +2,9 @@
 
 set terminal postscript color portrait size 6,4
 set output 'sgxmapper_scalability.eps'
+
+set size 1.0,0.8
+
 set title 'Processing time: Average and standard deviation'
 set xlabel '# of SGX mappers'
 set ylabel 'Processing time (s)'

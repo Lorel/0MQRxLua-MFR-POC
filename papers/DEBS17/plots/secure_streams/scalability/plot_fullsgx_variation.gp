@@ -2,6 +2,9 @@
 
 set terminal postscript color portrait size 6,4
 set output 'sgxfull_scalability.eps'
+
+set size 1.0,0.8
+
 set title 'Processing time: Average and standard deviation'
 set xlabel '# of workers by stage'
 set ylabel 'Processing time (s)'

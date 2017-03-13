@@ -47,11 +47,14 @@ Y_POS=0
 set xrange [0:25]
 set ylabel "run time (s)" offset 1.5,0
 #set title "tada" offset 0,-0.8
-set label "{/Helvetica=15 dhrystone}" at 0.8,-5
-set label "{/Helvetica=15 fannkuchredux}" at 4.9,-5
-set label "{/Helvetica=15 nbody}" at 11.8,-5
-set label "{/Helvetica=15 richards}" at 16,-5
-set label "{/Helvetica=15 spectralnorm}" at 20.5,-5
+set label "{/Helvetica=22 dhry}" at 2,-5
+set label "{/Helvetica=22 stone}" at 1.7,-12
+set label "{/Helvetica=22 fannkuch}" at 5.2,-5
+set label "{/Helvetica=22 redux}" at 6,-12
+set label "{/Helvetica=22 nbody}" at 11,-5
+set label "{/Helvetica=22 richards}" at 15.5,-5
+set label "{/Helvetica=22 spectral}" at 20.5,-5
+set label "{/Helvetica=22 norm}" at 21,-12
 set origin 0.072, Y_MARGIN+(Y_POS*(HEIGHT_IND+WIDTH_BETWEEN_Y))
 set size 0.8,0.7
 
@@ -71,7 +74,8 @@ unset label
 unset ytics
 set y2tics
 set grid y2
-set label "{/Helvetica=15 binarytrees}" at 0.9,-20
+set label "{/Helvetica=22 binary}" at 1,-20
+set label "{/Helvetica=22 trees}" at 1.2,-50
 #set title "tidi" offset 0,-0.8
 set origin 0.75, Y_MARGIN+(Y_POS*(HEIGHT_IND+WIDTH_BETWEEN_Y))
 set size 0.26,0.7
