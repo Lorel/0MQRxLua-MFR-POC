@@ -178,7 +178,7 @@ We use a representation based on stacked percentiles.
 The white bar at the bottom represents the minimum value, the pale grey on top the maximal value.
 Intermediate shades of grey represent the 25th-, 50th–, median–, and 75th-percentiles.
 For instance, in Figure~\ref{fig:throughput}-a (our baseline) the median throughput at $200$\,s into the experiment almost hits $7.5$\,MB/s, meaning that $50$\,\% of the nodes in that moment are outputting data at $7.5$\,MB/s or less.
-The baseline configuration, with only $1$ worker per stage, completes in $420$ seconds, with a peak of $12\,MB/s$.
+The baseline configuration, with only $1$ worker per stage, completes in $420$\,s, with a peak of $12\,MB/s$.
 By doubling the number of workers reduces the processing time down to $250$\,s (Figure~\ref{fig:throughput}-d), a speed-up of $41$\,\%.
 By scaling up the workers to 4 in the baseline configuration (Figure~\ref{fig:throughput}-g) did not produce a similar speed-up.
 
