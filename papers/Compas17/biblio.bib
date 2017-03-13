@@ -1,0 +1,574 @@
+% Optional fields: author, title, howpublished, month, year, note
+
+@inproceedings{xu2015framework,
+  title={A Framework for Privacy-Aware Computing on Hybrid Clouds with Mixed-Sensitivity Data},
+  author={Xu, Xiangqiang and Zhao, Xinghui},
+  booktitle={IEEE International Symposium on Big Data Security on CloudIEEE International Symposium on Big Data Security on Cloud},
+  pages={1344--1349},
+  year={2015},
+  organization={IEEE}
+}
+
+@article{tetali2013mrcrypt,
+  title={MrCrypt: Static analysis for secure cloud computations},
+  author={Tetali, Sai Deep and Lesani, Mohsen and Majumdar, Rupak and Millstein, Todd},
+  journal={ACM Sigplan Notices},
+  volume={48},
+  number={10},
+  pages={271--286},
+  year={2013},
+  publisher={ACM}
+}
+
+@inproceedings{zhang2011sedic,
+  title={Sedic: privacy-aware data intensive computing on hybrid clouds},
+  author={Zhang, Kehuan and Zhou, Xiaoyong and Chen, Yangyi and Wang, XiaoFeng and Ruan, Yaoping},
+  booktitle={Proceedings of the 18th ACM conference on Computer and communications security},
+  pages={515--526},
+  year={2011},
+  organization={ACM}
+}
+
+@misc{reactivemanifesto,
+  author = {Bonér, Jonas and Farley, Dave and Kuhn, Roland and Thompson, Martin},
+  title = {{The Reactive Manifesto}},
+  howpublished = {\url{http://www.reactivemanifesto.org}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{reactivekafka,
+  title = {{Reactive Streams for Kafka}},
+  howpublished= {\url{https://github.com/akka/reactive-kafka}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{apachekafka,
+  title = {{Apache Kafka}},
+  howpublished=  {\url{https://kafka.apache.org}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{apachesparkstreaming,
+  title = {{Spark Streaming}},
+  howpublished = {\url{https://spark.apache.org/streaming}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{apachestorm,
+  title = {{Apache Storm}},
+  howpublished = {\url{http://storm.apache.org}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{infinispan,
+  title = {{Infinispan}},
+   howpublished = {\url{http://infinispan.org}},
+   year = {Accessed on 12/03/2017}
+}
+
+@misc{docker:swarm_2016,
+  title = {{Docker Swarm}},
+  howpublished = {\url{https://www.docker.com/products/docker-swarm}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{docker,
+  title = {{Docker}},
+  howpublished = {\url{https://www.docker.com}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{docker:compose,
+    title={{Docker Comopse}},
+    howpublished={\url{https://docs.docker.com/compose/}},
+	year = {Accessed on 12/03/2017}
+}
+
+@misc{zero_mq,
+  title = {{ZeroMQ}},
+  howpublished = {\url{http://zeromq.org}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{zero_mq:pipeline,
+  title = {{ZeroMQ Pipeline}},
+  howpublished = {\url{https://rfc.zeromq.org/30/}},
+  year = {Accessed on 12/03/2017}
+}
+
+@techreport{costan_intel,
+  title = {{Intel SGX explained}},
+  urldate = {2017-01-17},
+  institution = {Cryptology ePrint Archive, Report 2016/086, 2016.},
+  author = {Costan, Victor and Devadas, Srinivas}
+}
+
+@misc{intel:skylake,
+  title = {{Intel$^{\tiny{\textregistered}}$ SkyLake}},
+  howpublished = {\url{https://ark.intel.com/products/codename/37572/Skylake}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{intel:i7_6700,
+  title = {Intel$^{\tiny{\textregistered}}$ {Core{\texttrademark}} {i7-6700}},
+  howpublished = {\url{http://ark.intel.com/products/88196/Intel-Core-i7-6700-Processor-8M-Cache-up-to-4_00-GHz}},
+  year = {Accessed on 12/03/2017}
+}
+
+@inproceedings{brenner_securekeeper:_2016,
+  series = {Middleware '16},
+  title = {{SecureKeeper}: {Confidential} {ZooKeeper} {Using} {Intel} {SGX}},
+  isbn = {978-1-4503-4300-8},
+  shorttitle = {{SecureKeeper}},
+  doi = {10.1145/2988336.2988350},
+  abstract = {Cloud computing, while ubiquitous, still suffers from trust issues, especially for applications managing sensitive data. Third-party coordination services such as ZooKeeper and Consul are fundamental building blocks for cloud applications, but are exposed to potentially sensitive application data. Recently, hardware trust mechanisms such as Intel's Software Guard Extensions (SGX) offer trusted execution environments to shield application data from untrusted software, including the privileged Operating System (OS) and hypervisors. Such hardware support suggests new options for securing third-party coordination services. We describe SecureKeeper, an enhanced version of the ZooKeeper coordination service that uses SGX to preserve the confidentiality and basic integrity of ZooKeeper-managed data. SecureKeeper uses multiple small enclaves to ensure that (i) user-provided data in ZooKeeper is always kept encrypted while not residing inside an enclave, and (ii) essential processing steps that demand plaintext access can still be performed securely. SecureKeeper limits the required changes to the ZooKeeper code base and relies on Java's native code support for accessing enclaves. With an overhead of 11\%, the performance of SecureKeeper with SGX is comparable to ZooKeeper with secure communication, while providing much stronger security guarantees with a minimal trusted code base of a few thousand lines of code.},
+  urldate = {2017-01-17},
+  booktitle = {Proceedings of the 17th {International} {Middleware} {Conference}},
+  publisher = {ACM},
+  author = {Brenner, Stefan and Wulf, Colin and Goltzsche, David and Weichbrodt, Nico and Lorenz, Matthias and Fetzer, Christof and Pietzuch, Peter and Kapitza, Rüdiger},
+  year = {2016},
+  keywords = {Apache ZooKeeper, Cloud Computing, Intel SGX},
+  pages = {14:1--14:13}
+}
+
+@article{ierusalimschy_luaextensible_1996,
+  title = {Lua—{An} {Extensible} {Extension} {Language}},
+  volume = {26},
+  issn = {1097-024X},
+  abstract = {This paper describes Lua, a language for extending applications. Lua combines procedural features with powerful data description facilities, by using a simple, yet powerful, mechanism of tables . This mechanism implements the concepts of records, arrays and recursive data types (pointers), and adds some object-oriented facilities, such as methods with dynamic dispatching. Lua presents a mechanism of fallbacks that allows programmers to extend the semantics of the language in some unconventional ways. As a noteworthy example, fallbacks allow the user to add different kinds of inheritance to the language. Currently, Lua is being extensively used in production for several tasks, including user configuration, general-purpose data-entry, description of user interfaces, storage of structured graphical metafiles, and generic attribute configuration for finite element meshes.},
+  language = {en},
+  number = {6},
+  urldate = {2017-01-17},
+  journal = {Software: Practice and Experience},
+  author = {Ierusalimschy, Roberto and de Figueiredo, Luiz Henrique and Filho, Waldemar Celes},
+  month = jun,
+  year = {1996},
+  keywords = {end-user programming, extension languages, programming languages},
+  pages = {635--652}
+}
+
+@inproceedings{voelter_patterns_2003,
+    title={{Patterns for Asynchronous Invocations in Distributed Object Frameworks.}},
+  booktitle = {{EuroPLoP}},
+  author = {Voelter, Markus and Kircher, Michael and Zdun, Uwe and Englbrecht, Michael},
+  year = {2003},
+  pages = {269--284}
+}
+
+@inbook {mom,
+  title = {{Message-Oriented Middleware}},
+  author = {Curry, Edward},
+  publisher = {John Wiley \& Sons, Ltd},
+  pages = {1--28},
+  keywords = {Quality-of-Service (QoS), remote procedure call (RPC), Message-Oriented Middleware (MOM), message queue, point-to-point messaging model, hierarchical channels, message filtering, transactional messaging, load balancing, Service-Oriented Architectures (SOA)},
+  booktitle = {Middleware for Communications},
+  year = {2005},
+}
+
+@book{lindholm2014java,
+  title={{The Java Virtual Machine Specification: Java SE 8 Edition}},
+  author={Lindholm, Tim and Yellin, Frank and Bracha, Gilad and Buckley, Alex},
+  year={2014},
+  publisher={Pearson Education}
+}
+
+@article{freier2011secure,
+  title={{The secure sockets layer (SSL) protocol version 3.0}},
+  author={Freier, Alan and Karlton, Philip and Kocher, Paul},
+  year={2011}
+}
+
+@booklet{berry:realtime_programming,
+  author = {Berry, Gérard},
+  title = {Real time programming: special purpose or general purpose languages},
+  month = aug,
+  year = {1989},
+  howpublished = {\url{http://www-sop.inria.fr/members/Gerard.Berry/Papers/Berry-IFIP-89.pdf}},
+}
+
+@book{malawski:why_reactive,
+  author = {Malawski, Konrad},
+  title = {{Why Reactive?}},
+  year = {2015},
+  publisher = {O'Reilly},
+}
+
+@misc{reactive_streams,
+  title = {{Reactive Streams}},
+  howpublished = {\url{http://www.reactive-streams.org/}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{github:reactive_streams,
+  title = {{Reactive Streams Github Organization}},
+  howpublished = {\url{https://github.com/reactive-streams}},
+  year = {Accessed on 12/03/2017}
+}
+
+@article{szallies_using_1997,
+  title={On using the observer design pattern},
+  author={Szallies, Constantin},
+  journal={XP-002323533,(Aug. 21, 1997)},
+  volume={9},
+  year={1997}
+}
+
+@misc{github:rxlua,
+  title = {{Reactive Extensions for Lua}},
+  howpublished = {\url{https://github.com/bjornbytes/RxLua}},
+  year = {Accessed on 12/03/2017}
+}
+
+@Inbook{uustalu_essence_2005,
+author="Uustalu, Tarmo
+and Vene, Varmo",
+editor="Horv{\'a}th, Zolt{\'a}n",
+title="The Essence of Dataflow Programming",
+bookTitle="Central European Functional Programming School: First Summer School, CEFP 2005, Budapest, Hungary, July 4-15, 2005, Revised Selected Lectures",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="135--167",
+isbn="978-3-540-46845-5",
+doi="10.1007/11894100_5",
+url="http://dx.doi.org/10.1007/11894100_5"
+}
+
+
+@misc{github:lzmq,
+  title = {{Lua binding to ZeroMQ}},
+  howpublished = {\url{https://github.com/zeromq/lzmq}},
+  year = {Accessed on 12/03/2017}
+}
+
+@book{ierusalimschy_programming_2006,
+  title={{Programming in Lua, Fourth Edition}},
+  author={Ierusalimschy, Roberto},
+  year={2006},
+  publisher={Roberto Ierusalimschy}
+}
+
+@misc{lualang,
+  title="Lua",
+  howpublished={\url{www.lua.org}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{rita:bts,
+  title = {{RITA} {\textbar} {BTS}},
+  howpublished = {\url{http://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{rita:bts_datas,
+  title = {{RITA} {\textbar} {BTS} {\textbar} {Transtats}},
+  url = {http://www.transtats.bts.gov/Fields.asp?Table_ID=236},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{statistical_computing:data,
+  title = {{Data Expo'09 ASA Statistics Computing and Graphics}},
+  howpublished = {\url{http://stat-computing.org/dataexpo/2009/the-data.html}},
+  year = {Accessed on 12/03/2017}
+}
+
+@inproceedings{gunther1993simple,
+  title={A simple capacity model of massively parallel transaction systems},
+  author={Gunther, Neil J},
+  booktitle={CMG-CONFERENCE-},
+  pages={1035--1035},
+  year={1993},
+  organization={COMPSCER MEASUREMENT GROUP INC}
+}
+
+@misc{awsec2container,
+  title="{Amazon EC2 Container Service}",
+  howpublished={\url{https://aws.amazon.com/ecs/}}
+}
+
+@inproceedings{pires_scbr:2016,
+  author = {Pires, Rafael and Pasin, Marcelo and Felber, Pascal and Fetzer, Christof},
+  title = {Secure Content-Based Routing Using Intel Software Guard Extensions},
+  booktitle = {Proceedings of the 17th International Middleware Conference},
+  series = {Middleware '16},
+  year = {2016},
+  isbn = {978-1-4503-4300-8},
+  location = {Trento, Italy},
+  pages = {10:1--10:10},
+  articleno = {10},
+  numpages = {10},
+  url = {http://doi.acm.org/10.1145/2988336.2988346},
+  doi = {10.1145/2988336.2988346},
+  acmid = {2988346},
+  publisher = {ACM},
+  address = {New York, NY, USA},
+  keywords = {Content-based routing, SGX, privacy, publish/subscribe, security},
+}
+
+@misc{zmq:curvezmq,
+  title = {{CurveZMQ}},
+  howpublished = {\url{http://curvezmq.org/}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{zmq:curvecp,
+  title = {{CurveCP}},
+  howpublished = {\url{http://curvecp.org/}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{zmq:nacl,
+  title = {{NaCl}},
+  howpublished= {\url{http://nacl.cr.yp.to/}},
+  year = {Accessed on 12/03/2017}
+}
+
+@misc{consul,
+  title = {{Consul}},
+  howpublished= {\url{http://consul.io}},
+  year = {Accessed on 12/03/2017}
+}
+
+#https://aws.amazon.com/about-aws/whats-new/2016/11/coming-soon-amazon-ec2-c5-instances-the-next-generation-of-compute-optimized-instances/
+@misc{amazonskylake,
+    title={{Amazon EC2 and SkyLake CPUs}},
+    howpublished = {\url{http://amzn.to/2nmIiH9}},
+	year = {Accessed on 12/03/2017}
+}
+
+@misc{gceskylake,
+    title = {{Google Compute Engine and SkyLake CPUs}},
+    howpublished = {\url{http://for.tn/2lLdUtD}},
+	year = {Accessed on 12/03/2017}
+}
+
+@book{bird_introduction_1988,
+  title = {Introduction to {Functional} {Programming}},
+  isbn = {978-0-13-484189-2},
+  language = {English},
+  publisher = {Prentice Hall},
+  author = {Bird, Richard and Wadler, Philip},
+  month = mar,
+  year = {1988}
+}
+
+@article{arm2009security,
+  title={{Building a Secure System using TrustZone{\textregistered} Technology}},
+  booktitle={ARM Security Technology.},
+  journal={ARM Limited},
+  year={2009}
+}
+
+@article{gueron2016memory,
+  title={{A Memory Encryption Engine Suitable for General Purpose Processors.}},
+  author={Gueron, Shay},
+  journal={IACR Cryptology ePrint Archive},
+  volume={2016},
+  pages={204},
+  year={2016}
+}
+
+@inproceedings{mckeen2016intel,
+ author = {McKeen, Frank and Alexandrovich, Ilya and Anati, Ittai and Caspi, Dror and Johnson, Simon and Leslie-Hurd, Rebekah and Rozas, Carlos},
+ title = {Intel\&Reg; Software Guard Extensions (Intel\&Reg; SGX) Support for Dynamic Memory Management Inside an Enclave},
+ booktitle = {Proceedings of the Hardware and Architectural Support for Security and Privacy 2016},
+ series = {HASP 2016},
+ year = {2016},
+ isbn = {978-1-4503-4769-3},
+ location = {Seoul, Republic of Korea},
+ pages = {10:1--10:9},
+ articleno = {10},
+ numpages = {9},
+ url = {http://doi.acm.org/10.1145/2948618.2954331},
+ doi = {10.1145/2948618.2954331},
+ acmid = {2954331},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+
+@inproceedings{leonini2009splay,
+ author = {Leonini, Lorenzo and Rivi\`{e}re, \'{E}tienne and Felber, Pascal},
+ title = {SPLAY: Distributed Systems Evaluation Made Simple (or How to Turn Ideas into Live Systems in a Breeze)},
+ booktitle = {Proceedings of the 6th USENIX Symposium on Networked Systems Design and Implementation},
+ series = {NSDI'09},
+ year = {2009},
+ location = {Boston, Massachusetts},
+ pages = {185--198},
+ numpages = {14},
+ url = {http://dl.acm.org/citation.cfm?id=1558977.1558990},
+ acmid = {1558990},
+ publisher = {USENIX Association},
+ address = {Berkeley, CA, USA},
+} 
+
+@article{bolz2015,
+  title={The impact of meta-tracing on VM design and implementation},
+  author={Bolz, Carl Friedrich and Tratt, Laurence},
+  journal={Science of Computer Programming},
+  volume={98},
+  pages={408--421},
+  year={2015},
+  publisher={Elsevier}
+}
+
+@misc{rfc7159,
+    series =    {Request for Comments},
+    number =    7159,
+    howpublished =  {RFC 7159},
+    publisher = {RFC Editor},
+    doi =       {10.17487/rfc7159},
+    url =       {https://rfc-editor.org/rfc/rfc7159.txt},
+    author =    {},
+    title =     {{The JavaScript Object Notation (JSON) Data Interchange Format}},
+    pagetotal = 16,
+    year =      2014,
+    month =     mar,
+    abstract =  {JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data.},
+}
+
+@misc{rfc4180,
+    series =    {Request for Comments},
+    number =    4180,
+    howpublished =  {RFC 4180},
+    publisher = {RFC Editor},
+    doi =       {10.17487/rfc4180},
+    url =       {https://rfc-editor.org/rfc/rfc4180.txt},
+    author =    {Yakov Shafranovich},
+    title =     {{Common Format and MIME Type for Comma-Separated Values (CSV) Files}},
+    pagetotal = 8,
+    year =      2005,
+    month =     oct,
+    abstract =  {This RFC documents the format used for Comma-Separated Values (CSV) files and registers the associated MIME type &quot;text/csv&quot;. This memo provides information for the Internet community.},
+}
+
+@inproceedings{Roy:2010:ASP:1855711.1855731,
+ author = {Roy, Indrajit and Setty, Srinath T. V. and Kilzer, Ann and Shmatikov, Vitaly and Witchel, Emmett},
+ title = {{Airavat: Security and Privacy for MapReduce}},
+ booktitle = {Proceedings of the 7th USENIX Conference on Networked Systems Design and Implementation},
+ series = {NSDI'10},
+ year = {2010},
+ location = {San Jose, California},
+ pages = {20--20},
+ numpages = {1},
+ url = {http://dl.acm.org/citation.cfm?id=1855711.1855731},
+ acmid = {1855731},
+ publisher = {USENIX Association},
+ address = {Berkeley, CA, USA},
+} 
+
+@inproceedings{Mohan:2012:GPP:2213836.2213876,
+ author = {Mohan, Prashanth and Thakurta, Abhradeep and Shi, Elaine and Song, Dawn and Culler, David},
+ title = {{GUPT: Privacy Preserving Data Analysis Made Easy}},
+ booktitle = {Proceedings of the 2012 ACM SIGMOD International Conference on Management of Data},
+ series = {SIGMOD '12},
+ year = {2012},
+ isbn = {978-1-4503-1247-9},
+ location = {Scottsdale, Arizona, USA},
+ pages = {349--360},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2213836.2213876},
+ doi = {10.1145/2213836.2213876},
+ acmid = {2213876},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {algorithms, data mining, differential privacy, security},
+} 
+
+@inproceedings{dwork2006calibrating,
+  title={Calibrating noise to sensitivity in private data analysis},
+  author={Dwork, Cynthia and McSherry, Frank and Nissim, Kobbi and Smith, Adam},
+  booktitle={Theory of Cryptography Conference},
+  pages={265--284},
+  year={2006},
+  organization={Springer}
+}
+
+@inproceedings{Zaharia:2013:DSF:2517349.2522737,
+ author = {Zaharia, Matei and Das, Tathagata and Li, Haoyuan and Hunter, Timothy and Shenker, Scott and Stoica, Ion},
+ title = {Discretized Streams: Fault-tolerant Streaming Computation at Scale},
+ booktitle = {Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles},
+ series = {SOSP '13},
+ year = {2013},
+ isbn = {978-1-4503-2388-8},
+ location = {Farminton, Pennsylvania},
+ pages = {423--438},
+ numpages = {16},
+ url = {http://doi.acm.org/10.1145/2517349.2522737},
+ doi = {10.1145/2517349.2522737},
+ acmid = {2522737},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@INPROCEEDINGS{7840754, 
+author={S. Y. Shah and B. Paulovicks and P. Zerfos}, 
+booktitle={2016 IEEE International Conference on Big Data (Big Data)}, 
+title={{Data-at-rest security for Spark}}, 
+year={2016}, 
+pages={1464-1473}, 
+keywords={Big Data;checkpointing;cryptography;data analysis;data structures;random-access storage;Apache Spark;IDA;PSS;RAM-scrapping;RDD checkpointing;Shamir perfect secret sharing;analytics applications;caching data;confidential data;cryptographic splitting;data shuffling operations;data spill;data structures;data-at-rest security;encryption;information dispersal algorithm;main-memory attacks;performance penalty;resilient distributed datasets;security lapses;unencrypted data;Access control;Distributed databases;Encryption;Random access memory;Sparks;Big Data;Cloud Computing;Computer security;Cryptography;Data-at-Rest;Encryption;Security}, 
+doi={10.1109/BigData.2016.7840754}, 
+month={Dec},}
+
+@inproceedings{Kulkarni:2015:THS:2723372.2742788,
+ author = {Kulkarni, Sanjeev and Bhagat, Nikunj and Fu, Maosong and Kedigehalli, Vikas and Kellogg, Christopher and Mittal, Sailesh and Patel, Jignesh M. and Ramasamy, Karthik and Taneja, Siddarth},
+ title = {{Twitter Heron: Stream Processing at Scale}},
+ booktitle = {Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data},
+ series = {SIGMOD '15},
+ year = {2015},
+ isbn = {978-1-4503-2758-9},
+ location = {Melbourne, Victoria, Australia},
+ pages = {239--250},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2723372.2742788},
+ doi = {10.1145/2723372.2742788},
+ acmid = {2742788},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {real-time data processing., stream data processing systems},
+} 
+
+@article{Akidau:2015:DMP:2824032.2824076,
+ author = {Akidau, Tyler and Bradshaw, Robert and Chambers, Craig and Chernyak, Slava and Fern\'{a}ndez-Moctezuma, Rafael J. and Lax, Reuven and McVeety, Sam and Mills, Daniel and Perry, Frances and Schmidt, Eric and Whittle, Sam},
+ title = {{The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-scale, Unbounded, Out-of-order Data Processing}},
+ journal = {Proc. VLDB Endow.},
+ issue_date = {August 2015},
+ volume = {8},
+ number = {12},
+ month = aug,
+ year = {2015},
+ issn = {2150-8097},
+ pages = {1792--1803},
+ numpages = {12},
+ url = {http://dx.doi.org/10.14778/2824032.2824076},
+ doi = {10.14778/2824032.2824076},
+ acmid = {2824076},
+ publisher = {VLDB Endowment},
+} 
+
+@inproceedings{kreps2011kafka,
+  title={{Kafka: A distributed messaging system for log processing}},
+  author={Kreps, Jay and Narkhede, Neha and Rao, Jun and others},
+  booktitle={Proceedings of the NetDB},
+  pages={1--7},
+  year={2011}
+}
+
+@inproceedings{Stephen:2016:SSP:2987550.2987574,
+ author = {Stephen, Julian James and Savvides, Savvas and Sundaram, Vinaitheerthan and Ardekani, Masoud Saeida and Eugster, Patrick},
+ title = {{STYX: Stream Processing with Trustworthy Cloud-based Execution}},
+ booktitle = {Proceedings of the Seventh ACM Symposium on Cloud Computing},
+ series = {SoCC '16},
+ year = {2016},
+ isbn = {978-1-4503-4525-5},
+ location = {Santa Clara, CA, USA},
+ pages = {348--360},
+ numpages = {13},
+ url = {http://doi.acm.org/10.1145/2987550.2987574},
+ doi = {10.1145/2987550.2987574},
+ acmid = {2987574},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Confidentiality, IoT, Stream data processing},
+} 

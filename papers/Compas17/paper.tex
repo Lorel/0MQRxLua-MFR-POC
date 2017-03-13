@@ -1,0 +1,165 @@
+%===========================================================
+%                              Choix de track
+%===========================================================
+% Une des trois options 'parallelisme', 'architecture', 'systeme' 
+% doit être utilisée avec le style compas2017
+\documentclass[systeme]{compas2017}
+%===========================================================
+%                               Title
+%===========================================================
+\toappear{1} % Conserver cette ligne pour la version finale
+
+% \usepackage[utf8]{inputenc}
+% \usepackage{graphicx}
+\usepackage{subfig}
+% \usepackage{xcolor}  
+% \usepackage{amsmath,amssymb}
+% \usepackage{ifthen}
+\usepackage{xspace}
+% % \usepackage{cite}
+
+% \usepackage{algorithm}
+% %\usepackage[noend]{algpseudocode}
+% \usepackage{algpseudocode}
+\usepackage{color}
+% \usepackage{listings}
+% \usepackage{pifont}
+% \usepackage{multirow}
+% \usepackage{url}
+% %\usepackage{natbib}
+\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false,draft]{hyperref}
+% \renewcommand*{\UrlFont}{\ttfamily\rm}
+\usepackage{listings}
+
+\lstset{
+  float,
+  basicstyle       = \tiny\ttfamily,
+  columns          = fixed,
+  numbers          = left,
+  numberstyle      = \tiny\ttfamily,
+  numbersep        = 5pt,
+  xleftmargin      = 5pt,
+  xrightmargin     = 10pt,
+  frame            = tb,
+  captionpos       = b,
+  upquote          = true,
+  showstringspaces = false,
+}
+
+\setlength{\textfloatsep}{10pt}
+
+% \newboolean{showcomments}
+% \setboolean{showcomments}{true}
+% \ifthenelse{\boolean{showcomments}}
+% { \newcommand{\mynote}[3]{
+%    \fbox{\bfseries\sffamily\scriptsize#1}
+%    {\small$\blacktriangleright$\textsf{\emph{\color{#3}{#2}}}$\blacktriangleleft$}}}
+% { \newcommand{\mynote}[3]{}}
+% \newcommand{\pf}[1]{\mynote{Pascal}{#1}{pink}}
+% \newcommand{\vs}[1]{\mynote{Valerio}{#1}{blue}}
+% \newcommand{\ah}[1]{\mynote{Aurelien}{#1}{red}}
+% \newcommand{\rp}[1]{\mynote{Rafael}{#1}{orange}}
+% \newcommand{\rr}[1]{\mynote{Romain}{#1}{green}}
+
+\definecolor{darkgreen}{rgb}{0.3,0.5,0.3}
+\definecolor{darkblue}{rgb}{0.3,0.3,0.5}
+\definecolor{darkred}{rgb}{0.5,0.3,0.3}
+
+\lstdefinelanguage{LUA}{
+  sensitive=true,
+  keywordstyle=[1]{\color{darkblue}\bfseries},
+  keywordstyle=[2]{\color{darkgreen}\bfseries},
+  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,
+    nil,not,or,repeat,return,then,until,while,require,alias},% Official LUA keywords
+  morekeywords=[2]{},% Your private keywords
+  otherkeywords={.,=,~,*,>,:},
+  morestring=[b]",
+  stringstyle={\color{darkred}\itshape},
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=\columnwidth,
+  comment=[l]{--},
+  escapeinside={(*@}{@*)}
+}
+
+% \lstdefinelanguage{YAML}{
+%   sensitive=true,
+%   keywordstyle=[1]{\color{darkblue}\bfseries},
+%   keywordstyle=[2]{\color{darkgreen}\bfseries},
+%   morekeywords=[1]{image, entrypoint, environment, devices, hostname},% Official LUA keywords
+%   morekeywords=[2]{},% Your private keywords
+%   otherkeywords={.,=,~,*,>,:},
+%   morestring=[b]",
+%   breaklines=true,
+%   breakatwhitespace=true,
+%   linewidth=\columnwidth,
+%   comment=[l]{--},
+%   escapeinside={(*@}{@*)}
+% }
+
+\newcommand{\SYS}{\textsc{SecureStreams}\xspace}
+\newcommand{\zmq}{\textsc{ZeroMQ}\xspace}
+\newcommand{\rxl}{\textsc{RxLua}\xspace}
+
+
+\begin{document}
+
+\title{\SYS: A Reactive Middleware Framework for Secure~Data~Stream~Processing}
+\shorttitle{\SYS}
+
+\author{Aurélien Havet$^1$, Rafael Pires$^1$, Pascal Felber$^1$, Marcelo Pasin$^1$, Romain Rouvoy$^2$ and Valerio Schiavoni$^1$}%
+
+\address{$^1$~University of Neuchâtel, Switzerland. Email: first.last@unine.ch\\
+$^2$~Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
+
+\date{\today}
+
+\maketitle
+
+%===========================================================         %
+%R\'esum\'e
+%===========================================================  
+\begin{abstract}
+The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
+% 
+This paper therefore introduces \SYS{}, a reactive middleware framework to deploy and process secure streams at scale.
+Its design combines the high-level reactive dataflow programming paradigm with low-level Intel's \emph{software guard extensions} (SGX) in order to guarantee privacy and integrity of the processed data.
+The experimental results of \SYS{} are promising: while offering a fluent scripting language based on \textsc{Lua}, our middleware delivers high processing throughput, thus enabling developers to implement secure processing pipelines in just few lines of code.
+\MotsCles{Middleware, security, SGX, stream processing}
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/architecture}
+\input{sections/implementation}
+\input{sections/evaluation}
+\input{sections/relatedwork}
+\input{sections/conclusion}
+
+%=========================================================
+% \section{Introduction}
+%=========================================================
+
+% C'est vraiment un super ordinateur.
+
+% %=========================================================
+% \section{Description des expériences}
+% %=========================================================
+
+% \subsection{Trois composants essentiels}
+
+% Le premier~\cite{big,small}, le second~\cite{small} et le troisième.
+
+% \subsection{Un résultat époustouflant}
+
+% Ne pas oublier de lire le rappel des règles typographiques françaises fournies avec cet exemple ou disponible en ligne~\cite{andre}.
+
+% \medskip
+
+% On obtient ainsi un article parfait.
+
+% \section{Conclusion}
+% Vraiment, on est époustouflé !
+
+\bibliography{biblio}
+\end{document}
