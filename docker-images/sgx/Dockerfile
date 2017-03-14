@@ -1,6 +1,6 @@
 FROM ubuntu:14.04.1
 
-ENV BUILD_PACKAGES cmake dh-autoreconf git gcc g++ liblua5.3-dev make ocaml-nox python wget
+ENV BUILD_PACKAGES cmake dh-autoreconf git gcc g++ libboost-chrono1.54-dev libboost-system1.54-dev libcrypto++-dev liblua5.3-dev make ocaml-nox python wget
 ENV UTIL_PACKAGES strace
 ENV DEPENDENCIES_PACKAGES libboost-chrono1.54.0 libboost-system1.54.0 libcrypto++9 libcurl4-openssl-dev protobuf-compiler protobuf-c-compiler libprotobuf-dev libprotobuf-c0-dev
 
@@ -12,8 +12,10 @@ ENV LUA53_REPO deb http://ppa.launchpad.net/ubuntu-cloud-archive/mitaka-staging/
 ENV LUASGX_REPO git@github.com:Lorel/luasgx.git
 
 ENV SGX_BUILD_DIR /root/sgx-build
-ENV SGX_SDK_DIR /root/sgx-sdk
-ENV LUA_BUILD_DIR /root/lua-buid
+ENV SGX_SDK_PARENT_DIR /opt/intel
+ENV SGX_SDK_DIR $SGX_SDK_PARENT_DIR/sgxsdk
+ENV LUA_BUILD_DIR /root/lua-build
+ENV LUASGX_BUILD_DIR /root/lua-sgx
 ENV RUNTIME_DIR /root/luasgx
 
 
@@ -53,7 +55,7 @@ RUN cd $SGX_BUILD_DIR && \
   ./build-installpkg.sh psw && \
   ./sgx_linux_x64_psw_1.6.100.34922.bin && \
   ./build-installpkg.sh sdk && \
-  INSTALL_PATH=$SGX_SDK_DIR ./sgx_linux_x64_sdk_1.6.100.34922.bin
+  INSTALL_PATH=$SGX_SDK_PARENT_DIR ./sgx_linux_x64_sdk_1.6.100.34922.bin
 
 
 # install libzmq5 and libzmq5-dev from downloaded package because they are not available in Ubuntu14.04 apt repositories
@@ -111,20 +113,23 @@ RUN mkdir -p $LUA_BUILD_DIR && \
 ENV LUASGX_REPO_KEY /root/.ssh/id_rsa
 ADD build_files/.ssh/id_luasgx $LUASGX_REPO_KEY
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
-  git clone $LUASGX_REPO luasgx-build && \
-  ls -al luasgx-build && \
-  ls -al /usr/include && \
-  cd luasgx-build/app && \
-  SGX_SDK=$SGX_SDK_DIR/sgxsdk make -I/usr/include/ && \
-  ls -al .
-ADD build_files/luasgx $RUNTIME_DIR
-ADD build_files/start.sh $RUNTIME_DIR
+  mkdir -p $LUASGX_REPO $LUASGX_BUILD_DIR && \
+  git clone $LUASGX_REPO $LUASGX_BUILD_DIR && \
+  cd $LUASGX_BUILD_DIR/lua-sgx && \
+  make && \
+  cd $LUASGX_BUILD_DIR/app && \
+  make && \
+  mkdir -p $RUNTIME_DIR && \
+  ln -s $LUASGX_BUILD_DIR/app/luasgx $RUNTIME_DIR/luasgx && \
+  ln -s $LUASGX_BUILD_DIR/app/EnclavedLua.signed.so $RUNTIME_DIR/EnclavedLua.signed.so
+
 
 # add fancy Lua libs
 ADD build_files/zmq-rx.lua /usr/local/lib/lua/5.3/
 ADD build_files/sgx.lua /usr/local/lib/lua/5.3/
 ADD build_files/sgx-rx.lua /usr/local/lib/lua/5.3/
 
+ADD build_files/start.sh $RUNTIME_DIR
 
 WORKDIR $RUNTIME_DIR
 
