@@ -44,6 +44,21 @@ services:
     networks:
       - xp
 
+  reducesgx:
+    image: "${IMAGE_SGX}"
+    entrypoint: ./start.sh sgx-reduce-events.lua
+    environment:
+      - TO=tcp://routerreduceprinter:5561
+      - FROM=tcp://routerfilterreduce:5560
+      - "constraint:type==sgx"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+    devices:
+      - "/dev/isgx"
+
   routerfilterreduce:
     image: "${IMAGE}"
     hostname: routerfilterreduce
@@ -70,6 +85,21 @@ services:
       - "${VOLUME}"
     networks:
       - xp
+
+  filtersgx:
+    image: "${IMAGE_SGX}"
+    entrypoint: ./start.sh sgx-filter-event.lua
+    environment:
+      - TO=tcp://routerfilterreduce:5559
+      - FROM=tcp://routermapperfilter:5558
+      - "constraint:type==sgx"
+    env_file: global.env
+    volumes:
+      - "${VOLUME}"
+    networks:
+      - xp
+    devices:
+      - "/dev/isgx"
 
   routermapperfilter:
     image: "${IMAGE}"

@@ -5,17 +5,17 @@ set terminal png
 name_png=system('echo "$OUTPUT_DIR/tput_upload_$XP.png"')
 set output name_png
 
-set ylabel "Upload Throghput\nKB/sec" offset 0.5,0
+set ylabel "Upload Throughput\nMB/sec" offset 0.5,0
 set grid x y front
 
 name_data_file=system('echo "$DATA_DIR/$XP/tput_tx_percentiles_$XP.txt"')
 
 plot \
-  name_data_file every 10 using 1:($6/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
-	name_data_file every 10 using 1:($5/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
-	name_data_file every 10 using 1:($4/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
-	name_data_file every 10 using 1:($3/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
-	name_data_file every 10 using 1:($2/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
+  name_data_file every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
+  name_data_file every 10 using 1:($5/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.25 title "75^{th}",\
+  name_data_file every 10 using 1:($4/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.5 title "50^{th}",\
+  name_data_file every 10 using 1:($3/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.85 title "25^{th}",\
+  name_data_file every 10 using 1:($2/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.0 title "Min"
 
 set term postscript monochrome eps enhanced 22
 name_eps=system('echo "$OUTPUT_DIR/tput_upload_$XP.eps"')

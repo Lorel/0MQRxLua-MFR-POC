@@ -69,7 +69,7 @@ function SGX:exec (func, ...)
   if status then
     return resp
   else
-    log.error('SGX:exec', err, func, ...)
+    log.error('SGX:exec', err, sgx_reply, func, ...)
     return err
   end
 end

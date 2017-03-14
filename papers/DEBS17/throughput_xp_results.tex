@@ -1,0 +1,34 @@
+\begin{figure*}[!t]
+\centering
+\begin{tabular}{cccc}
+\subfloat[Streaming throughput. Data in clear text, no SGX, 1 worker per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers}
+} &
+\subfloat[Streaming throughput. Encrypted data, no SGX, 1 worker per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers-encrypted-nosgx}
+} &
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 1 worker per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_1-workers-encrypted-fullsgx}
+}\cr
+\subfloat[Streaming throughput. Data in clear text, no SGX, 2 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers}
+} &
+\subfloat[Streaming throughput. Encrypted data, no SGX, 2 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers-encrypted-nosgx}
+} &
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 2 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_2-workers-encrypted-fullsgx}
+}\cr
+\subfloat[Streaming throughput. Data in clear text, no SGX, 4 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers}
+} &
+\subfloat[Streaming throughput. Encrypted data, no SGX, 4 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers-encrypted-nosgx}
+} &
+\subfloat[Streaming throughput. Encrypted data, processing SGX, 4 workers per stage.]{
+  \includegraphics[width=.31\linewidth]{plots/secure_streams/throughput/tput_tx_percentiles_4-workers-encrypted-fullsgx}
+}
+\end{tabular}
+\caption{Throughput comparison between normal processing (with cleartext data and no encryption), encrypted data but without enclaves, and with encrypted data and SGX processing. We scale the number of worker nodes per stage from $1$ (left-most column), $2$ (center colum) and $4$ (right-most column).}
+\label{fig:throughput}
+\end{figure*}

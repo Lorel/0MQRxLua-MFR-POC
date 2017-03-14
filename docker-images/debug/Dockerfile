@@ -4,9 +4,12 @@ ENV PACKAGES git gcc g++ make cmake liblua5.3-dev wget
 WORKDIR /root
 
 ADD build_files/timer.c /root/timer.c
+ADD build_files/sgx_encryptor.c sgx_encryptor.c
+ADD build_files/crypto.cpp crypto.cpp
+ADD build_files/crypto.h crypto.h
 
 RUN apt-get update && \
-  apt-get install -y $PACKAGES lua5.3 liblua5.3-0 libzmq5-dev && \
+  apt-get install -y $PACKAGES libcrypto++-dev liblua5.3-0 libzmq5-dev lua5.3 && \
   git clone https://github.com/Lorel/lzmq.git && \
   cd lzmq && \
   mkdir cmake-make && \
@@ -29,7 +32,8 @@ RUN apt-get update && \
   wget -O /usr/local/lib/lua/5.3/rx.lua https://raw.githubusercontent.com/bjornbytes/RxLua/master/rx.lua && \
   wget -O /usr/local/lib/lua/5.3/log.lua https://raw.githubusercontent.com/Lorel/log.lua/master/log.lua && \
   gcc -fPIC -I/usr/include/lua5.3/ -shared -O3 /root/timer.c -o /usr/local/lib/lua/5.3/timer.so && \
-  rm -f /root/timer.c && \
+  g++ -fPIC -I. -I/usr/include/lua5.3/ -shared -O3 /root/sgx_encryptor.c /root/crypto.cpp -o /usr/local/lib/lua/5.3/sgx_encryptor.so -lcryptopp && \
+  rm -f /root/timer.c /root/sgx_encryptor.c /root/crypto.cpp /root/crypto.h && \
   cd /root && \
   git clone https://github.com/Lorel/luadec && \
   cd luadec && \

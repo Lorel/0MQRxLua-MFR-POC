@@ -60,39 +60,79 @@ Datas:
 * standard deviation (s)
 
 
-## Secure processing
+## Secure mapper processing
 
 ### One worker by processing stage
 
 The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
 
-![schema](../images/4_data_1_worker_by_type_sgxmapper.png)
+![schema](../images/4_data_1_worker_by_type_mappersgx.png)
 
-Files: [data/results-1-workers.dat](data/results-1-workers.dat)
+Files: [data/results-1-workers-mappersgx.dat](data/results-1-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Two workers by processing stage
 
-![schema](../images/4_data_2_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_2_workers_by_type_mappersgx.png)
 
-File: [data/results-2-workers.dat](data/results-2-workers.dat)
+File: [data/results-2-workers-mappersgx.dat](data/results-2-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Four workers by processing stage
 
-![schema](../images/4_data_4_workers_by_type_sgxmapper.png)
+![schema](../images/4_data_4_workers_by_type_mappersgx.png)
 
-File: [data/results-4-workers.dat](data/results-4-workers.dat)
+File: [data/results-4-workers-mappersgx.dat](data/results-4-workers-mappersgx.dat)
 
 Datas: processing time (s)
 
 ### Average and standard deviation
 
-![schema](outputs/avg_stdev_sgx.png)
+![schema](outputs/avg_stdev_mappersgx.png)
 
-File: [outputs/avg_stdev.dat](outputs/avg_stdev.dat)
+File: [outputs/avg_stdev_mappersgx.dat](outputs/avg_stdev_mappersgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Secure mapper/filter/reduce processing
+
+### One worker by processing stage
+
+The mapper is processing inside a trusted SGX enclave using LuaSGX, other workers are processing on a regular Lua machine.
+
+![schema](../images/4_data_1_worker_by_type_fullsgx.png)
+
+Files: [data/results-1-workers-fullsgx.dat](data/results-1-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_2_workers_by_type_fullsgx.png)
+
+File: [data/results-2-workers-fullsgx.dat](data/results-2-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_4_workers_by_type_fullsgx.png)
+
+File: [data/results-4-workers-fullsgx.dat](data/results-4-workers-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_fullsgx.png)
+
+File: [outputs/avg_stdev_fullsgx.dat](outputs/avg_stdev_fullsgx.dat)
 
 Datas:
 * number of workers by processing stage
@@ -107,3 +147,105 @@ According to the numbers of workers used for each pipeline's step:
 ![schema](outputs/avg_stdev_versus.png)
 
 File: [outputs/avg_stdev_versus.dat](outputs/avg_stdev_versus.dat)
+
+
+## Processing time with 1 non-SGX filter/reduce worker and variable SGX mapper workers
+
+This XP is based on the architecture drawn below, where the number of SGX mappers changes:
+
+![schema](../images/4_data_variable_workers_by_type_mappersgx.png)
+
+According to the numbers of workers used for each pipeline's step:
+
+![schema](outputs/avg_stdev_mappersgx_variation.png)
+
+File: [outputs/avg_stdev_mappersgx_variation.dat](outputs/avg_stdev_mappersgx_variation.dat)
+
+
+## Using encrypted data w/o SGX processing
+
+In XPs below, data are encrypted from the input streams.
+
+### One worker by processing stage
+
+![schema](../images/4_data_encrypted_1_worker_by_type_nosgx.png)
+
+Files: [data/results-1-workers-encrypted-nosgx.dat](data/results-1-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_nosgx.png)
+
+File: [data/results-2-workers-encrypted-nosgx.dat](data/results-2-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_nosgx.png)
+
+File: [data/results-4-workers-encrypted-nosgx.dat](data/results-4-workers-encrypted-nosgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_encrypted_nosgx.png)
+
+File: [outputs/avg_stdev_encrypted_nosgx.dat](outputs/avg_stdev_encrypted_nosgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Using encrypted data w/ SGX processing
+
+In XPs below, data are encrypted from the input streams.
+
+### One worker by processing stage
+
+![schema](../images/4_data_encrypted_1_worker_by_type_fullsgx.png)
+
+Files: [data/results-1-workers-encrypted-fullsgx.dat](data/results-1-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Two workers by processing stage
+
+![schema](../images/4_data_encrypted_2_workers_by_type_fullsgx.png)
+
+File: [data/results-2-workers-encrypted-fullsgx.dat](data/results-2-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Four workers by processing stage
+
+![schema](../images/4_data_encrypted_4_workers_by_type_fullsgx.png)
+
+File: [data/results-4-workers-encrypted-fullsgx.dat](data/results-4-workers-encrypted-fullsgx.dat)
+
+Datas: processing time (s)
+
+### Average and standard deviation
+
+![schema](outputs/avg_stdev_encrypted_fullsgx.png)
+
+File: [outputs/avg_stdev_encrypted_fullsgx.dat](outputs/avg_stdev_encrypted_fullsgx.dat)
+
+Datas:
+* number of workers by processing stage
+* average processing time (s)
+* standard deviation (s)
+
+
+## Processing time using encrypted data w/o SGX vs w/ SGX
+
+According to the numbers of workers used for each pipeline's step:
+
+![schema](outputs/avg_stdev_encrypted_versus.png)
+
+File: [outputs/avg_stdev_encrypted_versus.dat](outputs/avg_stdev_encrypted_versus.dat)

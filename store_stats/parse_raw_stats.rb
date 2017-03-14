@@ -13,7 +13,7 @@ NETWORK_IF = 'eth0'
 Dir.glob("#{INPUT_DIR}/*.json.log").each do |input_filename|
   output_filename = input_filename.gsub(/\.json\.log/, '.dat')
   previous_datas = {}
-  cumulative_datas = { cpu_usage: 0, rx: 0, tx: 0 }
+  cumulative_datas = { rx: 0, tx: 0 }
 
   File.open(output_filename, 'w') do |output_file|
     output_file.puts '#timestamp(s) cpu_usage(ticks) memory_usage(bytes) rx(bytes) tx(bytes)'
@@ -21,9 +21,13 @@ Dir.glob("#{INPUT_DIR}/*.json.log").each do |input_filename|
     File.readlines(input_filename).each do |line|
       json = JSON.parse(line)
 
+      # CPU percentage calcul
+      cpu_delta = json['cpu_stats']['cpu_usage']['total_usage'].to_f - json['precpu_stats']['cpu_usage']['total_usage'].to_f
+      system_delta = json['cpu_stats']['system_cpu_usage'].to_f - json['precpu_stats']['system_cpu_usage'].to_f
+
       datas = {
         timestamp: DateTime.parse(json['read']).to_time.to_i,
-        cpu_usage: json['cpu_stats']['cpu_usage']['total_usage'] - cumulative_datas[:cpu_usage],
+        cpu_usage: cpu_delta > 0 && system_delta > 0 && ((cpu_delta / system_delta) * json['cpu_stats']['cpu_usage']['percpu_usage'].size * 100).round(2) || 0,
         memory_usage: json['memory_stats']['usage'],
         rx: json['networks'][NETWORK_IF]['rx_bytes'] - cumulative_datas[:rx],
         tx: json['networks'][NETWORK_IF]['tx_bytes'] - cumulative_datas[:tx]
@@ -43,7 +47,6 @@ Dir.glob("#{INPUT_DIR}/*.json.log").each do |input_filename|
       end
 
       cumulative_datas = {
-        cpu_usage: cumulative_datas[:cpu_usage] + datas[:cpu_usage],
         rx: cumulative_datas[:rx] + datas[:rx],
         tx: cumulative_datas[:tx] + datas[:tx]
       }

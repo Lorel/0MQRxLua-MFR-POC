@@ -1,10 +1,10 @@
-local ZmqRx = require 'zmq-rx'
+local ZmqRx = require 'sgx-rx'
 
 local from_socket = os.getenv('FROM') or 'tcp://localhost:5557'
 local to_socket = os.getenv('TO') or 'tcp://localhost:5558'
 
 ZmqRx.Subject.fromZmqSocket(from_socket) -- 'tcp://localhost:5557'
-  :reduce(
+  :reduceSGX(
     function(accumulator, event)
       local carrier
       if accumulator[event.uniquecarrier] then

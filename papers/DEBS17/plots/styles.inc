@@ -9,6 +9,8 @@
 set style line 1 lt 1 lc rgb "#0066CC" lw 4 pt 9 ps 2.5
 # Triangle down, plain, blue
 set style line 2 lt 1 lc rgb "#0066CC" lw 4 pt 11 ps 2.5
+# Triangle up, plain, red
+set style line 21 lt 1 lc rgb "#993333" lw 4 pt 9 ps 2.5
 # Triangle up, dotted, red
 set style line 3 lt 1 lc rgb "#993333" dashtype (1,1) lw 4 pt 9 ps 2.5
 # Triangle down, dotted, red

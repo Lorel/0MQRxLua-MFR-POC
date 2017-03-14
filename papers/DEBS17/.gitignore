@@ -6,3 +6,8 @@ paper.bbl
 paper.blg
 paper.log
 paper.synctex.gz
+*aux
+*fls
+implementation.log
+*fdb_latexmk
+*.DS_Store

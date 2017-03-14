@@ -1,28 +1,31 @@
-\documentclass{sig-alternate}
+\documentclass[sigconf,table]{acmart}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{subfig}
+\usepackage{xcolor}  
 \usepackage{amsmath,amssymb}
 \usepackage{ifthen}
 \usepackage{xspace}
-\usepackage{cite}
+% \usepackage{cite}
 
 \usepackage{algorithm}
 %\usepackage[noend]{algpseudocode}
 \usepackage{algpseudocode}
 \usepackage{color}
 \usepackage{listings}
-
+\usepackage{pifont}
+\usepackage{multirow}
 \usepackage{url}
-\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false]{hyperref}
+%\usepackage{natbib}
+%\usepackage[colorlinks=false,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=false,draft]{hyperref}
 \renewcommand*{\UrlFont}{\ttfamily\rm}
 
 \usepackage{listings}
 
 \lstset{
   float,
-  basicstyle       = \scriptsize\ttfamily,
+  basicstyle       = \small\ttfamily,
   columns          = fixed,
   numbers          = left,
   numberstyle      = \tiny\ttfamily,
@@ -35,7 +38,7 @@
   showstringspaces = false,
 }
 
-\newcommand{\comment}[1]{}
+%\newcommand{\comment}[1]{}
 
 % \usepackage{array}
 % \usepackage{multirow}
@@ -79,31 +82,71 @@
 \newcommand{\rp}[1]{\mynote{Rafael}{#1}{orange}}
 \newcommand{\rr}[1]{\mynote{Romain}{#1}{green}}
 
-
 \definecolor{darkgreen}{rgb}{0.3,0.5,0.3}
 \definecolor{darkblue}{rgb}{0.3,0.3,0.5}
 \definecolor{darkred}{rgb}{0.5,0.3,0.3}
-\lstdefinelanguage{LUA}{%
-  sensitive=true,%
-  keywordstyle=[1]{\color{darkblue}\bfseries},%
-  keywordstyle=[2]{\color{darkgreen}\bfseries},%
-  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,%
+
+\lstdefinelanguage{LUA}{
+  sensitive=true,
+  keywordstyle=[1]{\color{darkblue}\bfseries},
+  keywordstyle=[2]{\color{darkgreen}\bfseries},
+  morekeywords=[1]{and,break,do,else,elseif,end,for,function,if,in,local,
     nil,not,or,repeat,return,then,until,while,require,alias},% Official LUA keywords
   morekeywords=[2]{},% Your private keywords
-  otherkeywords={.,=,~,*,>,:},%
-  morestring=[b]",%
-  stringstyle={\color{darkred}\itshape},%
-  breaklines=true,%
-  breakatwhitespace=true,%
-  linewidth=\columnwidth,%
-  comment=[l]{--},%
+  otherkeywords={.,=,~,*,>,:},
+  morestring=[b]",
+  stringstyle={\color{darkred}\itshape},
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=\columnwidth,
+  comment=[l]{--},
   escapeinside={(*@}{@*)}
 }
+
+\lstdefinelanguage{YAML}{
+  sensitive=true,
+  keywordstyle=[1]{\color{darkblue}\bfseries},
+  keywordstyle=[2]{\color{darkgreen}\bfseries},
+  morekeywords=[1]{image, entrypoint, environment, devices, hostname},% Official LUA keywords
+  morekeywords=[2]{},% Your private keywords
+  otherkeywords={.,=,~,*,>,:},
+  morestring=[b]",
+  breaklines=true,
+  breakatwhitespace=true,
+  linewidth=\columnwidth,
+  comment=[l]{--},
+  escapeinside={(*@}{@*)}
+}
+
+% Copyright
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+% \setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+\acmDOI{10.475/123_4}
+
+% ISBN
+\acmISBN{123-4567-24-567/08/06}
+
+%Conference
+\acmConference[DEBS'17]{ACM International Conference on Distributed and Event-Based Systems}{June 2017}{Barcelona, Spain} 
+\acmYear{2017}
+\copyrightyear{2017}
+
+\acmPrice{15.00}
 
 \begin{document}
 
 % \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
-\title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
+% \title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
+\title{\SYS: A Reactive Middleware Framework for Secure~Data~Stream~Processing}
 \date{}
 
 \author{
@@ -111,17 +154,21 @@
 %\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
 %%\IEEEauthorblockA{\IEEEauthorrefmark{2}Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
 }
+% \sloppy
+
+\begin{abstract}
+The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
+
+This paper therefore introduces \SYS{}, a reactive middleware framework to deploy and process secure streams at scale.
+Its design combines the high-level reactive dataflow programming paradigm with low-level Intel's \emph{software guard extensions} (SGX) in order to guarantee privacy and integrity of the processed data.
+The experimental results of \SYS{} are promising: while offering a fluent scripting language based on \textsc{Lua}, our middleware delivers high processing throughput, thus enabling developers to implement secure processing pipelines in just few lines of code.
+\end{abstract}
+
+\keywords{Middleware, security, SGX, stream processing}
 
 \maketitle
 
 %\thispagestyle{empty}
-
-\begin{abstract}
-\vs{To rewrite once paper is complete}
-We introduce \SYS{}, a middleware framework for secure stream processing.
-Its design builds on Intel's \emph{Secure Guard Extensions} (SGX) to guarantee the privacy and the integrity of the data being processed.
-Our initial experimental results of \SYS{} are promising: the framework is easy to use, and delivers high throughput, enabling developers to implement complex processing pipelines in a few lines of scripting code.
-\end{abstract}
 
 %\begin{IEEEkeywords}
 %streaming; reactive programming; Lua; SGX
@@ -129,7 +176,7 @@ Our initial experimental results of \SYS{} are promising: the framework is easy 
 
 \input{introduction}
 
-\input{usecases}
+%\input{usecases}
 
 \input{background}
 
@@ -141,7 +188,7 @@ Our initial experimental results of \SYS{} are promising: the framework is easy 
 
 \input{relatedwork}
 
-\input{futurework}
+% \input{futurework}
 
 \input{conclusion}
 
@@ -151,8 +198,8 @@ Our initial experimental results of \SYS{} are promising: the framework is easy 
 %The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
 %
 {
-\footnotesize
-\bibliographystyle{acm}
+%\footnotesize
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{biblio}
 % \balancing
 }
