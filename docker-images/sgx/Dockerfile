@@ -112,7 +112,8 @@ RUN mkdir -p $LUA_BUILD_DIR && \
 # add LuaSGX
 ENV LUASGX_REPO_KEY /root/.ssh/id_rsa
 ADD build_files/.ssh/id_luasgx $LUASGX_REPO_KEY
-RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
+RUN chmod 400 $LUASGX_REPO_KEY && \
+  ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
   mkdir -p $LUASGX_REPO $LUASGX_BUILD_DIR && \
   git clone $LUASGX_REPO $LUASGX_BUILD_DIR && \
   cd $LUASGX_BUILD_DIR/lua-sgx && \
@@ -120,8 +121,9 @@ RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
   cd $LUASGX_BUILD_DIR/app && \
   make && \
   mkdir -p $RUNTIME_DIR && \
-  ln -s $LUASGX_BUILD_DIR/app/luasgx $RUNTIME_DIR/luasgx && \
-  ln -s $LUASGX_BUILD_DIR/app/EnclavedLua.signed.so $RUNTIME_DIR/EnclavedLua.signed.so
+  mv $LUASGX_BUILD_DIR/app/luasgx $RUNTIME_DIR/luasgx && \
+  mv $LUASGX_BUILD_DIR/app/EnclavedLua.signed.so $RUNTIME_DIR/EnclavedLua.signed.so && \
+  rm -rfv $LUASGX_REPO_KEY $LUASGX_BUILD_DIR
 
 
 # add fancy Lua libs
