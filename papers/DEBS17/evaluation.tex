@@ -9,9 +9,9 @@ Finally, we deploy a full \SYS{} pipeline, scaling the number of workers per sta
 
 \subsection{Evaluation Settings}
 
-We have experimented on machines using a processor Intel Core\texttrademark~i7-6700~\cite{intel:i7_6700} and $8\,GB$ RAM.
+We have experimented on machines using a Intel{\textregistered} Core\texttrademark~i7-6700 processor~\cite{intel:i7_6700} and $8\,GiB$ RAM.
 We use a cluster of 2 machines based on \textsc{Ubuntu} 14.04.1 LTS (kernel 4.2.0-42-generic).
-The choice of the Linux distribution is driven by compatibility reasons with the Intel SGX SDK (v1.6).
+The choice of the Linux distribution is driven by compatibility reasons with the Intel{\textregistered} SGX SDK (v1.6).
 The machines run Docker (v1.13.0) and each node joins a Docker Swarm~\cite{docker:swarm_2016} (v1.2.5) using the Consul~\cite{consul} (v0.5.2) discovery service.
 The Swarm manager and the discovery service are deployed on a distinct machine.
 Containers building the pipeline leverage the Docker overlay network to communicate to each other, while machines are physically interconnected using a switched $1\,Gbps$ network.
@@ -23,10 +23,10 @@ Containers building the pipeline leverage the Docker overlay network to communic
 
 \subsection{Input Dataset}
 
-In our experiments, we process a real-world dataset released by the \emph{American bureau of transportation statistic}~\cite{rita:bts}.
+In our experiments, we process a real-world dataset released by the \emph{American Bureau of Transportation Statistics}~\cite{rita:bts}.
 The dataset reports on the flight departures and arrivals of $20$ air carriers~\cite{statistical_computing:data}.
 We implement a benchmark application atop of \SYS{} to compute average delays and the total of delayed flights for each air carrier (cf. Table~\ref{tab:appsize}).
-We design and implement the full processing pipeline, that (i)~parses the input datasets (in a comma-separated-value format) to data structure (\textsf{map}), (ii)~filters data by relevancy (\emph{i.e.}, if the data concerns a delayed flight), and (iii)~finally reduces it to compute the wanted informations.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{diving into Akka streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
+We design and implement the full processing pipeline, that (i)~parses the input datasets (in a comma-separated-value format) to data structure (\textsf{map}), (ii)~filters data by relevancy (\emph{i.e.}, if the data concerns a delayed flight), and (iii)~finally reduces it to compute the desired information.\footnote{This experiment is inspired by Kevin Webber's blog entry \emph{diving into Akka streams}: \url{https://blog.redelastic.com/diving-into-akka-streams-2770b3aeabb0}.}
 We use the $4$ last years of the available dataset (from 2005 to 2008), for a total of $28$ millions of entries to process and $2.73\,GB$ of data.
 %\vs{Update with the details of other datasets if any}
 %\ah{wouldn't it be more logical to puts Dataset section after Micro-Benchmark one?}
@@ -54,12 +54,12 @@ Total                          & $1,917$ \\
 
 \subsection{Micro-Benchmark: \textsc{Lua} in SGX}
 
-We begin our evaluation by a set of micro-benchmarks to evaluate performance of the integration of the \textsc{LuaVM} inside the SGX enclaves.
+We begin our evaluation with a set of micro-benchmarks to evaluate performance of the integration of the \textsc{LuaVM} inside the SGX enclaves.
 First, we estimate the cost of execution for functions inside the enclave.
 This test averages the execution time of 1 million function calls, without any data transfer.
 %  enclaved function calls we averaged the time it took to do one milion calls with no data transfers.
 We compare against the same result without SGX.
-While non-enclaved function calls took $23.6\,ns$, the performances inside enclave drop down to on average $2.35\,\mu{}s$---\textit{i.e.}, approximately two orders of magnitude worse.
+While non-enclaved function calls took $23.6\,ns$, the performances inside the enclave drop down to on average $2.35\,\mu{}s$---\textit{i.e.}, approximately two orders of magnitude worse.
 We then assess the cost of copying data from the unshielded execution to the enclave and we compare it with the time required to compute the same on the native system.
 We initialize a buffer of $100\,MB$ with random data and copy its content inside the enclave.
 The data is split into chunks of increasing sizes.
@@ -70,9 +70,9 @@ Correctness of the copies was verified by \textsf{SHA256} digest comparison betw
 Figure~\ref{fig:sgxmemcpy} shows the results for $4$ different variants, comparing the native and the SGX version to only copy the data inside the enclave (\emph{in}) or to copy it inside and copying it back (\emph{in/out}).
 When using smaller chunks, the function call overhead plays an important role in the total execution time.
 Moreover, we notice that the call overhead steadily drops until the chunk size reaches the size of $64\,KB$ (vertical line).
-We can also notice that copying data back to non-SGX execution impose an overhead of at most $20\,\%$ when compared to the one-way copy.
+We can also notice that copying data back to non-SGX execution imposes an overhead of at most $20\,\%$ when compared to the one-way copy.
 These initial results are used as guidelines to drive the configuration of the streaming pipeline, in particular with respect to the size of the chunks exchanged between the processing stages. %confirm that for the envisioned target scenarios of \SYS, our chosen runtime performs reasonably well compared to a native yet non-trusted framework.
-The larger the chunks, the smaller the overhead induce by the transfer of data within the SGX enclave.
+The larger the chunks, the smaller the overhead induced by the transfer of data within the SGX enclave.
 
 \begin{figure}[t!]
   \centering
@@ -81,7 +81,7 @@ The larger the chunks, the smaller the overhead induce by the transfer of data w
   \label{fig:sgxmemcpy}
 \end{figure}
 
-Once the data and the code are copied inside the enclave, the \textsc{LuaVM} must indeed executes the code before returning the control.
+Once the data and the code are copied inside the enclave, the \textsc{LuaVM} must indeed execute the code before returning the control.
 Hence, we evaluate here the raw performances of the enclaved SGX \textsc{LuaVM}.
 We select $6$ available benchmarks from a standard suite of tests~\cite{bolz2015}.
 We based this choice on their library dependencies (by selecting the most standalone ones) and the number of input/output instructions they execute (selecting those with the fewest I/O).
@@ -154,7 +154,7 @@ However, when the amount of memory usage increases, performance drops to almost 
 The smaller the memory usage, the better performance we can obtain from SGX enclaves.
 
 \vspace{10pt}\noindent\textbf{Synthesis.}
-To conclude this series of micro-benchmarks, taming the overhead of secured executions based on SGX requires to balance the size of the chunks transfered to the enclave with the memory usage within this enclave.
+To conclude this series of micro-benchmarks, taming the overhead of secured executions based on SGX requires balancing the size of the chunks transfered to the enclave with the memory usage within this enclave.
 In the context of stream processing systems, \SYS{} therefore uses reactive programming principles to balance the load within processing stages in order to minimize the execution overhead.
 
 
@@ -176,7 +176,7 @@ The results of these deployments are presented in Figure~\ref{fig:throughput}.
 For each of the mentioned configurations, we also vary the number of workers per stage, from one (Figure~\ref{fig:throughput}-a,d,g), two (Figure~\ref{fig:throughput}-b,e,h), or four (the remaining ones.)
 We use a representation based on stacked percentiles.
 The white bar at the bottom represents the minimum value, the pale grey on top the maximal value.
-Intermediate shades of grey represent the 25th-, 50th–, median–, and 75th-percentiles.
+Intermediate shades of grey represent the 25th-, 50th–, and 75th-percentiles.
 For instance, in Figure~\ref{fig:throughput}-a (our baseline) the median throughput at $200$\,s into the experiment almost hits $7.5$\,MB/s, meaning that $50$\,\% of the nodes in that moment are outputting data at $7.5$\,MB/s or less.
 The baseline configuration, with only $1$ worker per stage, completes in $420$\,s, with a peak of $12\,MB/s$.
 By doubling the number of workers reduces the processing time down to $250$\,s (Figure~\ref{fig:throughput}-d), a speed-up of $41$\,\%.
@@ -221,10 +221,10 @@ Nevertheless, one can observe that the more workers the less penalty is imposed 
 %\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
 
-\subsection{Benchmark: Workers Scalability}
+\subsection{Benchmark: Workers' Scalability}
 To conclude our evaluation, we study \SYS{} in terms of scalability.
-We consider a pipeline scenario similar to Figure~\ref{fig:architecture_pipeline} with some variations about the number of workers deployed for each stage.
-We do so to better understand to which extent the underlying container scheduling system can exploit the hardware resources at its disposal.
+We consider a pipeline scenario similar to Figure~\ref{fig:architecture_pipeline} with some variations in the number of workers deployed for each stage.
+We do so to better understand to what extents the underlying container scheduling system can exploit the hardware resources at its disposal.
 
 First, we increase the number of workers for each stage of the pipeline, from $1$ to $4$.
 For each of the configurations, the experiment is repeated $5$ times.

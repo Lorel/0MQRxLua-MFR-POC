@@ -1,12 +1,12 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Secure stream processing is becoming a major concern in the era of the Internet of things and big data.
+Secure stream processing is becoming a major concern in the era of the Internet of Things and big data.
 This paper introduces our design and evaluation of \SYS{}, an concise and efficient middleware framework to implement, deploy and evaluate secure stream processing pipelines for continuous data streams.
-The framework is designed to exploit the SGX \emph{trusted execution environments} readily available in Intel's commodity processors, such as the latest SkyLake.
+The framework is designed to exploit the SGX \emph{trusted execution environments} readily available in Intel{\textregistered}'s commodity processors, such as the latest SkyLake.
 We implemented the prototype of \SYS{} in \textsc{Lua} and based its APIs on the reactive programming approach.
-Our initial evaluation results based on real-world traces are encouraging, and pave the way for deployment of stream processing systems over sensible data on untrusted public clouds.
+Our initial evaluation results based on real-world traces are encouraging, and pave the way for deployment of stream processing systems over sensitive data on untrusted public clouds.
 
 We plan to further extend and thoroughly evaluate \SYS in our future work.
-In particular, we plan to extend \SYS with full automation of container deployments, as well as enrich the framework with a library of standard stream processing operators and efficient yet secure native plugins, to ease the development of complex stream processing pipelines.
+In particular, we plan to extend \SYS with full automation of container deployments, as well as enriching the framework with a library of standard stream processing operators and efficient yet secure native plugins, to ease the development of complex stream processing pipelines.
 \newpage

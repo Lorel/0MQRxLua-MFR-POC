@@ -16,7 +16,7 @@ Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of this
 \end{figure*}
 
 
-\SYS{} is designed to support the processing of sensible data inside SGX enclaves.
+\SYS{} is designed to support the processing of sensitive data inside SGX enclaves.
 As explained in the previous section, the \emph{enclave page cache} (EPC) is currently limited to $128\,MB$.\footnote{Future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
 To overcome this limitation, we settled on a lightweight yet efficient embeddable runtime, based on the \textsc{Lua} virtual machine (\textsc{LuaVM})~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
 The \textsc{Lua} runtime requires only few kilobytes of memory, it is designed to be embeddable, and as such it represents an ideal candidate to execute in the limited space allowed by the EPC.
@@ -33,18 +33,18 @@ We provide further implementation details of the embedding of the \textsc{LuaVM}
 Each component is wrapped inside a lightweight Linux container (in our case, the \emph{de~facto} industrial standard Docker~\cite{docker}).
 Each container embeds all the required dependencies, while guaranteeing the correctness of their configuration, within an isolated and reproducible execution environment.
 By doing so, a \SYS{} processing pipeline can be easily deployed without changing the source code on different public or private infrastructures.
-For instance, this will allow developers to deploy \SYS{} on Amazon EC2 container service~\cite{awsec2container}, where SkyLake-enabled instances will soon be made available~\cite{amazonskylake}, or similarly to Google compute engine~\cite{gceskylake}.
+For instance, this will allow developers to deploy \SYS{} to Amazon EC2 container service~\cite{awsec2container}, where SkyLake-enabled instances will soon be made available~\cite{amazonskylake}, or similarly to Google compute engine~\cite{gceskylake}.
 The deployment of the containers can be transparently executed on a single machine or a cluster, using a Docker network and the Docker Swarm scheduler~\cite{docker:swarm_2016}.
 %\rp{Does Amazon offer machines with Skylake processors with EPC enabled?}
 %\ah{It's planned: https://aws.amazon.com/fr/about-aws/whats-new/2016/11/coming-soon-amazon-ec2-c5-instances-the-next-generation-of-compute-optimized-instances/ but we don't know if SGX will be enabled. Google intends also: http://fortune.com/2017/02/24/google-intel-cloud-chip/. Do we have to cite there references?}
 
 The communication between workers and routers leverages \zmq{}, a high-performance asynchronous messaging library~\cite{zero_mq}.
 Each router component hosts inbound and outbound queues.
-In particular, the routers use the \zmq's pipeline pattern~\cite{zero_mq:pipeline} with the \textsc{Push}-\textsc{Pull} socket types. 
+In particular, the routers use the \zmq's pipeline pattern~\cite{zero_mq:pipeline} with the \textsc{Push}-\textsc{Pull} socket types.
 %\rp{Is 'protocol' the best definition? I would rather call it a 'pattern'}\ah{It is, this is one of the different protocols of communication implemented in ZMQ, like explained in the target of the given pointer}\rp{The pointer does not mention protocol to refer to that. push/pull refers to the role of socket endpoints. It is not an agreement on format and content of exchanged messages, as a 'protocol' would be best understood by a common reader.}
 
 The inbound queue is a \textsc{Pull} socket.
-The messages are streamed from a set of anonymous\footnote{\emph{Anonymous} refers to a peer without any identity: the server socket ignore which worker sent the message.} \textsc{Push} peers (\emph{e.g.}, the upstream workers in the pipeline).
+The messages are streamed from a set of anonymous\footnote{\emph{Anonymous} refers to a peer without any identity: the server socket ignores which worker sent the message.} \textsc{Push} peers (\emph{e.g.}, the upstream workers in the pipeline).
 The inbound queue uses a fair-queuing scheduling to deliver the message to the upper layer.
 Conversely, the outbound queue is a \textsc{Push} socket, sending messages using a round-robin algorithm to a set of anonymous \textsc{Pull} peers---\emph{e.g.}, the downstream workers.
 

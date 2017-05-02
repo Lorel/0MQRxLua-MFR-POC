@@ -1,9 +1,9 @@
 \section{Introduction}\label{sec:introduction}
 %\vs{recheck the storyline and reframe where needed. Maybe stress more the security aspect and how TEE can help}
 
-The data deluge imposed by a world of ever-connected devices, whose most emblematic example is the \emph{Internet of things} (IoT), has fostered the emergence of novel data analytics and processing technologies to cope with the ever increasing \emph{volume}, \emph{velocity}, and \emph{variety} of information that characterize the big data era.
+The data deluge imposed by a world of ever-connected devices, whose most emblematic example is the \emph{Internet of Things} (IoT), has fostered the emergence of novel data analytics and processing technologies to cope with the ever increasing \emph{volume}, \emph{velocity}, and \emph{variety} of information that characterize the big data era.
 In particular, to support the continuous flow of information gathered by millions of IoT devices, data streams have emerged as a suitable paradigm to process flows of data at scale.
-However, as some of these data streams may convey sensitive information, stream processing requires to support end-to-end security guarantees in order to prevent third parties to access restricted data.
+However, as some of these data streams may convey sensitive information, stream processing requires support for end-to-end security guarantees in order to prevent third parties accessing restricted data.
 
 % Data streams are more and more predominant in today's era of big data.
 % In the world of all-connected and the \emph{Internet-of-Things} (IoT), on market places, or elsewhere, data is continuously produced and consumed by a large diversity of stakeholders.
@@ -11,31 +11,31 @@ However, as some of these data streams may convey sensitive information, stream 
 % In this context, data streams are expected to be processed with a native support for reliability, scalability and security properties.
 This paper therefore introduces \SYS{}, our initial work on a middleware framework for developing and deploying secure stream processing on untrusted distributed environments.
 \SYS{} supports the implementation, deployment, and execution of stream processing tasks in distributed settings, from large-scale clusters to multi-tenant Cloud infrastructures.
-More specifically, \SYS{} adopts a message-oriented~\cite{mom} middleware, which integrates with the SSL protocol~\cite{freier2011secure} for data communication and the current version of Intel's \emph{software guard extensions} (SGX)~\cite{costan_intel} to deliver end-to-end security guarantees along data stream processing stages.
+More specifically, \SYS{} adopts a message-oriented~\cite{mom} middleware, which integrates with the SSL protocol~\cite{freier2011secure} for data communication and the current version of Intel{\textregistered}'s \emph{software guard extensions} (SGX)~\cite{costan_intel} to deliver end-to-end security guarantees along data stream processing stages.
 % SGX offers trusted hardware \emph{enclaves}, made widely available into mass-market since the SkyLake processors~\cite{intel:skylake}.
 \SYS{} can scale vertically and horizontally by adding or removing processing nodes at any stage of the pipeline, for example to dynamically adjust according to the current workload.
-% 
+%
 %\rp{and vertically seamlessly. SGX is limited in memory usage, which weakens the claim of vertical scalability} \rr{I agree that vertical elasticity is hard to justify given the SGX constraints, unless we introduce a different kind of vertical scalability}.
-% 
+%
 The design of the \SYS{} system is inspired by the dataflow programming paradigm~\cite{uustalu_essence_2005}: the developer combines together several independent processing components (\emph{e.g.}, mappers, reducers, sinks, shufflers, joiners) to compose specific processing pipes.
 % The framework integrates an abstraction of the required deployment infrastructure.
 Regarding packaging and deployment, \SYS{} smoothly integrates with industrial-grade lightweight virtualization technologies like Docker~\cite{docker}.
 %by deployment automation based on the Docker ecosystem
 % It aims to be secure: communication channels use the .
 
-% and giving the ability to process datas in trusted enclaves by the integration of the Intel's Software Guard Extension (SGX) hardware.
+% and giving the ability to process datas in trusted enclaves by the integration of the Intel{\textregistered}'s Software Guard Extension (SGX) hardware.
 
 
 % We detail our implementation choices in Section~\ref{sec:implementation}.
 
-%But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
+%But one of our goals is to find out a software technology that can run in a SGX enclave, and the memory of the latter is limited to 96MB for the Intel{\textregistered} Skylake processor (the first and only processor including SGX currently)\cite{costan_intel}.
 %If the application running inside an enclave needs more memory, an expensive encrypted memory paging mechanism then is used, causing serious performance leaks~\cite{brenner_securekeeper:_2016}.
 In this paper, we propose the following contributions: (i)~we describe the design of \SYS, (ii)~we provide details of our reference implementation, in particular on how to smoothly integrate our runtime inside an SGX enclave, and (iii) we perform an extensive evaluation with micro-benchmarks, as well as with a real-world dataset.
 
 The remainder of the paper is organized as follows.
 To better understand the design of \SYS, Section~\ref{sec:background} delivers a brief introduction to today's SGX operating mechanisms.
 The architecture of \SYS{} is then introduced in Section~\ref{sec:architecture}.
-Our implementation choices and an example of \SYS{} program are reported in Section~\ref{sec:implementation}.
+Our implementation choices and an example of a \SYS{} program are reported in Section~\ref{sec:implementation}.
 Section~\ref{sec:eval} discusses our extensive evaluation, presenting a detailed analysis of micro-benchmark performances, as well as more comprehensive macro-benchmarks with real-world datasets.
 %, focusing on with respect to throughput and scalability results.
 Finally, Section~\ref{sec:conclusion} briefly describes our future work and concludes.
