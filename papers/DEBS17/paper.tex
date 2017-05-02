@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{subfig}
-\usepackage{xcolor}  
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \usepackage{ifthen}
 \usepackage{xspace}
@@ -129,32 +129,69 @@
 %\setcopyright{cagovmixed}
 
 
-% DOI
-\acmDOI{10.475/123_4}
-
-% ISBN
-\acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[DEBS'17]{ACM International Conference on Distributed and Event-Based Systems}{June 2017}{Barcelona, Spain} 
+\setcopyright{acmcopyright}
+\acmDOI{http://REPLACE_WITH_YOUR_FULL_DOI_URL}
+\acmISBN{978-1-4503-5065-5}
+\acmConference[DEBS ’17]{ACM International Conference on Distributed Event-Based Systems}{June 19 – 23, 2017}{Barcelona, Spain}
 \acmYear{2017}
 \copyrightyear{2017}
-
 \acmPrice{15.00}
 
 \begin{document}
 
-% \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
-% \title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
 \title{\SYS: A Reactive Middleware Framework for Secure~Data~Stream~Processing}
 \date{}
 
-\author{
-%\IEEEauthorblockN{Aur\'elien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
-%%\IEEEauthorblockA{\IEEEauthorrefmark{2}Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
+\author{Aur\'elien Havet}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
 }
-% \sloppy
+\email{aurelien.havet@unine.ch}
+
+\author{Rafael Pires}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{rafael.pires@unine.ch}
+
+\author{Pascal Felber}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{pascal.felber@unine.ch}
+
+\author{Marcelo Pasin}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{marcelo.pasin@unine.ch}
+
+\author{Romain Rouvoy}
+\affiliation{%
+  \institution{Univ. Lille / Inria / IUF}
+  \city{Lille}
+  \country{France}
+}
+\email{romain.rouvoy@univ-lille.fr}
+
+\author{Valerio Schiavoni}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{valerio.schiavoni@unine.ch}
+
 
 \begin{abstract}
 The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
