@@ -105,7 +105,7 @@ The communication between the Docker containers (the router and the worker compo
 %Then, the data is streamed accross the network communication built on top of the ØMQ protocol and implemented using the ØMQ \textsc{Lua} bindings\cite{github:lzmq}.
 Basically, \SYS{} abstracts the underlying network and computing infrastructure from the developer, by relying on \zmq and Docker.
 
-%\vspace{10pt}\noindent\textbf{\textsc{LuaVM} inside SGX.}
+%\vspace{10pt}\noindent\textbf{\luavm inside SGX.}
 Under the SGX threat model where the system software is completely untrusted, system calls are not allowed inside secure enclaves.
 As a consequence, porting a legacy application or runtime, such as the \textsc{Lua} interpreter, is challenging.
 %That makes porting legacy applications, like the \textsc{Lua} interpreter, more effortful.
@@ -116,7 +116,7 @@ This inherent SGX limitation also reinforces the system security guarantees offe
 %Despite being a limitation, this approach also reinforces security.
 The \SYS{} framework safely ships the data and code to enclaves.
 Hence, the \textsc{Lua} scripts executed within the SGX enclave do not use (read/write) files or sockets.
-Wrapper functions are nevertheless installed in the SGX-enabled \textsc{LuaVM} to prevent any of such attempts.
+Wrapper functions are nevertheless installed in the SGX-enabled \luavm to prevent any of such attempts.
 %Even if it does, that will be caught by the inocuous mock functions and make the attempt harmless.
 
 An additional constraint imposed by the secure SGX enclaves is the impossibility of dynamically linking code.
@@ -139,7 +139,7 @@ With these libraries, the size of the VM and the complete runtime still remains 
 \end{figure}
 
 While this restricted \textsc{Lua} has been adapted to run inside SGX enclaves, we still had to provide a support for communications and the reactive streams framework itself.
-To do so, we use an external vanilla \textsc{Lua} interpreter, with a couple adaptations that allowed the interaction with the SGX enclaves and the \textsc{LuaVM} therein.
+To do so, we use an external vanilla \textsc{Lua} interpreter, with a couple adaptations that allowed the interaction with the SGX enclaves and the \luavm therein.
 Figure~\ref{fig:arch-luasgx} shows the resulting architecture.
 We extend the \textsc{Lua} interface with 3 functions: \texttt{sgxprocess}, \texttt{sgxencrypt}, and \texttt{sgxdecrypt}.
 The first one forwards the encrypted code and data to be processed in the enclave, while the remaining two provide cryptographic functionalities.

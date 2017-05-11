@@ -66,6 +66,7 @@
 \newcommand{\SYS}{\textsc{SecureStreams}\xspace}
 \newcommand{\zmq}{\textsc{ZeroMQ}\xspace}
 \newcommand{\rxl}{\textsc{RxLua}\xspace}
+\newcommand{\luavm}{\mbox{\textsc{LuaVM}}\xspace}
 
 \setlength{\textfloatsep}{10pt}
 
@@ -119,10 +120,10 @@
 }
 
 % Copyright
-\setcopyright{none}
+% \setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-% \setcopyright{rightsretained}
+\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
@@ -192,6 +193,12 @@
 }
 \email{valerio.schiavoni@unine.ch}
 
+% The default list of authors is too long for headers}
+\renewcommand{\shortauthors}{A. Havet, R. Pires, P. Felber, M. Pasin, R. Rouvoy, V. Schiavoni}
+
+% I don't know how useful are these settings, but CR instructions say "Inserting the following commands before your \begin{document} will improve the page layout"
+\clubpenalty=10000
+\widowpenalty=10000
 
 \begin{abstract}
 The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.

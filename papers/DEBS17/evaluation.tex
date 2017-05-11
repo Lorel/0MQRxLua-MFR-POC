@@ -3,7 +3,7 @@
 This section reports on our extensive evaluation of \SYS{}.
 First, we present our evaluation settings.
 Then, we describe the real-world dataset used in our macro-benchmark experiments.
-We then dig into a set of micro-benchmarks that evaluate the overhead of running the \textsc{LuaVM} inside the SGX enclaves.
+We then dig into a set of micro-benchmarks that evaluate the overhead of running the \luavm inside the SGX enclaves.
 Finally, we deploy a full \SYS{} pipeline, scaling the number of workers per stage, to study the limits of the system in terms of throughput and scalability.
 
 
@@ -54,7 +54,7 @@ Total                          & $1,917$ \\
 
 \subsection{Micro-Benchmark: \textsc{Lua} in SGX}
 
-We begin our evaluation with a set of micro-benchmarks to evaluate performance of the integration of the \textsc{LuaVM} inside the SGX enclaves.
+We begin our evaluation with a set of micro-benchmarks to evaluate performance of the integration of the \luavm inside the SGX enclaves.
 First, we estimate the cost of execution for functions inside the enclave.
 This test averages the execution time of 1 million function calls, without any data transfer.
 %  enclaved function calls we averaged the time it took to do one milion calls with no data transfers.
@@ -81,8 +81,8 @@ The larger the chunks, the smaller the overhead induced by the transfer of data 
   \label{fig:sgxmemcpy}
 \end{figure}
 
-Once the data and the code are copied inside the enclave, the \textsc{LuaVM} must indeed execute the code before returning the control.
-Hence, we evaluate here the raw performances of the enclaved SGX \textsc{LuaVM}.
+Once the data and the code are copied inside the enclave, the \luavm must indeed execute the code before returning the control.
+Hence, we evaluate here the raw performances of the enclaved SGX \luavm.
 We select $6$ available benchmarks from a standard suite of tests~\cite{bolz2015}.
 We based this choice on their library dependencies (by selecting the most standalone ones) and the number of input/output instructions they execute (selecting those with the fewest I/O).
 Each benchmark runs $20$ times with the same pair of parameters of the original paper, shown in the even and odd lines of Table~\ref{tab:luabmarks}.
@@ -160,7 +160,7 @@ In the context of stream processing systems, \SYS{} therefore uses reactive prog
 
 \subsection{Benchmark: Streaming Throughput}
 
-The previous set of experiments allowed us to verify that our design, implementation, and the integration of the \textsc{LuaVM} into the SGX enclaves is sound.
+The previous set of experiments allowed us to verify that our design, implementation, and the integration of the \luavm into the SGX enclaves is sound.
 Next, we deploy a \SYS{} pipeline which includes mappers, filters and reducers.
 To measure the achievable throughput of our system, as well the network overhead of our architecture, we deploy the \SYS{} pipeline in 3 different configurations.
 The first configuration allows the streaming framework to blindly bypass the SGX enclaves.
@@ -180,7 +180,7 @@ Intermediate shades of grey represent the 25th-, 50th–, and 75th-percentiles.
 For instance, in Figure~\ref{fig:throughput}-a (our baseline) the median throughput at $200$\,s into the experiment almost hits $7.5$\,MB/s, meaning that $50$\,\% of the nodes in that moment are outputting data at $7.5$\,MB/s or less.
 The baseline configuration, with only $1$ worker per stage, completes in $420$\,s, with a peak of $12\,MB/s$.
 By doubling the number of workers reduces the processing time down to $250$\,s (Figure~\ref{fig:throughput}-d), a speed-up of $41$\,\%.
-By scaling up the workers to 4 in the baseline configuration (Figure~\ref{fig:throughput}-g) did not produce a similar speed-up.
+Scaling up the workers to 4 in the baseline configuration (Figure~\ref{fig:throughput}-g) did not produce a similar speed-up.
 
 As we start injecting encrypted datasets (Figure~\ref{fig:throughput}-b and follow-up configurations with 2 and 4 workers), the processing time almost doubles ($795$\,s).
 The processing of the dataset is done after the messages are decrypted.
