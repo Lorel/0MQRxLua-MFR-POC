@@ -205,6 +205,8 @@ Nevertheless, one can observe that the more workers the less penalty is imposed 
 %\ah{I gonna measure throuput between two containers run on a swarm cluster, using iperf, for comparison purpose}
 
 
+\input{throughput_xp_results}
+
 \begin{figure}[t!]
   \centering  \includegraphics[width=\linewidth]{plots/secure_streams/scalability/sgxfull_scalability}
   \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of workers for each stage, each worker using SGX.}
@@ -215,8 +217,6 @@ Nevertheless, one can observe that the more workers the less penalty is imposed 
   \caption{Scalability: processing time, average and standard deviation. The experiment is repeated 5 times, with a variation on the number of mappers SGX, other workers---1 filter worker and 1 reduce worker---do not use SGX.}
   \label{fig:scalability:sgxmapper}
 \end{figure}
-
-\input{throughput_xp_results}
 
 %\vs{We should then extend this section to present how the TPUT is affected by having few/all streams going through the enclaves. This would be an interesting/useful plot as it provides useful insights.}
 
