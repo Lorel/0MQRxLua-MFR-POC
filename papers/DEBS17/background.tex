@@ -13,8 +13,8 @@ A memory dump on a victim’s machine will produce encrypted data.
 A \emph{remote attestation protocol} allows one to verify that an enclave runs on a genuine Intel{\textregistered} processor with SGX.
 An application using enclaves must ship a signed (not encrypted) shared library (a shared object file in Linux) that can possibly be inspected by malicious attackers.
 
-In the current version of SGX, the \emph{enclave page cache} (EPC) is a $128\,MB$ area of memory predefined at boot to store enclaved code and data.
-At most around $90\,MB$ can be used by application’s memory pages, while the remaining area is used to maintain SGX metadata.
+In the current version of SGX, the \emph{enclave page cache} (EPC) is a $128\,\mathit{MB}$ area of memory predefined at boot to store enclaved code and data.
+At most around $90\,\mathit{MB}$ can be used by application’s memory pages, while the remaining area is used to maintain SGX metadata.
 Any access to an enclave page that does not reside in the EPC triggers a page fault.
 The SGX driver interacts with the CPU to choose which pages to evict.
 The traffic between the CPU and the system memory is kept confidential by the \emph{memory encryption engine} (MEE)~\cite{gueron2016memory}, also in charge of tamper resistance and replay protection.
