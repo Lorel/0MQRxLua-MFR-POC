@@ -136,12 +136,6 @@ Finally, for the sake of readability, we use a different y-axis scale for the \t
   \label{tab:luabmarks}
 \end{table}
 
-\begin{figure}[t!]
-  \centering
-  \includegraphics[width=\linewidth]{plots/microbenchmark_luasgx/microbenchmark_luasgx}
-  \caption{Enclave versus native running times for \textsc{Lua} benchmarks.}
-  \label{fig:luabenchs}
-\end{figure}
 
 We note that, in the current version of SGX, it is required to pre-allocate all the memory area to be used by the enclave.
 The most memory-eager test (\textsf{binarytrees}) used more than $600$\,MB of memory, hence using the wall clock time comparison would not be fair for smaller tests.
@@ -158,11 +152,14 @@ To conclude this series of micro-benchmarks, taming the overhead of secured exec
 In the context of stream processing systems, \SYS{} therefore uses reactive programming principles to balance the load within processing stages in order to minimize the execution overhead.
 
 
+
 \subsection{Benchmark: Streaming Throughput}
 
 The previous set of experiments allowed us to verify that our design, implementation, and the integration of the \luavm into the SGX enclaves is sound.
 Next, we deploy a \SYS{} pipeline which includes mappers, filters and reducers.
 To measure the achievable throughput of our system, as well the network overhead of our architecture, we deploy the \SYS{} pipeline in 3 different configurations.
+In each case, the setup of the pipeline architecture, \emph{i.e.} the creation of the set of containers, has been done in $11$\,s for the lightest configuration, in $15$\,s for the heaviest one.
+
 The first configuration allows the streaming framework to blindly bypass the SGX enclaves.
 Further, it does not encrypt the input dataset before injecting it into the pipeline.
 This mode operates as the baseline, yet completely \emph{unsafe}, processing pipeline.
@@ -171,6 +168,13 @@ This configuration requires the deployers to trust the infrastructure operator.
 Finally, we deploy a fully secure pipeline, where the input dataset is encrypted and the data processing is operated inside the enclaves.
 The data nodes inject the dataset, split into 4 equally-sized parts, as fast as possible.
 We gather bandwidth measurements by exploiting Docker's internal monitoring and statistical module.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=\linewidth]{plots/microbenchmark_luasgx/microbenchmark_luasgx}
+  \caption{Enclave versus native running times for \textsc{Lua} benchmarks.}
+  \label{fig:luabenchs}
+\end{figure}
 
 The results of these deployments are presented in Figure~\ref{fig:throughput}.
 For each of the mentioned configurations, we also vary the number of workers per stage, from one (Figure~\ref{fig:throughput}-a,d,g), two (Figure~\ref{fig:throughput}-b,e,h), or four (the remaining ones.)
