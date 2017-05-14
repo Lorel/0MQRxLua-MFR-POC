@@ -17,7 +17,7 @@ Figure~\ref{fig:architecture_pipeline} depicts a possible implementation of this
 
 
 \SYS{} is designed to support the processing of sensitive data inside SGX enclaves.
-As explained in the previous section, the \emph{enclave page cache} (EPC) is currently limited to $128\,\mathit{MB}$.\footnote{Future releases of SGX might relax this limitation~\cite{mckeen2016intel}.}
+As explained in the previous section, the \emph{enclave page cache} (EPC) is currently limited to $128\,\mathit{MB}$.
 To overcome this limitation, we settled on a lightweight yet efficient embeddable runtime, based on the \textsc{Lua} virtual machine (\luavm)~\cite{ierusalimschy_luaextensible_1996} and the corresponding multi-paradigm scripting language~\cite{lualang}.
 The \textsc{Lua} runtime requires only few kilobytes of memory, it is designed to be embeddable, and as such it represents an ideal candidate to execute in the limited space allowed by the EPC.
 Moreover, the application-specific functions can be quickly prototyped in \textsc{Lua}, and even complex algorithms can be implemented with an almost 1:1 mapping from pseudo-code~\cite{leonini2009splay}.
