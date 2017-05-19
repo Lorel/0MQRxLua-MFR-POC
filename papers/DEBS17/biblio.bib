@@ -573,7 +573,7 @@ month={Dec},}
  keywords = {Confidentiality, IoT, Stream data processing},
 }
 
-@inproceedings{Migliavacca:2010:DHE:1855840.1855841,
+@inproceedings{Migliavacca:2010:DHE,
  author = {Migliavacca, Matteo and Papagiannis, Ioannis and Eyers, David M. and Shand, Brian and Bacon, Jean and Pietzuch, Peter},
  title = {DEFCON: High-performance Event Processing with Information Security},
  booktitle = {Proceedings of the 2010 USENIX Conference on USENIX Annual Technical Conference},
@@ -586,4 +586,16 @@ month={Dec},}
  acmid = {1855841},
  publisher = {USENIX Association},
  address = {Berkeley, CA, USA},
+}
+
+@inproceedings{pietzuch_scone:_nodate,
+  title = {{SCONE}: {Secure} {Linux} {Containers} with {Intel} {SGX}},
+  shorttitle = {{SCONE}},
+  url = {http://spiral.imperial.ac.uk/handle/10044/1/42263},
+  abstract = {In multi-tenant environments, Linux containers managed by Docker or Kubernetes have a lower resource footprint, faster startup times, and higher I/O performance com- pared to virtual machines (VMs) on hypervisors. Yet their weaker isolation guarantees, enforced through soft- ware kernel mechanisms, make it easier for attackers to compromise the confidentiality and integrity of applica- tion data within containers. We describe SCONE, a secure container mechanism for Docker that uses the SGX trusted execution support of Intel CPUs to protect container processes from out- side attacks. The design of SCONE leads to (i) a small trusted computing base (TCB) and (ii) a low performance overhead: SCONE offers a secure C standard library in- terface that transparently encrypts/decrypts I/O data; to reduce the performance impact of thread synchronization and system calls within SGX enclaves, SCONE supports user-level threading and asynchronous system calls. Our evaluation shows that it protects unmodified applications with SGX, achieving 0.6 ✓ –1.2 ✓ of native throughput},
+  booktitle = {12th {USENIX} {Symposium} on {Operating} {Systems} {Design} and {Implementation} ({OSDI}), 2016},
+  publisher = {USENIX},
+  author = {Pietzuch, P. R. and Arnautov, S. and Trach, B. and Gregor, F. and Knauth, T. and Martin, A. and Priebe, C. and Lind, J. and Muthukumaran, D. and O'Keeffe, D. and Stillwell, M. and Goltzsche, D. and Eyers, D. and Rüdiger, K. and Fetzer, C.},
+  month = nov,
+  year = {2016},
 }
