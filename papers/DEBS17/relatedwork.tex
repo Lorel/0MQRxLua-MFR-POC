@@ -20,8 +20,8 @@ However, SGX currently imposes a hard memory limit of 128\,MB to the enclaved co
 Moreover, executing a fully-functional JVM inside an SGX enclave would currently involve significant re-engineering efforts.
 
 \textsc{DEFCon}~\cite{Migliavacca:2010:DHE} relies also on the JVM.
-This event processing system focuses on security by enforcing constraints on event flows between event processing units.
-The event flow control is enforced using application-level virtualisation to separate processing units in a specifically modified Java language runtime.
+This event processing system focuses on security by enforcing constraints on event flows between processing units.
+The event flow control is enforced using application-level virtualisation to separate processing units in a \emph{ad-hoc} JVM.
 
 A few recent contributions tackle privacy-preserving data processing, particularly in a MapReduce scenario.
 This is the case of Airavat~\cite{Roy:2010:ASP:1855711.1855731} and \textsc{Gupt}~\cite{Mohan:2012:GPP:2213836.2213876}.
@@ -48,7 +48,9 @@ Interestingly, the authors of that system mention Intel{\textregistered} SGX as 
 
 To best of our knowledge, \SYS{} is the first lightweight and low-memory footprint stream processing framework that can fully execute within SGX enclaves.
 
-Like we largely described before, \SYS{} is running processes taking advantage of SGX enclaves inside Docker containers.
-As far as we know, \textsc{SCONE}~\cite{pietzuch_scone:_nodate}, a secure container mechanism for Docker that uses the SGX trusted execution support, is the first research on this topic.
+\sloppy % fixing bug with SCONE and its reference
+As we described before, \SYS{} is executing processes taking advantage of SGX enclaves inside Docker containers.
+\textsc{SCONE}~\cite{pietzuch_scone:_nodate}, which is not yet openly available, is a recently introduced system that offers a secure container mechanism for Docker to leverage the SGX trusted execution support.
 It proposes a generic technology to embed any C program to execute inside an SGX enclave.
-This one handles a use case much more complex and generic than here, where only one program, the modified \luavm{} for running a \textsc{Lua} chunk inside an SGX enclave, has to be embedded in a Docker container.
+Rather than generic programs, \SYS{} offers support to execute a lightweight \luavm{} inside an SGX enclave and securely execute chunks of \textsc{Lua} code inside it.
+In our experiments, we execute this \luavm{} inside Docker containers.
