@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{subfig}
-\usepackage{xcolor}  
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \usepackage{ifthen}
 \usepackage{xspace}
@@ -64,8 +64,9 @@
 % \def\arraystretch{0.9}
 
 \newcommand{\SYS}{\textsc{SecureStreams}\xspace}
-\newcommand{\zmq}{\textsc{ZeroMQ}\xspace}
-\newcommand{\rxl}{\textsc{RxLua}\xspace}
+\newcommand{\zmq}{\mbox{\textsc{ZeroMQ}}\xspace}
+\newcommand{\rxl}{\mbox{\textsc{RxLua}}\xspace}
+\newcommand{\luavm}{\mbox{\textsc{LuaVM}}\xspace}
 
 \setlength{\textfloatsep}{10pt}
 
@@ -119,48 +120,91 @@
 }
 
 % Copyright
-\setcopyright{none}
+% \setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-% \setcopyright{rightsretained}
+\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
 %\setcopyright{cagovmixed}
 
 
-% DOI
-\acmDOI{10.475/123_4}
-
-% ISBN
-\acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[DEBS'17]{ACM International Conference on Distributed and Event-Based Systems}{June 2017}{Barcelona, Spain} 
+\setcopyright{acmcopyright}
+\acmDOI{http://dx.doi.org/10.1145/3093742.3093927}
+\acmISBN{978-1-4503-5065-5/17/06}
+\acmConference{DEBS '17}{June 19-23, 2017}{Barcelona, Spain}
 \acmYear{2017}
 \copyrightyear{2017}
-
 \acmPrice{15.00}
 
 \begin{document}
 
-% \title{\textsc{0MQRxLua}: Middleware for Reactive and Secure Data Stream Processing}
-% \title{SecureStreams: Scalable Middleware for Reactive and Secure Data Stream Processing}
 \title{\SYS: A Reactive Middleware Framework for Secure~Data~Stream~Processing}
 \date{}
 
-\author{
-%\IEEEauthorblockN{Aur\'elien Havet\IEEEauthorrefmark{1}, Valerio Schiavoni\IEEEauthorrefmark{1}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}University of Neuchâtel, Switzerland. Email: first.last@unine.ch}
-%%\IEEEauthorblockA{\IEEEauthorrefmark{2}Univ. Lille / Inria / IUF, France. Email: romain.rouvoy@univ-lille.fr}
+\author{Aur\'elien Havet}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
 }
-% \sloppy
+\email{aurelien.havet@unine.ch}
+
+\author{Rafael Pires}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{rafael.pires@unine.ch}
+
+\author{Pascal Felber}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{pascal.felber@unine.ch}
+
+\author{Marcelo Pasin}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{marcelo.pasin@unine.ch}
+
+\author{Romain Rouvoy}
+\affiliation{%
+  \institution{Univ. Lille / Inria / IUF}
+  \city{Lille}
+  \country{France}
+}
+\email{romain.rouvoy@univ-lille.fr}
+
+\author{Valerio Schiavoni}
+\affiliation{%
+  \institution{University of Neuchâtel}
+  \city{Neuchâtel}
+  \country{Switzerland}
+}
+\email{valerio.schiavoni@unine.ch}
+
+% The default list of authors is too long for headers}
+\renewcommand{\shortauthors}{A. Havet, R. Pires, P. Felber, M. Pasin, R. Rouvoy, V. Schiavoni}
+
+% I don't know how useful are these settings, but CR instructions say "Inserting the following commands before your \begin{document} will improve the page layout"
+\clubpenalty=10000
+\widowpenalty=10000
 
 \begin{abstract}
 The growing adoption of distributed data processing frameworks in a wide diversity of application domains challenges end-to-end integration of properties like security, in particular when considering deployments in the context of large-scale clusters or multi-tenant Cloud infrastructures.
 
 This paper therefore introduces \SYS{}, a reactive middleware framework to deploy and process secure streams at scale.
-Its design combines the high-level reactive dataflow programming paradigm with low-level Intel's \emph{software guard extensions} (SGX) in order to guarantee privacy and integrity of the processed data.
+Its design combines the high-level reactive dataflow programming paradigm with Intel{\textregistered}'s low-level \emph{software guard extensions} (SGX) in order to guarantee privacy and integrity of the processed data.
 The experimental results of \SYS{} are promising: while offering a fluent scripting language based on \textsc{Lua}, our middleware delivers high processing throughput, thus enabling developers to implement secure processing pipelines in just few lines of code.
 \end{abstract}
 
@@ -168,15 +212,8 @@ The experimental results of \SYS{} are promising: while offering a fluent script
 
 \maketitle
 
-%\thispagestyle{empty}
-
-%\begin{IEEEkeywords}
-%streaming; reactive programming; Lua; SGX
-%\end{IEEEkeywords}
 
 \input{introduction}
-
-%\input{usecases}
 
 \input{background}
 
@@ -188,15 +225,13 @@ The experimental results of \SYS{} are promising: while offering a fluent script
 
 \input{relatedwork}
 
-% \input{futurework}
-
 \input{conclusion}
 
-%double-blind, no acks before CR
-%\section*{Acknowledgments}
-%Aurelien Havet's PhD research is co-supervised by Pascal Felber from the University of Neuchâtel and Romain Rouvoy from the University of Lille.
-%The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
-%
+
+\section*{Acknowledgments}
+The research leading to these results has received funding from the European Commission, Information and Communication Technologies, H2020-ICT-2015 under grant agreement number 690111 (SecureCloud project).
+Rafael Pires is also sponsored by CNPq, National Counsel of Technological and Scientific Development, Brazil.
+
 {
 %\footnotesize
 \bibliographystyle{ACM-Reference-Format}

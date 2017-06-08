@@ -2,7 +2,8 @@
 
 
 set term postscript monochrome eps enhanced 22
-set ylabel "Upload Throughput\nMB/sec" offset 0.5,0
+set xlabel "Time (seconds)"
+set ylabel "Upload Throughput (MB/sec)" offset 0.5,0
 set grid x y front
 set size 1.0,0.85
 
@@ -127,9 +128,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_1-workers-encrypted-fullsgx.eps'
-set yrange [0:10]
+set yrange [0:25]
 set xrange [0:2150]
-set ytics 2
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_1-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -159,9 +160,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_2-workers-encrypted-fullsgx.eps'
-set yrange [0:10]
+set yrange [0:25]
 set xrange [0:2150]
-set ytics 2
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_2-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
@@ -191,9 +192,9 @@ plot \
 
 
 set output 'tput_tx_percentiles_4-workers-encrypted-fullsgx.eps'
-set yrange [0:10]
+set yrange [0:25]
 set xrange [0:2150]
-set ytics 2
+set ytics 5
 
 plot \
   'data/tput_tx_percentiles_4-workers-encrypted-fullsgx.txt' every 10 using 1:($6/1024/1024) with filledcurves x1 ls 10 fillstyle solid 0.1 title "Max",\
