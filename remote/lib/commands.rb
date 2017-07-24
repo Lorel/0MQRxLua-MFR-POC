@@ -49,10 +49,6 @@ define_method(:commands) do
     'init-xp': {
       command: :init_nodes_for_xp,
       description: "Initialize nodes for experimental POC by getting repository"
-    },
-    pull: {
-      command: :git_pull,
-      description: "Pull git repository on the branch given as argument (default `master`)"
     }
   }
 end

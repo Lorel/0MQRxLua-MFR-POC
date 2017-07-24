@@ -1,4 +1,4 @@
-define_method(:init_nodes_for_xp) do
+define_method(:init_nodes_for_xp) do |branch = 'master'|
   commands = [
     "rm -rfv #{Settings.poc.working_dir}",
     'ssh-keyscan -H github.com >> ~/.ssh/known_hosts',
@@ -7,6 +7,10 @@ define_method(:init_nodes_for_xp) do
     "cd #{Settings.poc.working_dir}",
     "git clone #{Settings.poc.remote_repo} #{Settings.poc.project_name}",
     'ls -al',
+    "cd #{Settings.poc.working_dir}/#{Settings.poc.project_name}",
+    "git fetch",
+    "git checkout #{branch}",
+    "git pull",
     "cd #{Settings.poc.working_dir}/#{Settings.poc.project_name}/#{Settings.poc.experiment_path}/test",
     'cp -f ../data-stream.lua data-stream.lua',
     'cp -f ../map-csv-to-event.lua map-csv-to-event.lua',
