@@ -24,12 +24,12 @@ class Settings
   end
 
   @@settings.each do |key, value|
-    create_section(key, value)
+    create_section(key, value || [])
   end
 
   # add methods for nodes
   self.nodes.each do |node|
-    [:ip, :name, :role, :roles].each do |attribute|
+    [:ip, :name, :role, :roles, :network_if, :type].each do |attribute|
       node.define_singleton_method(attribute) { node[attribute.to_s] }
     end
   end
@@ -41,5 +41,6 @@ class Settings
   self.define_singleton_method(:node_localhost) { "localhost:#{node_docker_port}" }
   self.define_singleton_method(:consul_ip) { self.cluster.consul_ip }
   self.define_singleton_method(:consul_port) { self.cluster.consul_port }
+  self.define_singleton_method(:network_name) { self.cluster.network_name }
   # self.define_singleton_method(:nodes) { self.nodes }
 end

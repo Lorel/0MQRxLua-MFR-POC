@@ -1,4 +1,5 @@
 require 'colorize'
+require 'highline'
 
 module WithSymbol
   refine Symbol do
@@ -25,10 +26,6 @@ define_method(:commands) do
       command: :ping,
       description: "Check if connexions for each VM are well configured"
     },
-    init: {
-      command: :init_nodes,
-      description: "Initialize nodes by getting repository"
-    },
     create: {
       command: :create_cluster,
       description: "Create cluster"
@@ -41,17 +38,21 @@ define_method(:commands) do
       command: :set_hostnames,
       description: "Set node hostnames"
     },
-    config_docker: {
+    'config-docker': {
       command: :config_docker,
-      description: "Upgrade Docker with the last release, and configure"
-    },
-    pull: {
-      command: :git_pull,
-      description: "Pull git repository on the branch given as argument (default `master`)"
+      description: "Configure the Docker daemon on each host"
     },
     test: {
       command: :test_cluster,
       description: "Run hello world on each Docker node using the Swarm manager"
+    },
+    'init-xp': {
+      command: :init_nodes_for_xp,
+      description: "Initialize nodes for experimental POC by getting repository"
+    },
+    pull: {
+      command: :git_pull,
+      description: "Pull git repository on the branch given as argument (default `master`)"
     }
   }
 end
@@ -64,12 +65,6 @@ commands.values.map(&:[].with(:command)).each do |command|
     puts "WARN: file #{file}.rb not found".colorize(:red)
   end
 end
-
-define_method(:create_network) do
-  puts "NOT IMPLEMENTED"
-end
-
-
 
 
 

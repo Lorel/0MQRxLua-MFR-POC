@@ -1,4 +1,4 @@
-define_method(:create_cluster) do |create = false|
+define_method(:create_cluster) do |create = true|
   strategy = Settings.swarm.strategy
 
   if create
@@ -19,7 +19,7 @@ define_method(:create_cluster) do |create = false|
         'sudo service docker restart'
       ]
 
-      puts ssh_exec(node.ip, node_commands)
+      ssh_exec(node.ip, node_commands)
     end
   end
 
@@ -30,7 +30,7 @@ define_method(:create_cluster) do |create = false|
       'sudo rm /etc/docker/key.json',
       'sudo service docker restart'
     ]
-    puts ssh_exec(Node.manager.ip, manager_commands) if create
+    ssh_exec(Node.manager.ip, manager_commands) if create
   end
 
   threads.each{ |thread| thread.join }
@@ -40,10 +40,10 @@ define_method(:create_cluster) do |create = false|
 
     consul_create = [
       docker[:rm].call(localhost, '-f', 'consul'),
-      docker[:run].call(localhost, "-d -p #{Settings.consul_port}:8500 -p 8300:8300 -p 8301:8301/tcp -p 8301:8301/udp -p 8302:8302/tcp -p 8302:8302/udp -p 8400:8400 -p 53:8600/tcp -p 53:8600/udp -h consul --name consul", 'progrium/consul', "-server -bootstrap")
+      docker[:run].call(localhost, "-d -p #{Settings.consul_port}:8500 -p 8300:8300 -p 8301:8301/tcp -p 8301:8301/udp -p 8302:8302/tcp -p 8302:8302/udp -p 8400:8400 -p 53:8600/tcp -p 53:8600/udp -h consul --name consul", 'progrium/consul', '-server -bootstrap')
     ]
 
-    puts ssh_exec(Settings.consul_ip, consul_create)
+    ssh_exec(Settings.consul_ip, consul_create)
     sleep 10
   end
 
@@ -56,21 +56,17 @@ define_method(:create_cluster) do |create = false|
       node_commands = [
         swarm[:join].call(node.ip)
       ]
-      puts ssh_exec(node.ip, node_commands)
+      ssh_exec(node.ip, node_commands)
     end
   end
   .each{ |thread| thread.join }
 
   puts "Instantiate manager".colorize(:blue)
 
-  # manager_commands = [
-  #   swarm[:manage].call(Node.manager.ip, Settings.manager_docker_port, strategy),
-  #   swarm[:join].call(Node.manager.ip)
-  # ]
   manager_commands = [
     swarm[:manage].call(Node.manager.ip, Settings.manager_docker_port, strategy)
   ]
-  puts ssh_exec(Node.manager.ip, manager_commands) if create
+  ssh_exec(Node.manager.ip, manager_commands) if create
 
   puts "Redefine networks created by Swarm".colorize(:blue)
 
@@ -89,13 +85,15 @@ define_method(:create_cluster) do |create = false|
       docker[:network_create].call(Settings.manager_localhost, "#{node.name}/docker_gwbridge", opts)
     ]
   end.flatten.push(docker[:network_ls].call(Settings.manager_localhost))
-  puts ssh_exec(Node.manager.ip, network_commands)
+  ssh_exec(Node.manager.ip, network_commands)
 
   puts "Check check check".colorize(:blue)
 
   manager_commands = [
+    'echo "List nodes in Swarm cluster"',
     swarm[:list].call(),
+    'echo "Call docker info on Swarm cluster manager"',
     docker[:info].call(Settings.manager_localhost)
   ]
-  puts ssh_exec(Node.manager.ip, manager_commands)
+  ssh_exec(Node.manager.ip, manager_commands)
 end

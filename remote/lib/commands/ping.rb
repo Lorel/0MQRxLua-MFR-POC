@@ -1,8 +1,10 @@
 define_method(:ping) do
-  Node.all.map do |node|
+  puts 'Ping all hosts'.colorize(:blue)
+
+  (Node.all + [Node.manager, Node.consul]).map do |node|
     sleep rand(2)
     Thread.new do
-      puts ssh_exec(node.ip, "echo 'PONG from VM #{node.ip}'")
+      ssh_exec(node.ip, "echo 'PONG from host #{node.ip}'")
     end
   end
   .each{ |thread| thread.join }

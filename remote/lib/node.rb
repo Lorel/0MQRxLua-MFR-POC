@@ -1,17 +1,24 @@
 require_relative 'settings'
 
 class Node
-  attr_accessor :ip, :name, :roles, :type
+  attr_accessor :ip, :name, :roles, :type, :network_if
 
-  def initialize(ip:, name:, roles:)
+  def initialize(ip:, name:, roles:, type:, network_if:)
     @ip = ip
     @name = name
     @roles = roles
-    @type = roles.first
+    @type = type
+    @network_if = network_if
   end
 
   @@nodes = Settings.nodes.map do |node|
-    self.new(ip: node.ip, name: node.name, roles: [node.role || node.roles].flatten.map(&:to_sym))
+    self.new(
+      ip: node.ip,
+      name: node.name,
+      roles: [node.role || node.roles].flatten.map(&:to_sym),
+      type: node.type,
+      network_if: node.network_if
+    )
   end
 
   def self.all
@@ -27,7 +34,11 @@ class Node
   end
 
   def self.manager
-    self.new(ip: Settings.manager, name: 'manager', roles: [:manager])
+    self.new(ip: Settings.manager, name: 'manager', roles: [:manager], type: :manager, network_if: nil)
+  end
+
+  def self.consul
+    self.new(ip: Settings.consul_ip, name: 'consul', roles: [:consul], type: :consul, network_if: nil)
   end
 
   def sgx?

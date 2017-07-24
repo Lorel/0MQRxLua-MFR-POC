@@ -1,5 +1,5 @@
 define_method(:notice) do
-  puts "Welcome to the remote manager !\n\n"
+  puts "Welcome to the remote manager\n\n"
   version
   puts "Use one or several (you can chain them) of the following commands:\n\n"
 
@@ -11,5 +11,5 @@ define_method(:notice) do
     puts "- #{command}#{"\t" * ((size + 5) / 8 - (command.size + 2) / 8)} #{value[:description]}"
   end
 
-  puts "\nFor example:\t #{$0} ..."
+  puts "\nFor example:\t #{$0} ping config_docker create test network"
 end

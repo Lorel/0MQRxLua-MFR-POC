@@ -7,8 +7,9 @@ define_method(:set_hostnames) do
     ]
   }
 
-  ssh_exec(Node.manager.ip, set_hostname.call('manager'))
-  Node.without_roles(:sgx).push(Node.manager).each do |node|
-    ssh_exec(node.ip, set_hostname.call(node.name))
+  if HighLine.new.ask("You will reset hostname of each host. Do you confirm? [y/n]") == 'y'
+    Node.all.push(Node.manager).each do |node|
+      ssh_exec(node.ip, set_hostname.call(node.name))
+    end
   end
 end

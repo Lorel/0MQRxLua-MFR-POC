@@ -54,7 +54,9 @@ proxy = Settings.ssh[:proxy] && Net::SSH::Proxy::Command.new("ssh -i #{Settings.
 
         ssh.loop
       else
-        ssh.exec!(command).colorize(:light_yellow)
+        response = ssh.exec!(command).colorize(:light_yellow)
+        puts "\n[#{"Response from host".colorize(:yellow)} (#{address.colorize(:blue)})] - #{Time.now.to_s.colorize(:magenta)}\n\n" + response unless response.empty?
+        response
       end
     end
   },

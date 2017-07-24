@@ -1,27 +1,27 @@
-define_method(:init_nodes) do
+define_method(:init_nodes_for_xp) do
   commands = [
     "rm -rfv #{Settings.poc.working_dir}",
-    "ssh-keyscan -H github.com >> ~/.ssh/known_hosts",
-    "ssh -T git@github.com",
+    'ssh-keyscan -H github.com >> ~/.ssh/known_hosts',
+    'ssh -T git@github.com',
     "mkdir -p #{Settings.poc.working_dir}",
     "cd #{Settings.poc.working_dir}",
     "git clone #{Settings.poc.remote_repo} #{Settings.poc.project_name}",
-    "ls -al",
+    'ls -al',
     "cd #{Settings.poc.working_dir}/#{Settings.poc.project_name}/#{Settings.poc.experiment_path}/test",
-    "cp -f ../data-stream.lua data-stream.lua",
-    "cp -f ../map-csv-to-event.lua map-csv-to-event.lua",
-    "cp -f ../filter-event.lua filter-event.lua",
-    "cp -f ../reduce-events.lua reduce-events.lua",
-    "cp -f ../print-results.lua print-results.lua",
-    "cp -f ../router.lua router.lua",
-    "cp -f ../sgx-map-csv-to-event.lua sgx-map-csv-to-event.lua",
-    "hostname"
+    'cp -f ../data-stream.lua data-stream.lua',
+    'cp -f ../map-csv-to-event.lua map-csv-to-event.lua',
+    'cp -f ../filter-event.lua filter-event.lua',
+    'cp -f ../reduce-events.lua reduce-events.lua',
+    'cp -f ../print-results.lua print-results.lua',
+    'cp -f ../router.lua router.lua',
+    'cp -f ../sgx-map-csv-to-event.lua sgx-map-csv-to-event.lua',
+    'hostname'
   ]
 
   Node.all.map do |node|
     sleep rand(2)
     Thread.new do
-      puts ssh_exec(node.ip, commands)
+      ssh_exec(node.ip, commands)
     end
   end
   .each{ |thread| thread.join }
@@ -41,7 +41,7 @@ define_method(:init_nodes) do
           "wget http://stat-computing.org/dataexpo/2009/#{file}.csv.bz2 && bzip2 -d #{file}.csv.bz2"
         ]
 
-        puts ssh_exec(node.ip, commands)
+        ssh_exec(node.ip, commands)
       end
     end
   end

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./remote.rb ping hostnames init config_docker create true test
+./remote.rb ping config-docker create test network

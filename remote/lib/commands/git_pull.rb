@@ -17,7 +17,7 @@ define_method(:git_pull) do |branch = 'master'|
   Node.all.push(Node.manager).map do |node|
     sleep rand(2)
     Thread.new do
-      puts ssh_exec(node.ip, commands)
+      ssh_exec(node.ip, commands)
     end
   end
   .each{ |thread| thread.join }
