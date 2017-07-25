@@ -1,12 +1,17 @@
 define_method(:init_nodes_for_xp) do |branch = 'master'|
+  raise "Configuration for POC is missing" unless Settings.poc
+  raise "Working directory for POC is missing" unless Settings.poc.working_dir
+  raise "Remote repository for POC is missing" unless Settings.poc.remote_repo
+  raise "Project name for POC is missing" unless Settings.poc.project_name
+  raise "Experiment path for POC is missing" unless Settings.poc.experiment_path
+
+
   commands = [
     "rm -rfv #{Settings.poc.working_dir}",
     'ssh-keyscan -H github.com >> ~/.ssh/known_hosts',
     'ssh -T git@github.com',
     "mkdir -p #{Settings.poc.working_dir}",
-    "cd #{Settings.poc.working_dir}",
-    "git clone #{Settings.poc.remote_repo} #{Settings.poc.project_name}",
-    'ls -al',
+    "git clone #{Settings.poc.remote_repo} #{Settings.poc.working_dir}/#{Settings.poc.project_name}",
     "cd #{Settings.poc.working_dir}/#{Settings.poc.project_name}",
     "git fetch",
     "git checkout #{branch}",
