@@ -9,7 +9,9 @@ require 'colorize'
 URL_REGEX = /^((\w+):\/\/)?((\/|\.|[a-z0-9])+)(:(\d+))?$/
 
 # SSH command
-proxy = Settings.ssh[:proxy] && Net::SSH::Proxy::Command.new("ssh -i #{Settings.ssh.identity_file} #{Settings.ssh.proxy['user']}@#{Settings.ssh.proxy['host']} -W \"%h:%p\"")
+proxy_options = Settings.ssh[:proxy] && "ssh -i #{Settings.ssh.identity_file} #{Settings.ssh.proxy['user']}@#{Settings.ssh.proxy['host']} -W \"%h:%p\""
+proxy = proxy_options && Net::SSH::Proxy::Command.new(proxy_options)
+
 {
   protocol: ->(address) { address.match(URL_REGEX)[2] },
   ip: ->(address) { address.match(URL_REGEX)[3] },
