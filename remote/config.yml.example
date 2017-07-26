@@ -1,111 +1,41 @@
 ssh:
-  user: 'ubuntu'
-  identity_file: '~/.ssh/unine_rsa'
-  public_key_file: '/Users/lorel/.ssh/unine_rsa.pub'
+  user: 'host_user'
+  identity_file: 'path/to/ssh_keys/id_rsa'
+  public_key_file: 'path/to/ssh_keys/id_rsa.pub'
   proxy:
-    user: 'trampoline'
-    host: 'clusterinfo.unineuchatel.ch'
+    user: 'proxy_user'
+    host: 'proxy_host'
 
 cluster:
-  manager: 172.16.0.9
-  manager_docker_port: 2381
-  node_docker_port: 2375
-  consul_ip: 172.16.0.74
+  manager: 172.16.0.2
+  manager_docker_port: 2380
+  node_docker_port: 2380
+  consul_ip: 172.16.0.3
   consul_port: 8500
+  network_name: default_network
 
-nodes:
-  -
-    ip: 172.16.0.201
-    name: 'lua-node-1'
-    role: printer
-  -
-    ip: 172.16.0.202
-    name: 'lua-node-2'
-    role: data1
-  -
-    ip: 172.16.0.216
-    name: 'lua-node-3'
-    role: data2
-  -
-    ip: 172.16.0.217
-    name: 'lua-node-4'
-    role: data3
-  -
-    ip: 172.16.0.218
-    name: 'lua-node-5'
-    role: data4
-  -
-    ip: 172.16.0.219
-    name: 'lua-node-6'
-    role: worker
-  -
-    ip: 172.16.0.220
-    name: 'lua-node-7'
-    role: worker
-  -
-    ip: 172.16.0.221
-    name: 'lua-node-8'
-    role: worker
-  -
-    ip: 172.16.0.222
-    name: 'lua-node-9'
-    role: worker
-  -
-    ip: 172.16.0.223
-    name: 'lua-node-10'
-    role: worker
-  -
-    ip: 172.16.0.224
-    name: 'lua-node-11'
-    role: worker
-  -
-    ip: 172.16.0.225
-    name: 'lua-node-12'
-    role: worker
-  -
-    ip: 172.16.0.226
-    name: 'lua-node-13'
-    role: worker
-  -
-    ip: 172.16.0.227
-    name: 'lua-node-14'
-    role: worker
-  -
-    ip: 172.16.0.228
-    name: 'lua-node-15'
-    role: worker
-  -
-    ip: 172.16.0.229
-    name: 'lua-node-16'
-    role: worker
-  -
-    ip: 172.16.0.230
-    name: 'lua-node-17'
-    role: worker
-  -
-    ip: 172.16.0.231
-    name: 'lua-node-18'
-    role: worker
-  -
-    ip: 172.16.0.232
-    name: 'lua-node-19'
-    role: worker
-  -
-    ip: 172.16.0.233
-    name: 'lua-node-20'
-    role: worker
-  -
-    ip: 172.16.0.234
-    name: 'lua-node-21'
-    role: worker
+  nodes:
+    -
+      ip: 172.16.0.4
+      name: 'sgx-1'
+      network_if: 'enp0s31f6'
+      type: sgx
+      roles:
+        - sgx-worker
+    -
+      ip: 172.16.0.5
+      name: 'regular-1'
+      network_if: 'enp0s31f6'
+      type: regular
+      roles:
+        - regular-worker
+
+swarm:
+  image: swarm:1.2.5
+  strategy: spread
 
 poc:
   working_dir: '/home/ubuntu/zmqrxlua'
   project_name: 'zmqrxlua-poc'
   experiment_path: 'experiment'
-  remote_repo: 'git@github.com:Lorel/0MQRxLua-MFR-POC.git'
-
-swarm:
-  image: swarm:1.2.5
-  strategy: spread
-  host_image: docker:1.12.0-rc3-dind
+  remote_repo: 'https://gitlab.securecloud.works/aurelien.havet/securestreams-poc'
