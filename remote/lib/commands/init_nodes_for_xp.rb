@@ -23,8 +23,13 @@ define_method(:init_nodes_for_xp) do |branch = 'master'|
     'cp -f ../reduce-events.lua reduce-events.lua',
     'cp -f ../print-results.lua print-results.lua',
     'cp -f ../router.lua router.lua',
+    "cd #{Settings.poc.working_dir}/#{Settings.poc.project_name}/#{Settings.poc.experiment_path}/test-sgx",
+    'cp -f ../data-stream.lua data-stream.lua',
     'cp -f ../sgx-map-csv-to-event.lua sgx-map-csv-to-event.lua',
-    'hostname'
+    'cp -f ../sgx-filter-event.lua sgx-filter-event.lua',
+    'cp -f ../sgx-reduce-events.lua sgx-reduce-events.lua',
+    'cp -f ../print-results.lua print-results.lua',
+    'cp -f ../router.lua router.lua'
   ]
 
   Node.all.map do |node|

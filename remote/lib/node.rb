@@ -15,7 +15,7 @@ class Node
     self.new(
       ip: node.ip,
       name: node.name,
-      roles: [node.role || node.roles].flatten.map(&:to_sym),
+      roles: [node.role || node.roles].flatten.compact.map(&:to_sym),
       type: node.type,
       network_if: node.network_if
     )
